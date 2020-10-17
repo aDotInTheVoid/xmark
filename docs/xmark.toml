@@ -1,0 +1,5 @@
+books = [
+	'users-guide',
+	'plugin-guide',
+	'dev-guide',
+]
