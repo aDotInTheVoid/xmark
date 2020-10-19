@@ -11,6 +11,7 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
+
 use std::io;
 use std::io::prelude::*;
 use std::io::Result;
@@ -76,7 +77,8 @@ impl<W: Write> NinjaWritter<W> {
                 if space
                     .map(|x| count_dollars_before_index(text.as_bytes(), x) % 2 == 0)
                     .unwrap_or(true)
-                {
+                {   
+                    dbg!("BREAKING 1");
                     break;
                 }
             }
@@ -89,6 +91,7 @@ impl<W: Write> NinjaWritter<W> {
                         .map(|x| count_dollars_before_index(text.as_bytes(), x) % 2 == 0)
                         .unwrap_or(true)
                     {
+                        dbg!("BREAKING 2");
                         break;
                     }
                 }
@@ -96,10 +99,15 @@ impl<W: Write> NinjaWritter<W> {
 
             // Give up
             if space.is_none() {
+                dbg!("BREAKING 3");
                 break;
             }
+
             match space {
-                None => break,
+                None => {
+                    dbg!("BREAKING 4");
+                    break;
+                },
                 Some(space) => {
                     self.output.write_all(leading_space)?;
                     self.output.write_all(text[..space].as_bytes())?;

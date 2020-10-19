@@ -45,6 +45,7 @@ class TestLineWordWrap(unittest.TestCase):
                                       INDENT + LONGWORD,
                                       INDENT + 'y']) + '\n',
                          self.out.getvalue())
+        self.assertEqual(True,False)
 
     def test_comment_wrap(self):
         # Filenames should not be wrapped

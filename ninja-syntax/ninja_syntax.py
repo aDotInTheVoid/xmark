@@ -141,6 +141,7 @@ class Writer(object):
                 space = text.rfind(' ', 0, space)
                 if (space < 0 or
                     self._count_dollars_before_index(text, space) % 2 == 0):
+                    print("BREAKING 1")
                     break
 
             if space < 0:
@@ -150,9 +151,11 @@ class Writer(object):
                     space = text.find(' ', space + 1)
                     if (space < 0 or
                         self._count_dollars_before_index(text, space) % 2 == 0):
+                        print("BREAKING 2")
                         break
             if space < 0:
                 # Give up on breaking.
+                print("BREAKING 3")
                 break
 
             self.output.write(leading_space + text[0:space] + ' $\n')
