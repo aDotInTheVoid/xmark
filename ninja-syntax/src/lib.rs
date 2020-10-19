@@ -93,17 +93,19 @@ impl<W: Write> NinjaWritter<W> {
                     }
                 }
             }
-            
+
             // Give up
-            if space.is_none() {break;}
+            if space.is_none() {
+                break;
+            }
             match space {
                 None => break,
                 Some(space) => {
                     self.writer.write_all(leading_space)?;
                     self.writer.write_all(text[..space].as_bytes())?;
                     self.writer.write_all(b" $\n")?;
-                    text = &text[space+1..];
-                    leading_space = &SPACES[..indent*2];
+                    text = &text[space + 1..];
+                    leading_space = &SPACES[..indent * 2];
                 }
             }
         }
