@@ -32,6 +32,7 @@ class TestLineWordWrap(unittest.TestCase):
         self.out = StringIO()
         self.n = ninja_syntax.Writer(self.out, width=8)
 
+    # PORTED
     def test_single_long_word(self):
         # We shouldn't wrap a single long word.
         self.n._line(LONGWORD)

@@ -38,7 +38,7 @@ fn count_dollars_before_index(s: &[u8], i: usize) -> usize {
 
 pub struct NinjaWritter<W> {
     width: usize,
-    writer: W,
+    output: W,
 }
 
 impl<W> NinjaWritter<W> {
@@ -47,21 +47,21 @@ impl<W> NinjaWritter<W> {
     }
 
     pub fn with_width(writer: W, width: usize) -> Self {
-        Self { writer, width }
+        Self { output: writer, width }
     }
 }
 
 impl<W: Write> NinjaWritter<W> {
     pub fn newline(&mut self) -> Result<()> {
-        self.writer.write_all(b"\n")
+        self.output.write_all(b"\n")
     }
 
-    fn line(&mut self, text: &str) -> Result<()> {
+    pub(crate) fn line(&mut self, text: &str) -> Result<()> {
         self.line_indent(text, 0)
     }
 
-    fn line_indent(&mut self, mut text: &str, indent: usize) -> Result<()> {
-        let mut leading_space = &SPACES[..indent];
+    pub(crate) fn line_indent(&mut self, mut text: &str, indent: usize) -> Result<()> {
+        let mut leading_space = &SPACES[..indent*2];
 
         while leading_space.len() + text.len() > self.width {
             // The text is too wide; wrap if possible.
@@ -75,7 +75,7 @@ impl<W: Write> NinjaWritter<W> {
                 space = text[..space.unwrap_or(text.len())].rfind(' ');
                 if space
                     .map(|x| count_dollars_before_index(text.as_bytes(), x) % 2 == 0)
-                    .unwrap_or(false)
+                    .unwrap_or(true)
                 {
                     break;
                 }
@@ -87,7 +87,7 @@ impl<W: Write> NinjaWritter<W> {
                     space = text[..space.expect("Unreachable. xkcd.com/2200/") + 1].find(' ');
                     if space
                         .map(|x| count_dollars_before_index(text.as_bytes(), x) % 2 == 0)
-                        .unwrap_or(false)
+                        .unwrap_or(true)
                     {
                         break;
                     }
@@ -101,25 +101,49 @@ impl<W: Write> NinjaWritter<W> {
             match space {
                 None => break,
                 Some(space) => {
-                    self.writer.write_all(leading_space)?;
-                    self.writer.write_all(text[..space].as_bytes())?;
-                    self.writer.write_all(b" $\n")?;
+                    self.output.write_all(leading_space)?;
+                    self.output.write_all(text[..space].as_bytes())?;
+                    self.output.write_all(b" $\n")?;
                     text = &text[space + 1..];
-                    leading_space = &SPACES[..indent * 2];
+                    leading_space = &SPACES[..(indent + 2) * 2];
                 }
             }
         }
 
-        self.writer.write_all(leading_space)?;
-        self.writer.write_all(text.as_bytes())?;
-        self.writer.write_all(b"\n")?;
+        self.output.write_all(leading_space)?;
+        self.output.write_all(text.as_bytes())?;
+        self.output.write_all(b"\n")
+    }
+
+    pub fn flush(&mut self) -> Result<()>{
+        self.output.flush()
     }
 }
 
 #[cfg(test)]
 mod tests {
+    use super::*;
+
     #[test]
     fn it_works() {
         assert_eq!(2 + 2, 4);
     }
+
+    #[test]
+    fn single_long_word() {
+        let mut x = Vec::<u8>::new();
+        let mut ninja = NinjaWritter::with_width(&mut x, 8);
+        ninja.line("aaaaaaaaaa").unwrap();
+        assert_eq!(x, b"aaaaaaaaaa\n");
+    }
+
+    #[test]
+    fn few_long_words() {
+        let mut x = Vec::<u8>::new();
+        let mut ninja = NinjaWritter::with_width(&mut x , 8);
+        ninja.line("x aaaaaaaaaa y").unwrap();
+        assert_eq!(String::from_utf8(x).unwrap(), "x $\n    aaaaaaaaaa $\n    y\n");
+
+    }
+
 }
