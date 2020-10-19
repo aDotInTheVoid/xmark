@@ -16,7 +16,6 @@ use std::io;
 use std::io::prelude::*;
 use std::io::Result;
 
-
 macro_rules! dbg {
     () => {
         eprintln!("[{}:{}]", file!(), line!());
@@ -105,7 +104,7 @@ impl<W: Write> NinjaWritter<W> {
             if space == None {
                 space = Some(available_space - 1);
                 loop {
-                    dbg!(String::from_utf8(text[space.unwrap()+1..].to_owned()));
+                    dbg!(String::from_utf8(text[space.unwrap() + 1..].to_owned()));
                     // THIS IS SUBTLY DIFFERENT TO THE NINJA +/- AND I WANT TO SCREAM
                     space = memchr::memchr(b' ', &text[space.expect("xkcd 2200") - 1..]);
                     dbg!(space);
@@ -118,11 +117,9 @@ impl<W: Write> NinjaWritter<W> {
                 }
             }
 
-
             match space {
                 None => break,
                 Some(s) => {
-                    
                     self.output.write_all(&leading_space)?;
                     self.output.write_all(&text[..s])?;
                     self.output.write_all(b" $\n")?;
@@ -131,7 +128,7 @@ impl<W: Write> NinjaWritter<W> {
                 }
             }
         }
-        
+
         self.output.write_all(&leading_space)?;
         self.output.write_all(text)?;
         self.output.write_all(b"\n")
@@ -142,8 +139,8 @@ impl<W: Write> NinjaWritter<W> {
     }
 
     pub fn comment(&mut self, text: &str) -> io::Result<()> {
-        let mut wr = textwrap::Wrapper::with_splitter(self.width-2, textwrap::NoHyphenation);
-        wr.break_words=false;
+        let mut wr = textwrap::Wrapper::with_splitter(self.width - 2, textwrap::NoHyphenation);
+        wr.break_words = false;
 
         for i in wr.wrap_iter(text) {
             self.output.write_all(b"# ")?;
@@ -163,23 +160,21 @@ mod tests {
         assert_eq!(2 + 2, 4);
     }
 
-    #[test]
-    fn single_long_word() {
+    fn line_test(inp: &str, out: &str) {
         let mut x = Vec::<u8>::new();
         let mut ninja = NinjaWritter::with_width(&mut x, 8);
-        ninja.line(b"aaaaaaaaaa").unwrap();
-        assert_eq!(x, b"aaaaaaaaaa\n");
+        ninja.line(inp.as_bytes()).unwrap();
+        assert_eq!(String::from_utf8(x).unwrap(), out);
+    }
+
+    #[test]
+    fn single_long_word() {
+        line_test("aaaaaaaaaa", "aaaaaaaaaa\n");
     }
 
     #[test]
     fn few_long_words() {
-        let mut x = Vec::<u8>::new();
-        let mut ninja = NinjaWritter::with_width(&mut x, 8);
-        ninja.line(b"x 0123456789 y").unwrap();
-        assert_eq!(
-            String::from_utf8(x).unwrap(),
-            "x $\n    0123456789 $\n    y\n"
-        );
+        line_test("x 0123456789 y", "x $\n    0123456789 $\n    y\n");
     }
 
     #[test]
@@ -191,5 +186,45 @@ mod tests {
             String::from_utf8(x).unwrap(),
             "# Hello\n# /usr/local/build-tools/bin\n"
         );
+    }
+
+    #[test]
+    fn short_words_indented() {
+        line_test(
+            "line_one to tree",
+            "\
+line_one $
+    to $
+    three
+",
+        );
+    }
+
+    #[test]
+    fn short_words_indented2() {
+        line_test(
+            "lineone to tree",
+            "\
+lineone $
+    to $
+    three
+",
+        );
+    }
+
+    #[test]
+    fn escaped_spaces() {
+        line_test("x aaaaa$ aaaaa y", "x $\n    aaaaa$ aaaaa $\n    y\n")
+    }
+
+    #[test]
+    fn fit_many_words() {
+        let mut x = Vec::<u8>::new();
+        let mut ninja = NinjaWritter::with_width(&mut x, 78);
+        ninja.line_indent(b"command = cd ../../chrome; python ../tools/grit/grit/format/repack.py ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak ../out/Debug/gen/chrome/theme_resources_large.pak", 1).unwrap();
+        assert_eq!(
+            String::from_utf8(x).unwrap(),
+            "  command = cd ../../chrome; python ../tools/grit/grit/format/repack.py $\n      ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak $\n      ../out/Debug/gen/chrome/theme_resources_large.pak\n"
+        )
     }
 }
