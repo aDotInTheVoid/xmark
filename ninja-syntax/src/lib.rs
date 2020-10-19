@@ -17,6 +17,28 @@ use std::io::prelude::*;
 use std::io::Result;
 
 
+macro_rules! dbg {
+    () => {
+        eprintln!("[{}:{}]", file!(), line!());
+    };
+    ($val:expr) => {
+        // Use of `match` here is intentional because it affects the lifetimes
+        // of temporaries - https://stackoverflow.com/a/48732525/1063961
+        match $val {
+            tmp => {
+                eprintln!("[{}:{}] {} = {:?}",
+                    file!(), line!(), stringify!($val), &tmp);
+                tmp
+            }
+        }
+    };
+    // Trailing comma with single argument is ignored
+    ($val:expr,) => { $crate::dbg!($val) };
+    ($($val:expr),+ $(,)?) => {
+        ($($crate::dbg!($val)),+,)
+    };
+}
+
 const DEFAULT_WIDTH: usize = 78;
 
 fn _escape_path(word: &str) -> String {
@@ -67,11 +89,11 @@ impl<W: Write> NinjaWritter<W> {
         //TODO: Don't alloc
         let mut leading_space = b"  ".repeat(indent);
         while leading_space.len() + text.len() > self.width {
-            dbg!(String::from_utf8(text.to_owned()).unwrap());
             let available_space = self.width - leading_space.len() - " $".len();
             let mut space = Some(available_space);
             loop {
                 space = memchr::memrchr(b' ', &text[..space.unwrap_or(text.len() - 1)]);
+                dbg!(space);
                 if match space {
                     None => true,
                     Some(s) => count_dollars_before_index(text, s) % 2 == 0,
@@ -84,6 +106,7 @@ impl<W: Write> NinjaWritter<W> {
                 space = Some(available_space - 1);
                 loop {
                     space = memchr::memchr(b' ', &text[space.expect("xkcd 2200") + 1..]);
+                    dbg!(space);
                     if match space {
                         None => true,
                         Some(s) => count_dollars_before_index(text, s) % 2 == 0,
@@ -93,10 +116,11 @@ impl<W: Write> NinjaWritter<W> {
                 }
             }
 
+
             match space {
                 None => break,
                 Some(s) => {
-                    dbg!(space,String::from_utf8(text.to_owned()).unwrap());
+                    
                     self.output.write_all(&leading_space)?;
                     self.output.write_all(&text[..s])?;
                     self.output.write_all(b" $\n")?;
@@ -106,7 +130,6 @@ impl<W: Write> NinjaWritter<W> {
             }
         }
         
-        dbg!(String::from_utf8(text.to_owned()).unwrap());
         self.output.write_all(&leading_space)?;
         self.output.write_all(text)?;
         self.output.write_all(b"\n")
