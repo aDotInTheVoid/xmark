@@ -16,11 +16,10 @@ use std::io;
 use std::io::prelude::*;
 use std::io::Result;
 
-//TODO: Less of a hack
-const SPACES: &[u8] = &[b' '; 1024];
+
 const DEFAULT_WIDTH: usize = 78;
 
-fn escape_path(word: &str) -> String {
+fn _escape_path(word: &str) -> String {
     //PERFSMALL: Less allocs
     word.replace("$ ", "$$ ")
         .replace(" ", "$ ")
@@ -48,7 +47,10 @@ impl<W> NinjaWritter<W> {
     }
 
     pub fn with_width(writer: W, width: usize) -> Self {
-        Self { output: writer, width }
+        Self {
+            output: writer,
+            width,
+        }
     }
 }
 
@@ -57,73 +59,60 @@ impl<W: Write> NinjaWritter<W> {
         self.output.write_all(b"\n")
     }
 
-    pub(crate) fn line(&mut self, text: &str) -> Result<()> {
+    pub(crate) fn line(&mut self, text: &[u8]) -> Result<()> {
         self.line_indent(text, 0)
     }
 
-    pub(crate) fn line_indent(&mut self, mut text: &str, indent: usize) -> Result<()> {
-        let mut leading_space = &SPACES[..indent*2];
-
+    pub(crate) fn line_indent(&mut self, mut text: &[u8], indent: usize) -> Result<()> {
+        //TODO: Don't alloc
+        let mut leading_space = b"  ".repeat(indent);
         while leading_space.len() + text.len() > self.width {
-            // The text is too wide; wrap if possible.
-
-            // Find the rightmost space that would obey our width constraint and
-            // that's not an escaped space.
-            let available_space = self.width - leading_space.len() - b" $".len();
+            dbg!(String::from_utf8(text.to_owned()).unwrap());
+            let available_space = self.width - leading_space.len() - " $".len();
             let mut space = Some(available_space);
             loop {
-                //TODO: Non ascii
-                space = text[..space.unwrap_or(text.len())].rfind(' ');
-                if space
-                    .map(|x| count_dollars_before_index(text.as_bytes(), x) % 2 == 0)
-                    .unwrap_or(true)
-                {   
-                    dbg!("BREAKING 1");
+                space = memchr::memrchr(b' ', &text[..space.unwrap_or(text.len() - 1)]);
+                if match space {
+                    None => true,
+                    Some(s) => count_dollars_before_index(text, s) % 2 == 0,
+                } {
                     break;
                 }
             }
 
-            if space.is_none() {
+            if space == None {
                 space = Some(available_space - 1);
                 loop {
-                    space = text[..space.expect("Unreachable. xkcd.com/2200/") + 1].find(' ');
-                    if space
-                        .map(|x| count_dollars_before_index(text.as_bytes(), x) % 2 == 0)
-                        .unwrap_or(true)
-                    {
-                        dbg!("BREAKING 2");
+                    space = memchr::memchr(b' ', &text[space.expect("xkcd 2200") + 1..]);
+                    if match space {
+                        None => true,
+                        Some(s) => count_dollars_before_index(text, s) % 2 == 0,
+                    } {
                         break;
                     }
                 }
             }
 
-            // Give up
-            if space.is_none() {
-                dbg!("BREAKING 3");
-                break;
-            }
-
             match space {
-                None => {
-                    dbg!("BREAKING 4");
-                    break;
-                },
-                Some(space) => {
-                    self.output.write_all(leading_space)?;
-                    self.output.write_all(text[..space].as_bytes())?;
+                None => break,
+                Some(s) => {
+                    dbg!(space,String::from_utf8(text.to_owned()).unwrap());
+                    self.output.write_all(&leading_space)?;
+                    self.output.write_all(&text[..s])?;
                     self.output.write_all(b" $\n")?;
-                    text = &text[space + 1..];
-                    leading_space = &SPACES[..(indent + 2) * 2];
+                    leading_space = b"  ".repeat(indent + 2);
+                    text = &text[s + 1..];
                 }
             }
         }
-
-        self.output.write_all(leading_space)?;
-        self.output.write_all(text.as_bytes())?;
+        
+        dbg!(String::from_utf8(text.to_owned()).unwrap());
+        self.output.write_all(&leading_space)?;
+        self.output.write_all(text)?;
         self.output.write_all(b"\n")
     }
 
-    pub fn flush(&mut self) -> Result<()>{
+    pub fn flush(&mut self) -> Result<()> {
         self.output.flush()
     }
 }
@@ -141,17 +130,18 @@ mod tests {
     fn single_long_word() {
         let mut x = Vec::<u8>::new();
         let mut ninja = NinjaWritter::with_width(&mut x, 8);
-        ninja.line("aaaaaaaaaa").unwrap();
+        ninja.line(b"aaaaaaaaaa").unwrap();
         assert_eq!(x, b"aaaaaaaaaa\n");
     }
 
     #[test]
     fn few_long_words() {
         let mut x = Vec::<u8>::new();
-        let mut ninja = NinjaWritter::with_width(&mut x , 8);
-        ninja.line("x aaaaaaaaaa y").unwrap();
-        assert_eq!(String::from_utf8(x).unwrap(), "x $\n    aaaaaaaaaa $\n    y\n");
-
+        let mut ninja = NinjaWritter::with_width(&mut x, 8);
+        ninja.line(b"x aaaaaaaaaa y").unwrap();
+        assert_eq!(
+            String::from_utf8(x).unwrap(),
+            "x $\n    aaaaaaaaaa $\n    y\n"
+        );
     }
-
 }

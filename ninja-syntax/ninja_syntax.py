@@ -141,7 +141,7 @@ class Writer(object):
                 space = text.rfind(' ', 0, space)
                 if (space < 0 or
                     self._count_dollars_before_index(text, space) % 2 == 0):
-                    print("BREAKING 1")
+                    print(f"BREAKING 1 {space}")
                     break
 
             if space < 0:
@@ -151,19 +151,20 @@ class Writer(object):
                     space = text.find(' ', space + 1)
                     if (space < 0 or
                         self._count_dollars_before_index(text, space) % 2 == 0):
-                        print("BREAKING 2")
+                        print(f"BREAKING 2 {space}")
                         break
             if space < 0:
                 # Give up on breaking.
                 print("BREAKING 3")
                 break
-
+            
+            print(space, text)
             self.output.write(leading_space + text[0:space] + ' $\n')
             text = text[space+1:]
 
             # Subsequent lines are continuations, so indent them.
             leading_space = '  ' * (indent+2)
-
+        print(text)
         self.output.write(leading_space + text + '\n')
 
     def close(self):
