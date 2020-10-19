@@ -148,6 +148,7 @@ class Writer(object):
                 # No such space; just use the first unescaped space we can find.
                 space = available_space - 1
                 while True:
+                    print(text[space+1:])
                     space = text.find(' ', space + 1)
                     print(space)
                     if (space < 0 or

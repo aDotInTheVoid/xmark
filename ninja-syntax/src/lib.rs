@@ -105,7 +105,9 @@ impl<W: Write> NinjaWritter<W> {
             if space == None {
                 space = Some(available_space - 1);
                 loop {
-                    space = memchr::memchr(b' ', &text[space.expect("xkcd 2200") + 1..]);
+                    dbg!(String::from_utf8(text[space.unwrap()+1..].to_owned()));
+                    // THIS IS SUBTLY DIFFERENT TO THE NINJA +/- AND I WANT TO SCREAM
+                    space = memchr::memchr(b' ', &text[space.expect("xkcd 2200") - 1..]);
                     dbg!(space);
                     if match space {
                         None => true,
@@ -138,6 +140,18 @@ impl<W: Write> NinjaWritter<W> {
     pub fn flush(&mut self) -> Result<()> {
         self.output.flush()
     }
+
+    pub fn comment(&mut self, text: &str) -> io::Result<()> {
+        let mut wr = textwrap::Wrapper::with_splitter(self.width-2, textwrap::NoHyphenation);
+        wr.break_words=false;
+
+        for i in wr.wrap_iter(text) {
+            self.output.write_all(b"# ")?;
+            self.output.write_all(&i.as_bytes())?;
+            self.output.write_all(b"\n")?;
+        }
+        Ok(())
+    }
 }
 
 #[cfg(test)]
@@ -161,10 +175,21 @@ mod tests {
     fn few_long_words() {
         let mut x = Vec::<u8>::new();
         let mut ninja = NinjaWritter::with_width(&mut x, 8);
-        ninja.line(b"x aaaaaaaaaa y").unwrap();
+        ninja.line(b"x 0123456789 y").unwrap();
         assert_eq!(
             String::from_utf8(x).unwrap(),
-            "x $\n    aaaaaaaaaa $\n    y\n"
+            "x $\n    0123456789 $\n    y\n"
+        );
+    }
+
+    #[test]
+    fn comment_wrap() {
+        let mut x = Vec::<u8>::new();
+        let mut ninja = NinjaWritter::with_width(&mut x, 8);
+        ninja.comment("Hello /usr/local/build-tools/bin").unwrap();
+        assert_eq!(
+            String::from_utf8(x).unwrap(),
+            "# Hello\n# /usr/local/build-tools/bin\n"
         );
     }
 }
