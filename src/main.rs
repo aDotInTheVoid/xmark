@@ -1,12 +1,12 @@
 use std::fs;
 
-pub mod config;
+pub mod book;
 pub mod cli;
+pub mod config;
+pub mod summary;
 
-use eyre::Result;
 use clap::Clap;
-use std::path;
-
+use eyre::Result;
 
 fn main() -> Result<()> {
     color_eyre::install()?;
@@ -14,6 +14,5 @@ fn main() -> Result<()> {
     let conf = fs::read_to_string(args.dir.join("xmark.toml"))?;
     let conf: config::GlobalConfig = toml::from_str(&conf)?;
 
-    
     Ok(())
 }

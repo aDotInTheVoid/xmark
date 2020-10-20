@@ -6,8 +6,6 @@ pub struct GlobalConfig {
     pub books: Vec<String>,
 }
 
-
-
 #[cfg(test)]
 mod tests {
     use super::*;
