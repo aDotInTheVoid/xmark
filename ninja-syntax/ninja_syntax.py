@@ -139,7 +139,6 @@ class Writer(object):
             space = available_space
             while True:
                 space = text.rfind(' ', 0, space)
-                print(space)
                 if (space < 0 or
                     self._count_dollars_before_index(text, space) % 2 == 0):
                     break
@@ -148,21 +147,20 @@ class Writer(object):
                 # No such space; just use the first unescaped space we can find.
                 space = available_space - 1
                 while True:
-                    print(text[space+1:])
                     space = text.find(' ', space + 1)
-                    print(space)
                     if (space < 0 or
                         self._count_dollars_before_index(text, space) % 2 == 0):
                         break
             if space < 0:
                 # Give up on breaking.
                 break
-            
+
             self.output.write(leading_space + text[0:space] + ' $\n')
             text = text[space+1:]
 
             # Subsequent lines are continuations, so indent them.
             leading_space = '  ' * (indent+2)
+
         self.output.write(leading_space + text + '\n')
 
     def close(self):

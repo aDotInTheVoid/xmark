@@ -32,7 +32,6 @@ class TestLineWordWrap(unittest.TestCase):
         self.out = StringIO()
         self.n = ninja_syntax.Writer(self.out, width=8)
 
-    # PORTED
     def test_single_long_word(self):
         # We shouldn't wrap a single long word.
         self.n._line(LONGWORD)
@@ -45,7 +44,6 @@ class TestLineWordWrap(unittest.TestCase):
                                       INDENT + LONGWORD,
                                       INDENT + 'y']) + '\n',
                          self.out.getvalue())
-        self.assertEqual(True,False)
 
     def test_comment_wrap(self):
         # Filenames should not be wrapped
