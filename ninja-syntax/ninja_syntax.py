@@ -138,20 +138,24 @@ class Writer(object):
             available_space = self.width - len(leading_space) - len(' $')
             space = available_space
             while True:
-                space = text.rfind(' ', 0, space)
-                if (space < 0 or
+                space = text[:space].rfind(' ')
+                if (space == -1 or
                     self._count_dollars_before_index(text, space) % 2 == 0):
                     break
 
-            if space < 0:
+            if space == -1:
                 # No such space; just use the first unescaped space we can find.
                 space = available_space - 1
                 while True:
-                    space = text.find(' ', space + 1)
-                    if (space < 0 or
+                    newspace = text[space+1:].find(" ")
+                    if newspace != -1:
+                         space+=newspace+1
+                    else:
+                        space=-1    
+                    if (space == -1 or
                         self._count_dollars_before_index(text, space) % 2 == 0):
                         break
-            if space < 0:
+            if space == -1:
                 # Give up on breaking.
                 break
 
