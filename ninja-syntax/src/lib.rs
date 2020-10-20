@@ -251,99 +251,103 @@ pub fn escape(s: &str) -> Option<String> {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pretty_assertions::assert_eq;
 
     #[test]
     fn it_works() {
         assert_eq!(2 + 2, 4);
     }
 
-    fn line_test(inp: &str, out: &str) {
-        let mut x = Vec::<u8>::new();
-        let mut ninja = NinjaWritter::with_width(&mut x, 8);
-        ninja.line(inp.as_bytes()).unwrap();
-        assert_eq!(String::from_utf8(x).unwrap(), out);
-    }
+    mod wrap {
+        use super::*;
+        use pretty_assertions::assert_eq;
 
-    #[test]
-    fn single_long_word() {
-        line_test("aaaaaaaaaa", "aaaaaaaaaa\n");
-    }
+        fn line_test(inp: &str, out: &str) {
+            let mut x = Vec::<u8>::new();
+            let mut ninja = NinjaWritter::with_width(&mut x, 8);
+            ninja.line(inp.as_bytes()).unwrap();
+            assert_eq!(String::from_utf8(x).unwrap(), out);
+        }
 
-    #[test]
-    fn few_long_words() {
-        line_test(
-            "x 0123456789 y",
-            "\
+        #[test]
+        fn single_long_word() {
+            line_test("aaaaaaaaaa", "aaaaaaaaaa\n");
+        }
+
+        #[test]
+        fn few_long_words() {
+            line_test(
+                "x 0123456789 y",
+                "\
 x $
     0123456789 $
     y
 ",
-        );
-    }
+            );
+        }
 
-    #[test]
-    fn comment_wrap() {
-        let mut x = Vec::<u8>::new();
-        let mut ninja = NinjaWritter::with_width(&mut x, 8);
-        ninja.comment("Hello /usr/local/build-tools/bin").unwrap();
-        assert_eq!(
-            String::from_utf8(x).unwrap(),
-            "\
+        #[test]
+        fn comment_wrap() {
+            let mut x = Vec::<u8>::new();
+            let mut ninja = NinjaWritter::with_width(&mut x, 8);
+            ninja.comment("Hello /usr/local/build-tools/bin").unwrap();
+            assert_eq!(
+                String::from_utf8(x).unwrap(),
+                "\
 # Hello
 # /usr/local/build-tools/bin
 "
-        );
-    }
+            );
+        }
 
-    #[test]
-    fn short_words_indented() {
-        line_test(
-            "line_one to tree",
-            "\
+        #[test]
+        fn short_words_indented() {
+            line_test(
+                "line_one to tree",
+                "\
 line_one $
     to $
     tree
 ",
-        );
-    }
+            );
+        }
 
-    #[test]
-    fn short_words_indented2() {
-        line_test(
-            "lineone to tree",
-            "\
+        #[test]
+        fn short_words_indented2() {
+            line_test(
+                "lineone to tree",
+                "\
 lineone $
     to $
     tree
 ",
-        );
-    }
+            );
+        }
 
-    #[test]
-    fn escaped_spaces() {
-        line_test(
-            "x aaaaa$ aaaaa y",
-            "\
+        #[test]
+        fn escaped_spaces() {
+            line_test(
+                "x aaaaa$ aaaaa y",
+                "\
 x $
     aaaaa$ aaaaa $
     y
 ",
-        )
-    }
+            )
+        }
 
-    #[test]
-    fn fit_many_words() {
-        let mut x = Vec::<u8>::new();
-        let mut ninja = NinjaWritter::with_width(&mut x, 78);
-        ninja.line_indent(b"command = cd ../../chrome; python ../tools/grit/grit/format/repack.py ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak ../out/Debug/gen/chrome/theme_resources_large.pak", 1).unwrap();
-        assert_eq!(
-            String::from_utf8(x).unwrap(),
-            "  \
+        #[test]
+        fn fit_many_words() {
+            let mut x = Vec::<u8>::new();
+            let mut ninja = NinjaWritter::with_width(&mut x, 78);
+            ninja.line_indent(b"command = cd ../../chrome; python ../tools/grit/grit/format/repack.py ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak ../out/Debug/gen/chrome/theme_resources_large.pak", 1).unwrap();
+            assert_eq!(
+                String::from_utf8(x).unwrap(),
+                "  \
 command = cd ../../chrome; python ../tools/grit/grit/format/repack.py $
       ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak $
       ../out/Debug/gen/chrome/theme_resources_large.pak
 "
-        )
+            )
+        }
     }
 }
