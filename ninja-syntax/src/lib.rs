@@ -156,6 +156,7 @@ impl<W: Write> NinjaWritter<W> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use pretty_assertions::assert_eq;
 
     #[test]
     fn it_works() {
@@ -176,7 +177,11 @@ mod tests {
 
     #[test]
     fn few_long_words() {
-        line_test("x 0123456789 y", "x $\n    0123456789 $\n    y\n");
+        line_test("x 0123456789 y", "\
+x $
+    0123456789 $
+    y
+");
     }
 
     #[test]
@@ -186,7 +191,10 @@ mod tests {
         ninja.comment("Hello /usr/local/build-tools/bin").unwrap();
         assert_eq!(
             String::from_utf8(x).unwrap(),
-            "# Hello\n# /usr/local/build-tools/bin\n"
+            "\
+# Hello
+# /usr/local/build-tools/bin
+"
         );
     }
 
@@ -216,7 +224,11 @@ lineone $
 
     #[test]
     fn escaped_spaces() {
-        line_test("x aaaaa$ aaaaa y", "x $\n    aaaaa$ aaaaa $\n    y\n")
+        line_test("x aaaaa$ aaaaa y", "\
+x $
+    aaaaa$ aaaaa $
+    y
+")
     }
 
     #[test]
@@ -226,7 +238,11 @@ lineone $
         ninja.line_indent(b"command = cd ../../chrome; python ../tools/grit/grit/format/repack.py ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak ../out/Debug/gen/chrome/theme_resources_large.pak", 1).unwrap();
         assert_eq!(
             String::from_utf8(x).unwrap(),
-            "  command = cd ../../chrome; python ../tools/grit/grit/format/repack.py $\n      ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak $\n      ../out/Debug/gen/chrome/theme_resources_large.pak\n"
+            "  \
+command = cd ../../chrome; python ../tools/grit/grit/format/repack.py $
+      ../out/Debug/obj/chrome/chrome_dll.gen/repack/theme_resources_large.pak $
+      ../out/Debug/gen/chrome/theme_resources_large.pak
+"
         )
     }
 }

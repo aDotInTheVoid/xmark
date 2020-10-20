@@ -11,3 +11,6 @@ description = "A generator for .ninja files"
 [dependencies]
 memchr = "2.3.3"
 textwrap = "0.12.1"
+
+[dev-dependencies]
+pretty_assertions = "0.6.1"
