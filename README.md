@@ -6,6 +6,12 @@
 - [GitHub Docs](https://github.com/github/docs)
 - [fasterthanlime's new site](https://fasterthanli.me/articles/a-new-website-for-2020)
 - [tavianator.com](https://github.com/tavianator/tavianator.com)
+- [tumblelog](https://github.com/john-bokma/tumblelog)
+- jekyll
+- hugo
+- asciidoctor
+- ninja
+- https://joshwcomeau.com/css/full-bleed/
 
 ## Drawing forms
 
