@@ -104,10 +104,12 @@ impl<W: Write> NinjaWritter<W> {
             if space == None {
                 space = Some(available_space - 1);
                 loop {
-                    dbg!(String::from_utf8(text[space.unwrap() + 1..].to_owned()));
-                    // THIS IS SUBTLY DIFFERENT TO THE NINJA +/- AND I WANT TO SCREAM
-                    space = memchr::memchr(b' ', &text[space.expect("xkcd 2200") - 1..]);
-                    dbg!(space);
+                    // Oh dear god oh god.
+                    let newspace = memchr::memchr(b' ', &text[space.expect("xkcd 2200") + 1..]);
+                    match newspace {
+                        None => space = None,
+                        Some(s) => space = Some(space.expect("xkcd 2200") + s + 1),
+                    }
                     if match space {
                         None => true,
                         Some(s) => count_dollars_before_index(text, s) % 2 == 0,
@@ -195,7 +197,7 @@ mod tests {
             "\
 line_one $
     to $
-    three
+    tree
 ",
         );
     }
@@ -207,7 +209,7 @@ line_one $
             "\
 lineone $
     to $
-    three
+    tree
 ",
         );
     }
