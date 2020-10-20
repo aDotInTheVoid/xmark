@@ -9,7 +9,9 @@ description = "A generator for .ninja files"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+fmt = "0.1.0"
 memchr = "2.3.3"
+regex = "1.4.1"
 textwrap = "0.12.1"
 
 [dev-dependencies]

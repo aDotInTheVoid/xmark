@@ -12,9 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use std::io;
 use std::io::prelude::*;
 use std::io::Result;
+use std::{collections::HashMap, io};
 
 macro_rules! dbg {
     () => {
@@ -40,7 +40,7 @@ macro_rules! dbg {
 
 const DEFAULT_WIDTH: usize = 78;
 
-fn _escape_path(word: &str) -> String {
+pub fn escape_path(word: &str) -> String {
     //PERFSMALL: Less allocs
     word.replace("$ ", "$$ ")
         .replace(" ", "$ ")
@@ -55,6 +55,16 @@ fn count_dollars_before_index(s: &[u8], i: usize) -> usize {
         dollar_index -= 1;
     }
     dollar_count
+}
+
+#[derive(Debug, Default)]
+pub struct BuildOptions<'a> {
+    inputs: Option<&'a [&'a str]>,
+    implicit: Option<&'a [&'a str]>,
+    order_only: Option<&'a [&'a str]>,
+    variables: Option<HashMap<&'a str, &'a str>>,
+    implicit_outputs: Option<&'a [&'a str]>,
+    pool: Option<&'a str>,
 }
 
 pub struct NinjaWritter<W> {
@@ -82,6 +92,82 @@ impl<W: Write> NinjaWritter<W> {
 
     pub(crate) fn line(&mut self, text: &[u8]) -> Result<()> {
         self.line_indent(text, 0)
+    }
+
+    pub fn variable(&mut self, key: &str, value: &str) -> io::Result<()> {
+        self.variable_indent(key, value, 0)
+    }
+
+    pub fn variable_indent(&mut self, key: &str, value: &str, indent: usize) -> io::Result<()> {
+        self.line_indent(format!("{} = {}", key, value).as_bytes(), indent)
+    }
+
+    pub fn pool(&mut self, name: &str, depth: &str) -> io::Result<()> {
+        self.line(format!("pool {}", name).as_bytes())?;
+        self.variable_indent("depth", depth, 1)
+    }
+
+    pub fn include(&mut self, path: &str) -> io::Result<()> {
+        self.line(format!("include {}", path).as_bytes())
+    }
+
+    pub fn subninja(&mut self, path: &str) -> io::Result<()> {
+        self.line(format!("subninja {}", path).as_bytes())
+    }
+
+    pub fn default(&mut self, paths: &[&str]) -> io::Result<()> {
+        self.line(format!("default {}", paths.join(" ")).as_bytes())
+    }
+
+    pub fn build(&mut self, outputs: &[&str], rule: &str, opts: BuildOptions) -> io::Result<()> {
+        let mut out_outputs: Vec<String> = outputs.iter().copied().map(escape_path).collect();
+        let mut all_inputs: Vec<String> = opts
+            .inputs
+            .iter()
+            .copied()
+            .flatten()
+            .copied()
+            .map(escape_path)
+            .collect();
+
+        if let Some(implcit) = opts.implicit {
+            let implicit = implcit.iter().copied().map(escape_path);
+            all_inputs.push("|".to_owned());
+            all_inputs.extend(implicit);
+        }
+
+        if let Some(order_only) = opts.order_only {
+            let order_only = order_only.iter().copied().map(escape_path);
+            all_inputs.push("||".to_owned());
+            all_inputs.extend(order_only);
+        }
+
+        if let Some(implicit_outputs) = opts.implicit_outputs {
+            let implicit_outputs = implicit_outputs.iter().copied().map(escape_path);
+            out_outputs.push("|".to_owned());
+            out_outputs.extend(implicit_outputs);
+        }
+
+        self.line(
+            format!(
+                "build {}: {} {}",
+                out_outputs.join(" "),
+                rule,
+                all_inputs.join(" ")
+            )
+            .as_bytes(),
+        )?;
+
+        if let Some(pool) = opts.pool {
+            self.line(format!("  pool = {}", pool).as_bytes())?;
+        }
+
+        if let Some(vars) = opts.variables {
+            for (k, v) in vars {
+                self.variable_indent(k, v, 1)?;
+            }
+        }
+        Ok(())
     }
 
     pub(crate) fn line_indent(&mut self, mut text: &[u8], indent: usize) -> Result<()> {
@@ -133,7 +219,7 @@ impl<W: Write> NinjaWritter<W> {
 
         self.output.write_all(&leading_space)?;
         self.output.write_all(text)?;
-        self.output.write_all(b"\n")
+        self.newline()
     }
 
     pub fn flush(&mut self) -> Result<()> {
@@ -147,9 +233,18 @@ impl<W: Write> NinjaWritter<W> {
         for i in wr.wrap_iter(text) {
             self.output.write_all(b"# ")?;
             self.output.write_all(&i.as_bytes())?;
-            self.output.write_all(b"\n")?;
+            self.newline()?;
         }
         Ok(())
+    }
+}
+/// Escape a string such that it can be embedded into a Ninja file without
+/// further interpretation.
+pub fn escape(s: &str) -> Option<String> {
+    if s.contains('\n') {
+        None
+    } else {
+        Some(s.replace('$', "$$"))
     }
 }
 
@@ -177,11 +272,14 @@ mod tests {
 
     #[test]
     fn few_long_words() {
-        line_test("x 0123456789 y", "\
+        line_test(
+            "x 0123456789 y",
+            "\
 x $
     0123456789 $
     y
-");
+",
+        );
     }
 
     #[test]
@@ -224,11 +322,14 @@ lineone $
 
     #[test]
     fn escaped_spaces() {
-        line_test("x aaaaa$ aaaaa y", "\
+        line_test(
+            "x aaaaa$ aaaaa y",
+            "\
 x $
     aaaaa$ aaaaa $
     y
-")
+",
+        )
     }
 
     #[test]
