@@ -1,6 +1,8 @@
-use crate::errors::*;
+use eyre::{bail, eyre, Error, Result, WrapErr};
+use log::{debug, trace, warn};
 use memchr::{self, Memchr};
 use pulldown_cmark::{self, Event, Tag};
+use serde::{Deserialize, Serialize};
 use std::fmt::{self, Display, Formatter};
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
@@ -515,7 +517,7 @@ impl<'a> SummaryParser<'a> {
 
     fn parse_error<D: Display>(&self, msg: D) -> Error {
         let (line, col) = self.current_location();
-        anyhow::anyhow!(
+        eyre!(
             "failed to parse SUMMARY.md line {}, column {}: {}",
             line,
             col,
@@ -559,7 +561,7 @@ fn get_last_link(links: &mut [SummaryItem]) -> Result<(usize, &mut Link)> {
         .rev()
         .next()
         .ok_or_else(||
-            anyhow::anyhow!("Unable to get last link because the list of SummaryItems doesn't contain any Links")
+            eyre!("Unable to get last link because the list of SummaryItems doesn't contain any Links")
             )
 }
 
