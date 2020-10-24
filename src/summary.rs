@@ -71,8 +71,8 @@ pub struct Summary {
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Chapter {
     pub name: String,
-    pub location: PathBuf,
-    pub url: PathBuf,
+    // None => draft
+    pub location: Option<PathBuf>,
     // For the pritty on top
     pub nested_items_path: Vec<(String, PathBuf)>,
 }
@@ -85,9 +85,8 @@ pub struct Chapter {
 pub struct Link {
     pub chapter: Chapter,
     pub nested_items: Vec<Link>,
-    pub section_number: SectionNumber,
+    pub section_number: Option<SectionNumber>,
 }
-
 
 /// A recursive descent (-ish) parser for a `SUMMARY.md`.
 ///
@@ -111,7 +110,7 @@ pub struct Link {
 ///
 /// > **Note:** the `TEXT` terminal is "normal" text, and should (roughly)
 /// > match the following regex: "[^<>\n[]]+".
-struct SummaryParser<'a> {
+pub struct SummaryParser<'a> {
     src: &'a str,
     stream: pulldown_cmark::OffsetIter<'a>,
     offset: usize,
@@ -184,7 +183,7 @@ impl<'a> SummaryParser<'a> {
 
     /// Parse the text the `SummaryParser` was created with.
     fn parse(mut self) -> Result<Summary> {
-        let title = self.parse_title();
+        let title = self.parse_title()?;
 
         let prefix_chapters = self
             .parse_affix(true)
@@ -205,7 +204,7 @@ impl<'a> SummaryParser<'a> {
     }
 
     /// Parse the affix chapters.
-    fn parse_affix(&mut self, is_prefix: bool) -> Result<Vec<SummaryItem>> {
+    fn parse_affix(&mut self, is_prefix: bool) -> Result<Vec<Chapter>> {
         let mut items = Vec::new();
         debug!(
             "Parsing {} items",
@@ -227,9 +226,7 @@ impl<'a> SummaryParser<'a> {
                 }
                 Some(Event::Start(Tag::Link(_type, href, _title))) => {
                     let link = self.parse_link(href.to_string());
-                    items.push(SummaryItem::Link(link));
                 }
-                Some(Event::Rule) => items.push(SummaryItem::Separator),
                 Some(_) => {}
                 None => break,
             }
@@ -238,7 +235,7 @@ impl<'a> SummaryParser<'a> {
         Ok(items)
     }
 
-    fn parse_parts(&mut self) -> Result<Vec<SummaryItem>> {
+    fn parse_parts(&mut self) -> Result<Vec<Link>> {
         let mut parts = vec![];
 
         // We want the section numbers to be continues through all parts.
@@ -246,24 +243,17 @@ impl<'a> SummaryParser<'a> {
         let mut root_items = 0;
 
         loop {
-            // Possibly match a title or the end of the "numbered chapters part".
-            let title = match self.next_event() {
+            // Buthured remnents of when their could be titles halfway throught the summary.
+            // TODO: Cleanup and merge with parse_numbered
+            match self.next_event() {
                 Some(ev @ Event::Start(Tag::Paragraph)) => {
                     // we're starting the suffix chapters
                     self.back(ev);
                     break;
                 }
 
-                Some(Event::Start(Tag::Heading(1))) => {
-                    debug!("Found a h1 in the SUMMARY");
-
-                    let tags = collect_events!(self.stream, end Tag::Heading(1));
-                    Some(stringify_events(tags))
-                }
-
                 Some(ev) => {
                     self.back(ev);
-                    None
                 }
 
                 None => break, // EOF, bail...
@@ -274,9 +264,6 @@ impl<'a> SummaryParser<'a> {
                 .parse_numbered(&mut root_items, &mut root_number)
                 .with_context(|| "There was an error parsing the numbered chapters")?;
 
-            if let Some(title) = title {
-                parts.push(SummaryItem::PartTitle(title));
-            }
             parts.extend(numbered_chapters);
         }
 
@@ -284,23 +271,26 @@ impl<'a> SummaryParser<'a> {
     }
 
     /// Finishes parsing a link once the `Event::Start(Tag::Link(..))` has been opened.
-    fn parse_link(&mut self, href: String) -> Link {
+    fn parse_link(&mut self, href: String) -> Result<Link> {
         let href = href.replace("%20", " ");
         let link_content = collect_events!(self.stream, end Tag::Link(..));
         let name = stringify_events(link_content);
 
-        let path = if href.is_empty() {
+        let location = if href.is_empty() {
             None
         } else {
             Some(PathBuf::from(href))
         };
 
-        Link {
-            name,
-            location: path,
-            number: None,
+        Ok(Link {
+            chapter: Chapter {
+                name,
+                location,
+                nested_items_path: vec![],
+            },
+            section_number: None,
             nested_items: Vec::new(),
-        }
+        })
     }
 
     /// Parse the numbered chapters.
@@ -308,7 +298,7 @@ impl<'a> SummaryParser<'a> {
         &mut self,
         root_items: &mut u32,
         root_number: &mut SectionNumber,
-    ) -> Result<Vec<SummaryItem>> {
+    ) -> Result<Vec<Link>> {
         let mut items = Vec::new();
 
         // For the first iteration, we want to just skip any opening paragraph tags, as that just
@@ -353,9 +343,6 @@ impl<'a> SummaryParser<'a> {
                         }
                     }
                 }
-                Some(Event::Rule) => {
-                    items.push(SummaryItem::Separator);
-                }
 
                 // something else... ignore
                 Some(_) => {}
@@ -393,7 +380,7 @@ impl<'a> SummaryParser<'a> {
         next
     }
 
-    fn parse_nested_numbered(&mut self, parent: &SectionNumber) -> Result<Vec<SummaryItem>> {
+    fn parse_nested_numbered(&mut self, parent: &SectionNumber) -> Result<Vec<Link>> {
         debug!("Parsing numbered chapters at level {}", parent);
         let mut items = Vec::new();
 
@@ -411,7 +398,7 @@ impl<'a> SummaryParser<'a> {
                     // recurse to parse the nested list
                     let (_, last_item) = get_last_link(&mut items)?;
                     let last_item_number = last_item
-                        .number
+                        .section_number
                         .as_ref()
                         .expect("All numbered chapters have numbers");
 
@@ -432,28 +419,29 @@ impl<'a> SummaryParser<'a> {
         &mut self,
         parent: &SectionNumber,
         num_existing_items: usize,
-    ) -> Result<SummaryItem> {
+    ) -> Result<Link> {
         loop {
             match self.next_event() {
                 Some(Event::Start(Tag::Paragraph)) => continue,
                 Some(Event::Start(Tag::Link(_type, href, _title))) => {
-                    let mut link = self.parse_link(href.to_string());
+                    let mut link = self.parse_link(href.to_string())?;
 
                     let mut number = parent.clone();
                     number.0.push(num_existing_items as u32 + 1);
                     trace!(
                         "Found chapter: {} {} ({})",
                         number,
-                        link.name,
-                        link.location
+                        link.chapter.name,
+                        link.chapter
+                            .location
                             .as_ref()
                             .map(|p| p.to_str().unwrap_or(""))
                             .unwrap_or("[draft]")
                     );
 
-                    link.number = Some(number);
+                    link.section_number = Some(number);
 
-                    return Ok(SummaryItem::Link(link));
+                    return Ok(link);
                 }
                 other => {
                     warn!("Expected a start of a link, actually got {:?}", other);
@@ -476,38 +464,36 @@ impl<'a> SummaryParser<'a> {
     }
 
     /// Try to parse the title line.
-    fn parse_title(&mut self) -> Option<String> {
+    fn parse_title(&mut self) -> Result<String> {
         match self.next_event() {
             Some(Event::Start(Tag::Heading(1))) => {
                 debug!("Found a h1 in the SUMMARY");
 
                 let tags = collect_events!(self.stream, end Tag::Heading(1));
-                Some(stringify_events(tags))
+                Ok(stringify_events(tags))
             }
-            _ => None,
+            _ => bail!(self.parse_error("Could not parse title")),
         }
     }
 }
 
-fn update_section_numbers(sections: &mut [SummaryItem], level: usize, by: u32) {
-    for section in sections {
-        if let SummaryItem::Link(ref mut link) = *section {
-            if let Some(ref mut number) = link.number {
-                number.0[level] += by;
-            }
-
-            update_section_numbers(&mut link.nested_items, level, by);
+fn update_section_numbers(sections: &mut [Link], level: usize, by: u32) {
+    for link in sections {
+        if let Some(ref mut number) = link.section_number {
+            number.0[level] += by;
         }
+
+        update_section_numbers(&mut link.nested_items, level, by);
     }
 }
 
 /// Gets a pointer to the last `Link` in a list of `SummaryItem`s, and its
 /// index.
-fn get_last_link(links: &mut [SummaryItem]) -> Result<(usize, &mut Link)> {
+fn get_last_link(links: &mut [Link]) -> Result<(usize, &mut Link)> {
     links
         .iter_mut()
         .enumerate()
-        .filter_map(|(i, item)| item.maybe_link_mut().map(|l| (i, l)))
+        //.filter_map(|(i, item)| item.maybe_link_mut().map(|l| (i, l)))
         .rev()
         .next()
         .ok_or_else(||
