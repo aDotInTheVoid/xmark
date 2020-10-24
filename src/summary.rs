@@ -68,7 +68,7 @@ pub struct Summary {
     pub suffix_chapters: Vec<Chapter>,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct Chapter {
     pub name: String,
     // None => draft
@@ -81,7 +81,7 @@ pub struct Chapter {
 /// entries.
 ///
 /// This is roughly the equivalent of `[Some section](./path/to/file.md)`.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
 pub struct Link {
     pub chapter: Chapter,
     pub nested_items: Vec<Link>,
@@ -225,7 +225,12 @@ impl<'a> SummaryParser<'a> {
                     }
                 }
                 Some(Event::Start(Tag::Link(_type, href, _title))) => {
-                    let link = self.parse_link(href.to_string());
+                    let link = self.parse_link(href.to_string())?;
+                    if !link.nested_items.is_empty() {
+                        bail!(self.parse_error("Cannot have nested chapted in prefix.postfix"));
+                    }
+                    assert!(link.section_number == None);
+                    items.push(link.chapter);
                 }
                 Some(_) => {}
                 None => break,
@@ -608,32 +613,21 @@ mod tests {
         let mut parser = SummaryParser::new(src);
 
         let should_be = vec![
-            SummaryItem::Link(Link {
+            Chapter {
                 name: String::from("First"),
                 location: Some(PathBuf::from("./first.md")),
                 ..Default::default()
-            }),
-            SummaryItem::Link(Link {
+            },
+            Chapter {
                 name: String::from("Second"),
                 location: Some(PathBuf::from("./second.md")),
                 ..Default::default()
-            }),
+            },
         ];
 
         let got = parser.parse_affix(true).unwrap();
 
         assert_eq!(got, should_be);
-    }
-
-    #[test]
-    fn parse_prefix_items_with_a_separator() {
-        let src = "[First](./first.md)\n\n---\n\n[Second](./second.md)\n";
-        let mut parser = SummaryParser::new(src);
-
-        let got = parser.parse_affix(true).unwrap();
-
-        assert_eq!(got.len(), 3);
-        assert_eq!(got[1], SummaryItem::Separator);
     }
 
     #[test]
@@ -650,8 +644,11 @@ mod tests {
     fn parse_a_link() {
         let src = "[First](./first.md)";
         let should_be = Link {
-            name: String::from("First"),
-            location: Some(PathBuf::from("./first.md")),
+            chapter: Chapter {
+                name: String::from("First"),
+                location: Some(PathBuf::from("./first.md")),
+                ..Default::default()
+            },
             ..Default::default()
         };
 
@@ -663,7 +660,7 @@ mod tests {
             other => panic!("Unreachable, {:?}", other),
         };
 
-        let got = parser.parse_link(href);
+        let got = parser.parse_link(href).unwrap();
         assert_eq!(got, should_be);
     }
 
@@ -671,12 +668,16 @@ mod tests {
     fn parse_a_numbered_chapter() {
         let src = "- [First](./first.md)\n";
         let link = Link {
-            name: String::from("First"),
-            location: Some(PathBuf::from("./first.md")),
-            number: Some(SectionNumber(vec![1])),
+            chapter: Chapter {
+                name: String::from("First"),
+                location: Some(PathBuf::from("./first.md")),
+                ..Default::default()
+            },
+
+            section_number: Some(SectionNumber(vec![1])),
             ..Default::default()
         };
-        let should_be = vec![SummaryItem::Link(link)];
+        let should_be = vec![link];
 
         let mut parser = SummaryParser::new(src);
         let got = parser
@@ -685,7 +686,10 @@ mod tests {
 
         assert_eq!(got, should_be);
     }
+}
 
+#[cfg(test22)]
+mod t22 {
     #[test]
     fn parse_nested_numbered_chapters() {
         let src = "- [First](./first.md)\n  - [Nested](./nested.md)\n- [Second](./second.md)";
