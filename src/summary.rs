@@ -59,13 +59,22 @@ pub fn parse_summary(summary: &str) -> Result<Summary> {
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
 pub struct Summary {
     /// An optional title for the `SUMMARY.md`, currently just ignored.
-    pub title: Option<String>,
+    pub title: String,
     /// Chapters before the main text (e.g. an introduction).
-    pub prefix_chapters: Vec<SummaryItem>,
+    pub prefix_chapters: Vec<Chapter>,
     /// The main numbered chapters of the book, broken into one or more possibly named parts.
-    pub numbered_chapters: Vec<SummaryItem>,
+    pub numbered_chapters: Vec<Link>,
     /// Items which come after the main document (e.g. a conclusion).
-    pub suffix_chapters: Vec<SummaryItem>,
+    pub suffix_chapters: Vec<Chapter>,
+}
+
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
+pub struct Chapter {
+    pub name: String,
+    pub location: PathBuf,
+    pub url: PathBuf,
+    // For the pritty on top
+    pub nested_items_path: Vec<(String, PathBuf)>,
 }
 
 /// A struct representing an entry in the `SUMMARY.md`, possibly with nested
@@ -74,65 +83,11 @@ pub struct Summary {
 /// This is roughly the equivalent of `[Some section](./path/to/file.md)`.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Link {
-    /// The name of the chapter.
-    pub name: String,
-    /// The location of the chapter's source file, taking the book's `src`
-    /// directory as the root.
-    pub location: Option<PathBuf>,
-    /// The section number, if this chapter is in the numbered section.
-    pub number: Option<SectionNumber>,
-    /// Any nested items this chapter may contain.
-    pub nested_items: Vec<SummaryItem>,
+    pub chapter: Chapter,
+    pub nested_items: Vec<Link>,
+    pub section_number: SectionNumber,
 }
 
-impl Link {
-    /// Create a new link with no nested items.
-    pub fn new<S: Into<String>, P: AsRef<Path>>(name: S, location: P) -> Link {
-        Link {
-            name: name.into(),
-            location: Some(location.as_ref().to_path_buf()),
-            number: None,
-            nested_items: Vec::new(),
-        }
-    }
-}
-
-impl Default for Link {
-    fn default() -> Self {
-        Link {
-            name: String::new(),
-            location: Some(PathBuf::new()),
-            number: None,
-            nested_items: Vec::new(),
-        }
-    }
-}
-
-/// An item in `SUMMARY.md` which could be either a separator or a `Link`.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
-pub enum SummaryItem {
-    /// A link to a chapter.
-    Link(Link),
-    /// A separator (`---`).
-    Separator,
-    /// A part title.
-    PartTitle(String),
-}
-
-impl SummaryItem {
-    fn maybe_link_mut(&mut self) -> Option<&mut Link> {
-        match *self {
-            SummaryItem::Link(ref mut l) => Some(l),
-            _ => None,
-        }
-    }
-}
-
-impl From<Link> for SummaryItem {
-    fn from(other: Link) -> SummaryItem {
-        SummaryItem::Link(other)
-    }
-}
 
 /// A recursive descent (-ish) parser for a `SUMMARY.md`.
 ///
@@ -145,16 +100,11 @@ impl From<Link> for SummaryItem {
 /// summary           ::= title prefix_chapters numbered_chapters
 ///                         suffix_chapters
 /// title             ::= "# " TEXT
-///                     | EPSILON
-/// prefix_chapters   ::= item*
-/// suffix_chapters   ::= item*
-/// numbered_chapters ::= part+
-/// part              ::= title dotted_item+
-/// dotted_item       ::= INDENT* DOT_POINT item
-/// item              ::= link
-///                     | separator
-/// separator         ::= "---"
-/// link              ::= "[" TEXT "]" "(" TEXT ")"
+/// prefix_chapters   ::= chapter*
+/// suffix_chapters   ::= chapter*
+/// numbered_chapters ::= dotted_chapter+
+/// dotted_chapter    ::= INDENT* DOT_POINT item
+/// chapter           ::= "[" TEXT "]" "(" TEXT ")"
 /// DOT_POINT         ::= "-"
 ///                     | "*"
 /// ```
