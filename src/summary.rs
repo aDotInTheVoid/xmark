@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 use std::fmt::{self, Display, Formatter};
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 /// Parse the text from a `SUMMARY.md` file into a sort of "recipe" to be
 /// used when loading a book from disk.
@@ -250,11 +250,16 @@ impl<'a> SummaryParser<'a> {
         loop {
             // Buthured remnents of when their could be titles halfway throught the summary.
             // TODO: Cleanup and merge with parse_numbered
-            match self.next_event() {
+            match dbg!(self.next_event()) {
                 Some(ev @ Event::Start(Tag::Paragraph)) => {
                     // we're starting the suffix chapters
                     self.back(ev);
                     break;
+                }
+
+                //TODO: Figure out why I need this
+                Some(Event::Start(Tag::Heading(1))) => {
+                    collect_events!(self.stream, end Tag::Heading(1));
                 }
 
                 Some(ev) => {
@@ -686,32 +691,38 @@ mod tests {
 
         assert_eq!(got, should_be);
     }
-}
 
-#[cfg(test22)]
-mod t22 {
     #[test]
     fn parse_nested_numbered_chapters() {
         let src = "- [First](./first.md)\n  - [Nested](./nested.md)\n- [Second](./second.md)";
 
         let should_be = vec![
-            SummaryItem::Link(Link {
-                name: String::from("First"),
-                location: Some(PathBuf::from("./first.md")),
-                number: Some(SectionNumber(vec![1])),
-                nested_items: vec![SummaryItem::Link(Link {
-                    name: String::from("Nested"),
-                    location: Some(PathBuf::from("./nested.md")),
-                    number: Some(SectionNumber(vec![1, 1])),
+            Link {
+                chapter: Chapter {
+                    name: String::from("First"),
+                    location: Some(PathBuf::from("./first.md")),
+                    ..Default::default()
+                },
+                section_number: Some(SectionNumber(vec![1])),
+                nested_items: vec![Link {
+                    chapter: Chapter {
+                        name: String::from("Nested"),
+                        location: Some(PathBuf::from("./nested.md")),
+                        ..Default::default()
+                    },
+                    section_number: Some(SectionNumber(vec![1, 1])),
                     nested_items: Vec::new(),
-                })],
-            }),
-            SummaryItem::Link(Link {
-                name: String::from("Second"),
-                location: Some(PathBuf::from("./second.md")),
-                number: Some(SectionNumber(vec![2])),
+                }],
+            },
+            Link {
+                chapter: Chapter {
+                    name: String::from("Second"),
+                    location: Some(PathBuf::from("./second.md")),
+                    ..Default::default()
+                },
+                section_number: Some(SectionNumber(vec![2])),
                 nested_items: Vec::new(),
-            }),
+            },
         ];
 
         let mut parser = SummaryParser::new(src);
@@ -727,18 +738,24 @@ mod t22 {
         let src = "- [First](./first.md)\n<!-- this is a comment -->\n- [Second](./second.md)";
 
         let should_be = vec![
-            SummaryItem::Link(Link {
-                name: String::from("First"),
-                location: Some(PathBuf::from("./first.md")),
-                number: Some(SectionNumber(vec![1])),
+            Link {
+                chapter: Chapter {
+                    name: String::from("First"),
+                    location: Some(PathBuf::from("./first.md")),
+                    ..Default::default()
+                },
+                section_number: Some(SectionNumber(vec![1])),
                 nested_items: Vec::new(),
-            }),
-            SummaryItem::Link(Link {
-                name: String::from("Second"),
-                location: Some(PathBuf::from("./second.md")),
-                number: Some(SectionNumber(vec![2])),
+            },
+            Link {
+                chapter: Chapter {
+                    name: String::from("Second"),
+                    location: Some(PathBuf::from("./second.md")),
+                    ..Default::default()
+                },
+                section_number: Some(SectionNumber(vec![2])),
                 nested_items: Vec::new(),
-            }),
+            },
         ];
 
         let mut parser = SummaryParser::new(src);
@@ -755,35 +772,46 @@ mod t22 {
                    # Title 2\n- [Third](./third.md)\n\t- [Fourth](./fourth.md)";
 
         let should_be = vec![
-            SummaryItem::Link(Link {
-                name: String::from("First"),
-                location: Some(PathBuf::from("./first.md")),
-                number: Some(SectionNumber(vec![1])),
-                nested_items: Vec::new(),
-            }),
-            SummaryItem::Link(Link {
-                name: String::from("Second"),
-                location: Some(PathBuf::from("./second.md")),
-                number: Some(SectionNumber(vec![2])),
-                nested_items: Vec::new(),
-            }),
-            SummaryItem::PartTitle(String::from("Title 2")),
-            SummaryItem::Link(Link {
-                name: String::from("Third"),
-                location: Some(PathBuf::from("./third.md")),
-                number: Some(SectionNumber(vec![3])),
-                nested_items: vec![SummaryItem::Link(Link {
-                    name: String::from("Fourth"),
-                    location: Some(PathBuf::from("./fourth.md")),
-                    number: Some(SectionNumber(vec![3, 1])),
-                    nested_items: Vec::new(),
-                })],
-            }),
+            Link {
+                chapter: Chapter {
+                    name: "First".to_owned(),
+                    location: Some(PathBuf::from("./first.md")),
+                    ..Default::default()
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![1])),
+            },
+            Link {
+                chapter: Chapter {
+                    name: "Second".to_owned(),
+                    location: Some(PathBuf::from("./second.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![2])),
+            },
+            Link {
+                chapter: Chapter {
+                    name: "Third".to_owned(),
+                    location: Some(PathBuf::from("./third.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![Link {
+                    chapter: Chapter {
+                        name: "Fourth".to_owned(),
+                        location: Some(PathBuf::from("./fourth.md")),
+                        nested_items_path: vec![],
+                    },
+                    nested_items: vec![],
+                    section_number: Some(SectionNumber(vec![3, 1])),
+                }],
+                section_number: Some(SectionNumber(vec![3])),
+            },
         ];
 
         let mut parser = SummaryParser::new(src);
         let got = parser.parse_parts().unwrap();
-
+        //let got = vec![1,2,3];
         assert_eq!(got, should_be);
     }
 
@@ -795,18 +823,24 @@ mod t22 {
     fn can_have_a_subheader_between_nested_items() {
         let src = "- [First](./first.md)\n\n## Subheading\n\n- [Second](./second.md)\n";
         let should_be = vec![
-            SummaryItem::Link(Link {
-                name: String::from("First"),
-                location: Some(PathBuf::from("./first.md")),
-                number: Some(SectionNumber(vec![1])),
-                nested_items: Vec::new(),
-            }),
-            SummaryItem::Link(Link {
-                name: String::from("Second"),
-                location: Some(PathBuf::from("./second.md")),
-                number: Some(SectionNumber(vec![2])),
-                nested_items: Vec::new(),
-            }),
+            Link {
+                chapter: Chapter {
+                    name: "First".to_owned(),
+                    location: Some(PathBuf::from("./first.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![1])),
+            },
+            Link {
+                chapter: Chapter {
+                    name: "Second".to_owned(),
+                    location: Some(PathBuf::from("./second.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![2])),
+            },
         ];
 
         let mut parser = SummaryParser::new(src);
@@ -823,12 +857,15 @@ mod t22 {
         let mut parser = SummaryParser::new(src);
 
         let got = parser.parse_numbered(&mut 0, &mut SectionNumber::default());
-        let should_be = vec![SummaryItem::Link(Link {
-            name: String::from("Empty"),
-            location: None,
-            number: Some(SectionNumber(vec![1])),
-            nested_items: Vec::new(),
-        })];
+        let should_be = vec![Link {
+            chapter: Chapter {
+                name: "Empty".to_owned(),
+                location: None,
+                nested_items_path: vec![],
+            },
+            nested_items: vec![],
+            section_number: Some(SectionNumber(vec![1])),
+        }];
 
         assert!(got.is_ok());
         assert_eq!(got.unwrap(), should_be);
@@ -841,26 +878,33 @@ mod t22 {
         let src =
             "- [First](./first.md)\n---\n- [Second](./second.md)\n---\n- [Third](./third.md)\n";
         let should_be = vec![
-            SummaryItem::Link(Link {
-                name: String::from("First"),
-                location: Some(PathBuf::from("./first.md")),
-                number: Some(SectionNumber(vec![1])),
-                nested_items: Vec::new(),
-            }),
-            SummaryItem::Separator,
-            SummaryItem::Link(Link {
-                name: String::from("Second"),
-                location: Some(PathBuf::from("./second.md")),
-                number: Some(SectionNumber(vec![2])),
-                nested_items: Vec::new(),
-            }),
-            SummaryItem::Separator,
-            SummaryItem::Link(Link {
-                name: String::from("Third"),
-                location: Some(PathBuf::from("./third.md")),
-                number: Some(SectionNumber(vec![3])),
-                nested_items: Vec::new(),
-            }),
+            Link {
+                chapter: Chapter {
+                    name: "First".to_owned(),
+                    location: Some(PathBuf::from("./first.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![1])),
+            },
+            Link {
+                chapter: Chapter {
+                    name: "Second".to_owned(),
+                    location: Some(PathBuf::from("./second.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![2])),
+            },
+            Link {
+                chapter: Chapter {
+                    name: "Third".to_owned(),
+                    location: Some(PathBuf::from("./third.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![3])),
+            },
         ];
 
         let mut parser = SummaryParser::new(src);
@@ -876,12 +920,15 @@ mod t22 {
     #[test]
     fn add_space_for_multi_line_chapter_names() {
         let src = "- [Chapter\ntitle](./chapter.md)";
-        let should_be = vec![SummaryItem::Link(Link {
-            name: String::from("Chapter title"),
-            location: Some(PathBuf::from("./chapter.md")),
-            number: Some(SectionNumber(vec![1])),
-            nested_items: Vec::new(),
-        })];
+        let should_be = vec![Link {
+            chapter: Chapter {
+                name: "Chapter title".to_owned(),
+                location: Some(PathBuf::from("./chapter.md")),
+                nested_items_path: vec![],
+            },
+            nested_items: vec![],
+            section_number: Some(SectionNumber(vec![1])),
+        }];
 
         let mut parser = SummaryParser::new(src);
         let got = parser
@@ -895,18 +942,24 @@ mod t22 {
     fn allow_space_in_link_destination() {
         let src = "- [test1](./test%20link1.md)\n- [test2](<./test link2.md>)";
         let should_be = vec![
-            SummaryItem::Link(Link {
-                name: String::from("test1"),
-                location: Some(PathBuf::from("./test link1.md")),
-                number: Some(SectionNumber(vec![1])),
-                nested_items: Vec::new(),
-            }),
-            SummaryItem::Link(Link {
-                name: String::from("test2"),
-                location: Some(PathBuf::from("./test link2.md")),
-                number: Some(SectionNumber(vec![2])),
-                nested_items: Vec::new(),
-            }),
+            Link {
+                chapter: Chapter {
+                    name: "test1".to_owned(),
+                    location: Some(PathBuf::from("./test link1.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![1])),
+            },
+            Link {
+                chapter: Chapter {
+                    name: "test2".to_owned(),
+                    location: Some(PathBuf::from("./test link2.md")),
+                    nested_items_path: vec![],
+                },
+                nested_items: vec![],
+                section_number: Some(SectionNumber(vec![2])),
+            },
         ];
         let mut parser = SummaryParser::new(src);
         let got = parser
