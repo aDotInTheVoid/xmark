@@ -56,7 +56,7 @@ pub fn parse_summary(summary: &str) -> Result<Summary> {
 }
 
 /// The parsed `SUMMARY.md`, specifying how the book should be laid out.
-#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, Hash)]
 pub struct Summary {
     /// An optional title for the `SUMMARY.md`, currently just ignored.
     pub title: String,
@@ -68,7 +68,7 @@ pub struct Summary {
     pub suffix_chapters: Vec<Chapter>,
 }
 
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default, Hash)]
 pub struct Chapter {
     pub name: String,
     // None => draft
@@ -81,11 +81,20 @@ pub struct Chapter {
 /// entries.
 ///
 /// This is roughly the equivalent of `[Some section](./path/to/file.md)`.
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default)]
+#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default, Hash)]
 pub struct Link {
     pub chapter: Chapter,
     pub nested_items: Vec<Link>,
     pub section_number: Option<SectionNumber>,
+}
+
+impl Link {
+    pub fn map(&mut self, f: impl Fn(&mut Chapter) + Copy) {
+        f(&mut self.chapter);
+        for i in &mut self.nested_items {
+            i.map(f);
+        }
+    }
 }
 
 /// A recursive descent (-ish) parser for a `SUMMARY.md`.
@@ -250,7 +259,7 @@ impl<'a> SummaryParser<'a> {
         loop {
             // Buthured remnents of when their could be titles halfway throught the summary.
             // TODO: Cleanup and merge with parse_numbered
-            match dbg!(self.next_event()) {
+            match self.next_event() {
                 Some(ev @ Event::Start(Tag::Paragraph)) => {
                     // we're starting the suffix chapters
                     self.back(ev);
@@ -526,7 +535,7 @@ fn stringify_events(events: Vec<Event<'_>>) -> String {
 
 /// A section number like "1.2.3", basically just a newtype'd `Vec<u32>` with
 /// a pretty `Display` impl.
-#[derive(Debug, PartialEq, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, PartialEq, Clone, Default, Serialize, Deserialize, Hash)]
 pub struct SectionNumber(pub Vec<u32>);
 
 impl Display for SectionNumber {

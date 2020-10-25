@@ -15,7 +15,7 @@ color-backtrace = "0.4.2"
 color-eyre = "0.5.6"
 dashmap = "3.11.10"
 elasticlunr-rs = "2.3.9"
-eyre = "0.6.1"
+eyre = {version="0.6.1", features=["track-caller"]}
 handlebars = "3.5.0"
 ignore = "0.4.16"
 liquid = "0.21.4"

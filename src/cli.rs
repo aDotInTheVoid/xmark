@@ -5,4 +5,6 @@ use std::path;
 pub struct Args {
     #[clap(short, long, default_value = ".")]
     pub dir: path::PathBuf,
+    #[clap(long)]
+    pub create: bool,
 }
