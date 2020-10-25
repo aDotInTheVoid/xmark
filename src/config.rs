@@ -70,9 +70,9 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
 
 #[cfg(test)]
 mod tests {
-        use std::io::Write;
+    use insta::assert_yaml_snapshot;
 
-use super::*;
+    use super::*;
 
     #[test]
     fn de_gloal_config() {
@@ -100,10 +100,23 @@ use super::*;
     #[test]
     fn hydrate_dummy() {
         let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book");
-        let args = cli::Args { dir: dir.clone(), create: false };
+        let args = cli::Args {
+            dir,
+            create: false,
+        };
         let conf = load(args).unwrap();
-        let string = serde_json::to_string_pretty(&conf).unwrap();
-        let path = dir.join("manifest.json");
-        fs::File::create(path).unwrap().write_all(string.as_bytes()).unwrap()
+        assert_yaml_snapshot!(conf, {
+            ".**.location" => insta::dynamic_redaction(|val, _| {
+                if let insta::internals::Content::Some(some) = val {
+                    if let insta::internals::Content::String(s) = *some {
+                        s.replace(env!("CARGO_MANIFEST_DIR"), "BASEDIR")
+                    } else {
+                        "".into()
+                    }
+                } else {
+                    "".into()
+                }
+            })
+        });
     }
 }

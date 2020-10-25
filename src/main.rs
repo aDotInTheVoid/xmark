@@ -1,5 +1,3 @@
-use std::fs;
-
 pub mod book;
 pub mod cli;
 pub mod config;
@@ -12,9 +10,7 @@ use eyre::{Result, WrapErr};
 fn main() -> Result<()> {
     color_eyre::install()?;
     let args = cli::Args::parse();
-    dbg!(&args);
-
-    let conf = config::load(args)?;
+    let _conf = config::load(args).context("Failed to load config")?;
 
     Ok(())
 }
