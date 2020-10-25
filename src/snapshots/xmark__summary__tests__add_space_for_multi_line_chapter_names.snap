@@ -1,0 +1,11 @@
+---
+source: src/summary.rs
+expression: got
+---
+- chapter:
+    name: Chapter title
+    location: "./chapter.md"
+    nested_items_path: []
+  nested_items: []
+  section_number:
+    - 1

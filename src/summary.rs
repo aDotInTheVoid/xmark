@@ -572,6 +572,8 @@ impl FromIterator<u32> for SectionNumber {
 
 #[cfg(test)]
 mod tests {
+    use insta::assert_yaml_snapshot;
+
     use super::*;
 
     #[test]
@@ -705,74 +707,24 @@ mod tests {
     fn parse_nested_numbered_chapters() {
         let src = "- [First](./first.md)\n  - [Nested](./nested.md)\n- [Second](./second.md)";
 
-        let should_be = vec![
-            Link {
-                chapter: Chapter {
-                    name: String::from("First"),
-                    location: Some(PathBuf::from("./first.md")),
-                    ..Default::default()
-                },
-                section_number: Some(SectionNumber(vec![1])),
-                nested_items: vec![Link {
-                    chapter: Chapter {
-                        name: String::from("Nested"),
-                        location: Some(PathBuf::from("./nested.md")),
-                        ..Default::default()
-                    },
-                    section_number: Some(SectionNumber(vec![1, 1])),
-                    nested_items: Vec::new(),
-                }],
-            },
-            Link {
-                chapter: Chapter {
-                    name: String::from("Second"),
-                    location: Some(PathBuf::from("./second.md")),
-                    ..Default::default()
-                },
-                section_number: Some(SectionNumber(vec![2])),
-                nested_items: Vec::new(),
-            },
-        ];
-
         let mut parser = SummaryParser::new(src);
         let got = parser
             .parse_numbered(&mut 0, &mut SectionNumber::default())
             .unwrap();
 
-        assert_eq!(got, should_be);
+        assert_yaml_snapshot!(got);
     }
 
     #[test]
     fn parse_numbered_chapters_separated_by_comment() {
         let src = "- [First](./first.md)\n<!-- this is a comment -->\n- [Second](./second.md)";
 
-        let should_be = vec![
-            Link {
-                chapter: Chapter {
-                    name: String::from("First"),
-                    location: Some(PathBuf::from("./first.md")),
-                    ..Default::default()
-                },
-                section_number: Some(SectionNumber(vec![1])),
-                nested_items: Vec::new(),
-            },
-            Link {
-                chapter: Chapter {
-                    name: String::from("Second"),
-                    location: Some(PathBuf::from("./second.md")),
-                    ..Default::default()
-                },
-                section_number: Some(SectionNumber(vec![2])),
-                nested_items: Vec::new(),
-            },
-        ];
-
         let mut parser = SummaryParser::new(src);
         let got = parser
             .parse_numbered(&mut 0, &mut SectionNumber::default())
             .unwrap();
 
-        assert_eq!(got, should_be);
+        assert_yaml_snapshot!(got);
     }
 
     #[test]
@@ -780,48 +732,9 @@ mod tests {
         let src = "- [First](./first.md)\n- [Second](./second.md)\n\
                    # Title 2\n- [Third](./third.md)\n\t- [Fourth](./fourth.md)";
 
-        let should_be = vec![
-            Link {
-                chapter: Chapter {
-                    name: "First".to_owned(),
-                    location: Some(PathBuf::from("./first.md")),
-                    ..Default::default()
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![1])),
-            },
-            Link {
-                chapter: Chapter {
-                    name: "Second".to_owned(),
-                    location: Some(PathBuf::from("./second.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![2])),
-            },
-            Link {
-                chapter: Chapter {
-                    name: "Third".to_owned(),
-                    location: Some(PathBuf::from("./third.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![Link {
-                    chapter: Chapter {
-                        name: "Fourth".to_owned(),
-                        location: Some(PathBuf::from("./fourth.md")),
-                        nested_items_path: vec![],
-                    },
-                    nested_items: vec![],
-                    section_number: Some(SectionNumber(vec![3, 1])),
-                }],
-                section_number: Some(SectionNumber(vec![3])),
-            },
-        ];
-
         let mut parser = SummaryParser::new(src);
         let got = parser.parse_parts().unwrap();
-        //let got = vec![1,2,3];
-        assert_eq!(got, should_be);
+        assert_yaml_snapshot!(got);
     }
 
     /// This test ensures the book will continue to pass because it breaks the
@@ -831,33 +744,13 @@ mod tests {
     #[test]
     fn can_have_a_subheader_between_nested_items() {
         let src = "- [First](./first.md)\n\n## Subheading\n\n- [Second](./second.md)\n";
-        let should_be = vec![
-            Link {
-                chapter: Chapter {
-                    name: "First".to_owned(),
-                    location: Some(PathBuf::from("./first.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![1])),
-            },
-            Link {
-                chapter: Chapter {
-                    name: "Second".to_owned(),
-                    location: Some(PathBuf::from("./second.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![2])),
-            },
-        ];
 
         let mut parser = SummaryParser::new(src);
         let got = parser
             .parse_numbered(&mut 0, &mut SectionNumber::default())
             .unwrap();
 
-        assert_eq!(got, should_be);
+        assert_yaml_snapshot!(got);
     }
 
     #[test]
@@ -866,18 +759,9 @@ mod tests {
         let mut parser = SummaryParser::new(src);
 
         let got = parser.parse_numbered(&mut 0, &mut SectionNumber::default());
-        let should_be = vec![Link {
-            chapter: Chapter {
-                name: "Empty".to_owned(),
-                location: None,
-                nested_items_path: vec![],
-            },
-            nested_items: vec![],
-            section_number: Some(SectionNumber(vec![1])),
-        }];
 
         assert!(got.is_ok());
-        assert_eq!(got.unwrap(), should_be);
+        assert_yaml_snapshot!(got.unwrap());
     }
 
     /// Regression test for https://github.com/rust-lang/mdBook/issues/779
@@ -886,42 +770,13 @@ mod tests {
     fn keep_numbering_after_separator() {
         let src =
             "- [First](./first.md)\n---\n- [Second](./second.md)\n---\n- [Third](./third.md)\n";
-        let should_be = vec![
-            Link {
-                chapter: Chapter {
-                    name: "First".to_owned(),
-                    location: Some(PathBuf::from("./first.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![1])),
-            },
-            Link {
-                chapter: Chapter {
-                    name: "Second".to_owned(),
-                    location: Some(PathBuf::from("./second.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![2])),
-            },
-            Link {
-                chapter: Chapter {
-                    name: "Third".to_owned(),
-                    location: Some(PathBuf::from("./third.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![3])),
-            },
-        ];
 
         let mut parser = SummaryParser::new(src);
         let got = parser
             .parse_numbered(&mut 0, &mut SectionNumber::default())
             .unwrap();
 
-        assert_eq!(got, should_be);
+        assert_yaml_snapshot!(got);
     }
 
     /// Regression test for https://github.com/rust-lang/mdBook/issues/1218
@@ -929,52 +784,24 @@ mod tests {
     #[test]
     fn add_space_for_multi_line_chapter_names() {
         let src = "- [Chapter\ntitle](./chapter.md)";
-        let should_be = vec![Link {
-            chapter: Chapter {
-                name: "Chapter title".to_owned(),
-                location: Some(PathBuf::from("./chapter.md")),
-                nested_items_path: vec![],
-            },
-            nested_items: vec![],
-            section_number: Some(SectionNumber(vec![1])),
-        }];
 
         let mut parser = SummaryParser::new(src);
         let got = parser
             .parse_numbered(&mut 0, &mut SectionNumber::default())
             .unwrap();
 
-        assert_eq!(got, should_be);
+        assert_yaml_snapshot!(got);
     }
 
     #[test]
     fn allow_space_in_link_destination() {
         let src = "- [test1](./test%20link1.md)\n- [test2](<./test link2.md>)";
-        let should_be = vec![
-            Link {
-                chapter: Chapter {
-                    name: "test1".to_owned(),
-                    location: Some(PathBuf::from("./test link1.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![1])),
-            },
-            Link {
-                chapter: Chapter {
-                    name: "test2".to_owned(),
-                    location: Some(PathBuf::from("./test link2.md")),
-                    nested_items_path: vec![],
-                },
-                nested_items: vec![],
-                section_number: Some(SectionNumber(vec![2])),
-            },
-        ];
+
         let mut parser = SummaryParser::new(src);
         let got = parser
             .parse_numbered(&mut 0, &mut SectionNumber::default())
             .unwrap();
 
-        assert_eq!(got, should_be);
+        assert_yaml_snapshot!(got);
     }
 }

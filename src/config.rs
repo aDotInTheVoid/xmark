@@ -100,10 +100,7 @@ mod tests {
     #[test]
     fn hydrate_dummy() {
         let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book");
-        let args = cli::Args {
-            dir,
-            create: false,
-        };
+        let args = cli::Args { dir, create: false };
         let conf = load(args).unwrap();
         assert_yaml_snapshot!(conf, {
             ".**.location" => insta::dynamic_redaction(|val, _| {

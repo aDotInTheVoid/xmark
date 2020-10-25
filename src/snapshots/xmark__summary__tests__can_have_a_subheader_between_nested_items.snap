@@ -1,0 +1,18 @@
+---
+source: src/summary.rs
+expression: got
+---
+- chapter:
+    name: First
+    location: "./first.md"
+    nested_items_path: []
+  nested_items: []
+  section_number:
+    - 1
+- chapter:
+    name: Second
+    location: "./second.md"
+    nested_items_path: []
+  nested_items: []
+  section_number:
+    - 2
