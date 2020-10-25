@@ -31,6 +31,7 @@
 - gnuplot?
 - pyplot?
 - Any of the other formats suported by [adoc](https://github.com/asciidoctor/asciidoctor-diagram/blob/fd8ab7d9eb9d5de3c55a0e27c4276206c728a917/README.adoc#creating-a-diagram)
+- Svgbob
 
 ## Outputs
 
