@@ -1,7 +1,7 @@
 use std::fs;
 use std::path::PathBuf;
 
-use eyre::Result;
+use eyre::{Result, WrapErr};
 use serde::{Deserialize, Serialize};
 
 use crate::cli;
@@ -15,15 +15,23 @@ pub struct GlobalConfigRepr {
 }
 
 /// The config as usable for the programm
-#[derive(Clone, Debug, Hash, PartialEq)]
+#[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
 pub struct GlobalConf {
     pub books: Vec<BookConf>,
 }
 
-#[derive(Clone, Debug, Hash, PartialEq)]
+#[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
 pub struct BookConf {
     pub location: PathBuf,
     pub summary: Summary,
+}
+
+pub fn load(args: cli::Args) -> Result<GlobalConf> {
+    let conf = fs::read_to_string(args.dir.join("xmark.toml"))
+        .with_context(|| "Couldn't find xmark.toml")?;
+    let conf: GlobalConfigRepr = toml::from_str(&conf)?;
+
+    hydrate(conf, &args)
 }
 
 // Convert the disk format to a usable form
@@ -37,11 +45,11 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
                 let mut summary = parse_summary(&fs::read_to_string(location.join("SUMMARY.md"))?)?;
 
                 if args.create {
-                    create_missing(&location, &summary);
+                    create_missing(&location, &summary)?;
                 }
 
                 let fix_chap_loc = |chap: &mut Chapter| {
-                    if let Some(loc) = chap.location.as_ref().map(|p|p.as_path()) {
+                    if let Some(loc) = chap.location.as_deref() {
                         chap.location = Some(location.join(loc));
                     }
                 };
@@ -62,7 +70,9 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
+        use std::io::Write;
+
+use super::*;
 
     #[test]
     fn de_gloal_config() {
@@ -85,5 +95,15 @@ mod tests {
         let gcr = GlobalConfigRepr { books: vec![] };
         let gc = GlobalConf { books: vec![] };
         assert_eq!(hydrate(gcr, &args).unwrap(), gc);
+    }
+
+    #[test]
+    fn hydrate_dummy() {
+        let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book");
+        let args = cli::Args { dir: dir.clone(), create: false };
+        let conf = load(args).unwrap();
+        let string = serde_json::to_string_pretty(&conf).unwrap();
+        let path = dir.join("manifest.json");
+        fs::File::create(path).unwrap().write_all(string.as_bytes()).unwrap()
     }
 }
