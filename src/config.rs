@@ -5,7 +5,8 @@ use eyre::Result;
 use serde::{Deserialize, Serialize};
 
 use crate::cli;
-use crate::summary::{parse_summary, Summary};
+use crate::create_missing::create_missing;
+use crate::summary::{parse_summary, Chapter, Summary};
 
 /// The Config as represented in the global xmark.toml
 #[derive(Clone, Debug, Hash, Serialize, Deserialize)]
@@ -33,7 +34,25 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
             .iter()
             .map(|name| {
                 let location = args.dir.join(name);
-                let summary = parse_summary(&fs::read_to_string(location.join("SUMMARY.md"))?)?;
+                let mut summary = parse_summary(&fs::read_to_string(location.join("SUMMARY.md"))?)?;
+
+                if args.create {
+                    create_missing(&location, &summary);
+                }
+
+                let fix_chap_loc = |chap: &mut Chapter| {
+                    if let Some(loc) = chap.location.as_ref().map(|p|p.as_path()) {
+                        chap.location = Some(location.join(loc));
+                    }
+                };
+
+                summary.prefix_chapters.iter_mut().for_each(fix_chap_loc);
+
+                summary.suffix_chapters.iter_mut().for_each(fix_chap_loc);
+
+                summary.numbered_chapters.iter_mut().for_each(|chap| {
+                    chap.map(fix_chap_loc);
+                });
 
                 Ok(BookConf { location, summary })
             })
@@ -65,6 +84,6 @@ mod tests {
         };
         let gcr = GlobalConfigRepr { books: vec![] };
         let gc = GlobalConf { books: vec![] };
-        assert_eq!(hydrate(gcr, &args), gc);
+        assert_eq!(hydrate(gcr, &args).unwrap(), gc);
     }
 }
