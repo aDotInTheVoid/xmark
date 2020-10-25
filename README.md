@@ -13,6 +13,7 @@
 - ninja
 - https://joshwcomeau.com/css/full-bleed/
 - doctave
+- https://github.com/squidfunk/mkdocs-material
 
 ## Drawing forms
 

@@ -89,11 +89,19 @@ pub struct Link {
 }
 
 impl Link {
-    pub fn map(&mut self, f: impl Fn(&mut Chapter) + Copy) {
+    pub fn map_mut(&mut self, f: impl Fn(&mut Chapter) + Copy) {
         f(&mut self.chapter);
         for i in &mut self.nested_items {
-            i.map(f);
+            i.map_mut(f);
         }
+    }
+
+    pub fn try_map<E>(&self, f: impl Fn(&Chapter) -> Result<(), E> + Copy ) -> Result<(), E> {
+        f(&self.chapter)?;
+        for i in &self.nested_items {
+            i.try_map(f)?;
+        }
+        Ok(())
     }
 }
 

@@ -27,8 +27,8 @@ pub struct BookConf {
     pub summary: Summary,
 }
 
-pub fn load(args: cli::Args) -> Result<GlobalConf> {
-    let conf = fs::read_to_string(args.dir.join("xmark.toml"))
+pub fn load(args: &cli::Args) -> Result<GlobalConf> {
+    let conf = fs::read_to_string(args.dir.clone().join("xmark.toml"))
         .with_context(|| "Couldn't find xmark.toml")?;
     let conf: GlobalConfigRepr = toml::from_str(&conf)?;
 
@@ -60,7 +60,7 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
                 summary.suffix_chapters.iter_mut().for_each(fix_chap_loc);
 
                 summary.numbered_chapters.iter_mut().for_each(|chap| {
-                    chap.map(fix_chap_loc);
+                    chap.map_mut(fix_chap_loc);
                 });
 
                 Ok(BookConf { location, summary, slug: name.to_owned() })
@@ -117,7 +117,7 @@ mod tests {
 
         let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book");
         let args = cli::Args { dir, create: false };
-        let conf = load(args).unwrap();
+        let conf = load(&args).unwrap();
         assert_yaml_snapshot!(conf, {
             ".location" => insta::dynamic_redaction(redacter),
             ".**.location" => insta::dynamic_redaction(redacter),
