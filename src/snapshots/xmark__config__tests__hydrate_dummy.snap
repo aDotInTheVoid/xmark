@@ -3,7 +3,7 @@ source: src/config.rs
 expression: conf
 ---
 books:
-  - location: ""
+  - location: BASEDIR/dummy-book/book-1
     summary:
       title: The Rust Programming Language
       prefix_chapters:
@@ -805,7 +805,7 @@ books:
           section_number:
             - 21
       suffix_chapters: []
-  - location: ""
+  - location: BASEDIR/dummy-book/book-2
     summary:
       title: Summary
       prefix_chapters: []
@@ -989,7 +989,7 @@ books:
         - name: Contributors
           location: BASEDIR/dummy-book/book-2/misc/contributors.md
           nested_items_path: []
-  - location: ""
+  - location: BASEDIR/dummy-book/book-3
     summary:
       title: "3"
       prefix_chapters:
