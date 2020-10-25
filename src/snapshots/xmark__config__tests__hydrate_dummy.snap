@@ -4,6 +4,7 @@ expression: conf
 ---
 books:
   - location: BASEDIR/dummy-book/book-1
+    slug: book-1
     summary:
       title: The Rust Programming Language
       prefix_chapters:
@@ -806,6 +807,7 @@ books:
             - 21
       suffix_chapters: []
   - location: BASEDIR/dummy-book/book-2
+    slug: book-2
     summary:
       title: Summary
       prefix_chapters: []
@@ -990,6 +992,7 @@ books:
           location: BASEDIR/dummy-book/book-2/misc/contributors.md
           nested_items_path: []
   - location: BASEDIR/dummy-book/book-3
+    slug: book-3
     summary:
       title: "3"
       prefix_chapters:

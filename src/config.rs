@@ -23,6 +23,7 @@ pub struct GlobalConf {
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
 pub struct BookConf {
     pub location: PathBuf,
+    pub slug: String,
     pub summary: Summary,
 }
 
@@ -62,7 +63,7 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
                     chap.map(fix_chap_loc);
                 });
 
-                Ok(BookConf { location, summary })
+                Ok(BookConf { location, summary, slug: name.to_owned() })
             })
             .collect::<Result<_>>()?,
     })
