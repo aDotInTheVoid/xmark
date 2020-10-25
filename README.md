@@ -14,6 +14,8 @@
 - https://joshwcomeau.com/css/full-bleed/
 - doctave
 - https://github.com/squidfunk/mkdocs-material
+- https://lab.hakim.se/progress-nav/
+
 
 ## Drawing forms
 

@@ -43,7 +43,11 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
             .iter()
             .map(|name| {
                 let location = args.dir.join(name);
-                let mut summary = parse_summary(&fs::read_to_string(location.join("SUMMARY.md"))?)?;
+                let summary_location = location.join("SUMMARY.md");
+                let mut summary = parse_summary(
+                    &fs::read_to_string(&summary_location)
+                        .wrap_err_with(|| format!("Couldn't open {:?}", summary_location))?,
+                )?;
 
                 if args.create {
                     create_missing(&location, &summary)?;
@@ -63,7 +67,11 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
                     chap.map_mut(fix_chap_loc);
                 });
 
-                Ok(BookConf { location, summary, slug: name.to_owned() })
+                Ok(BookConf {
+                    location,
+                    summary,
+                    slug: name.to_owned(),
+                })
             })
             .collect::<Result<_>>()?,
     })

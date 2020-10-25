@@ -96,7 +96,7 @@ impl Link {
         }
     }
 
-    pub fn try_map<E>(&self, f: impl Fn(&Chapter) -> Result<(), E> + Copy ) -> Result<(), E> {
+    pub fn try_map<E>(&self, f: impl Fn(&Chapter) -> Result<(), E> + Copy) -> Result<(), E> {
         f(&self.chapter)?;
         for i in &self.nested_items {
             i.try_map(f)?;
