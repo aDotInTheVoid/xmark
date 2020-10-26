@@ -17,11 +17,12 @@ pub struct GlobalConfigRepr {
 /// The config as usable for the programm
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
 pub struct GlobalConf {
-    pub books: Vec<BookConf>,
+    pub books: Vec<Book>,
 }
 
+// An book. 
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
-pub struct BookConf {
+pub struct Book {
     pub location: PathBuf,
     pub slug: String,
     pub summary: Summary,
@@ -67,7 +68,7 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
                     chap.map_mut(fix_chap_loc);
                 });
 
-                Ok(BookConf {
+                Ok(Book {
                     location,
                     summary,
                     slug: name.to_owned(),

@@ -1,3 +1,0 @@
-[submodule "mdbook"]
-	path = mdbook
-	url = https://github.com/rust-lang/mdBook/

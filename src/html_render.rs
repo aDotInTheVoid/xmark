@@ -6,25 +6,42 @@ use eyre::{Context, Result};
 use pulldown_cmark::{html, Options, Parser};
 
 use crate::cli;
-use crate::config::BookConf;
+use crate::config::Book;
 use crate::summary::Chapter;
 
-pub fn render(book: BookConf, args: &cli::Args) -> Result<()> {
-    let out_dir = args.dir.clone().join("_out").join("html");
-    fs::create_dir_all(&out_dir)?;
 
-    for i in book.summary.prefix_chapters {
-        render_chap_io(&i, &out_dir, &args.dir)?;
-    }
-    for i in book.summary.suffix_chapters {
-        render_chap_io(&i, &out_dir, &args.dir)?;
-    }
-    for i in book.summary.numbered_chapters {
-        i.try_map(|chap| render_chap_io(chap, &out_dir, &args.dir))?;
-    }
-
-    Ok(())
+#[derive(Clone, Debug)]
+pub struct HTMLRender<'a> {
+    book: Book,
+    args: &'a cli::Args
 }
+
+impl<'a> HTMLRender<'a> {
+    pub fn new(book: Book, args: &'a cli::Args) -> Self {
+        Self{
+            book, args
+        }
+    }
+
+    pub fn render(self) -> Result<()> {
+        let out_dir = args.dir.clone().join("_out").join("html");
+        fs::create_dir_all(&out_dir)?;
+    
+        for i in self.book.summary.prefix_chapters {
+            render_chap_io(&i, &out_dir, &self.args.dir)?;
+        }
+        for i in self.book.summary.suffix_chapters {
+            render_chap_io(&i, &out_dir, &self.args.dir)?;
+        }
+        for i in self.book.summary.numbered_chapters {
+            i.try_map(|chap| render_chap_io(chap, &out_dir, &self.args.dir))?;
+        }
+    
+        Ok(())
+    }
+
+}
+
 
 fn render_chap_io(chapter: &Chapter, build_dir: &Path, base_dir: &Path) -> Result<()> {
     // Not a draft
