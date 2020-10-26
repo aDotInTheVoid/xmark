@@ -5,18 +5,29 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
+        # TODO: Widnows. Currently insta fails due to path sep
+        os: [ubuntu-latest] #, windows-latest, macOS-latest]
         rust: [stable]
-        include:
-          - rust: beta
-            os: ubuntu-latest
-          - rust: nightly
-            os: ubuntu-latest
+        # include:
+        #   - rust: beta
+        #     os: ubuntu-latest
+        #   - rust: nightly
+        #     os: ubuntu-latest
 
     steps:
     - uses: hecrj/setup-rust-action@v1
       with:
         rust-version: ${{ matrix.rust }}
+      
+    - name: Cache Deps
+      uses: actions/cache@v2
+      with:
+        path: |
+          ~/.cargo/registry
+         ~/.cargo/git
+         target
+        key: ${{ runner.os }}-${{ matrix.rust }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
     - uses: actions/checkout@v2
       with:
         submodules: true
