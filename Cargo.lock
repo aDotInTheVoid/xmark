@@ -61,7 +61,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "04dabd011e19821a348abb0dec7b7fda959cd6b3477c474395b958b291942b0e"
 dependencies = [
  "doc-comment",
- "globwalk",
+ "globwalk 0.7.3",
  "predicates",
  "predicates-core",
  "predicates-tree",
@@ -644,6 +644,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "globwalk"
+version = "0.8.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "178270263374052c40502e9f607134947de75302c1348d1a0e31db67c1691446"
+dependencies = [
+ "bitflags",
+ "ignore",
+ "walkdir",
+]
+
+[[package]]
 name = "h2"
 version = "0.2.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -887,6 +898,7 @@ checksum = "e7e7528a20113cf7ca90eddfc2439c608188b6eafc0613964da2bd140c92acec"
 dependencies = [
  "console",
  "difference",
+ "globwalk 0.8.0",
  "lazy_static",
  "pest",
  "pest_derive",

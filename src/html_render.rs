@@ -47,7 +47,7 @@ fn render_chap_io(chapter: &Chapter, build_dir: &Path, base_dir: &Path) -> Resul
 }
 
 // Pure inner for testing
-fn render_chap(content: &str) -> String {
+pub(crate) fn render_chap(content: &str) -> String {
     let opts = Options::all();
     let parser = Parser::new_ext(content, opts);
     let mut out = String::new();
@@ -57,11 +57,14 @@ fn render_chap(content: &str) -> String {
 
 #[cfg(test)]
 mod tests {
-    use std::collections::{BTreeSet};
+    use super::*;
+
+    use std::collections::BTreeSet;
+    use std::fs;
     use std::path::PathBuf;
 
     use assert_fs::prelude::*;
-    use insta::{assert_yaml_snapshot, dynamic_redaction};
+    use insta::{assert_snapshot, assert_yaml_snapshot, dynamic_redaction, glob};
 
     use crate::{cli, config, html_render};
 
@@ -83,7 +86,6 @@ mod tests {
             html_render::render(book, &args).unwrap()
         }
 
-
         // BTree so it's in order.
         let paths: BTreeSet<_> = ignore::Walk::new(temp.path())
             .filter_map(|x| x.ok().map(|y| y.into_path()))
@@ -93,5 +95,14 @@ mod tests {
         assert_yaml_snapshot!(paths, {"[]" => dynamic_redaction(move |val, _| {
             val.as_str().unwrap().replace(temp.path().as_os_str().to_str().unwrap(), "")
         })});
+    }
+
+    #[test]
+    fn render_readmes() {
+        glob!("render_html_tests/*.md", |path| {
+            let input = fs::read_to_string(path).unwrap();
+            let out = render_chap(&input);
+            assert_snapshot!(out);
+        })
     }
 }
