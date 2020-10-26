@@ -24,8 +24,8 @@ jobs:
       with:
         path: |
           ~/.cargo/registry
-         ~/.cargo/git
-         target
+          ~/.cargo/git
+          target
         key: ${{ runner.os }}-${{ matrix.rust }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
     - uses: actions/checkout@v2
