@@ -18,5 +18,6 @@ jobs:
       with:
         rust-version: ${{ matrix.rust }}
     - uses: actions/checkout@v2
-      submodules: true
+      with:
+        submodules: true
     - run: cargo test
