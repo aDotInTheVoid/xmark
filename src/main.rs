@@ -10,7 +10,6 @@ use eyre::{Result, WrapErr};
 fn main() -> Result<()> {
     color_eyre::install()?;
     let args = cli::Args::parse()?;
-    dbg!(&args);
     let conf = config::load(&args).context("Failed to load config")?;
     for book in conf.books {
         html_render::render(book, &args)?;

@@ -117,7 +117,7 @@ mod tests {
             }
 
             if let insta::internals::Content::String(s) = val {
-                s.replace(dbg!(env!("CARGO_MANIFEST_DIR")), "BASEDIR")
+                s.replace(env!("CARGO_MANIFEST_DIR"), "BASEDIR")
             } else {
                 "".into()
             }
