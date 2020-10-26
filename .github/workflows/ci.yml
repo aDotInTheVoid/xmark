@@ -1,5 +1,5 @@
-name: Test Rust project
-on: [push]
+name: ci
+on: [push, pull_request]
 jobs:
   test:
     runs-on: ${{ matrix.os }}
@@ -18,5 +18,5 @@ jobs:
       with:
         rust-version: ${{ matrix.rust }}
     - uses: actions/checkout@v2
-    - name: Run tests
-      run: cargo test
+      submodules: true
+    - run: cargo test
