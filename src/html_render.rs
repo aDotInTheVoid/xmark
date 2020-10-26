@@ -1,6 +1,6 @@
 use std::fs;
 use std::io::Write;
-use std::path::Path;
+use std::path::{Path, PathBuf};
 
 use eyre::{Context, Result};
 use pulldown_cmark::{html, Options, Parser};
@@ -9,58 +9,64 @@ use crate::cli;
 use crate::config::Book;
 use crate::summary::Chapter;
 
-
+/// Singleton
 #[derive(Clone, Debug)]
 pub struct HTMLRender<'a> {
-    book: Book,
-    args: &'a cli::Args
+    books: Vec<Book>,
+    args: &'a cli::Args,
+    out_dir: PathBuf,
 }
 
 impl<'a> HTMLRender<'a> {
-    pub fn new(book: Book, args: &'a cli::Args) -> Self {
-        Self{
-            book, args
+    pub fn new(books: Vec<Book>, args: &'a cli::Args) -> Self {
+        let out_dir = args.dir.clone().join("_out").join("html");
+
+        Self {
+            books,
+            args,
+            out_dir,
         }
     }
 
-    pub fn render(self) -> Result<()> {
-        let out_dir = args.dir.clone().join("_out").join("html");
-        fs::create_dir_all(&out_dir)?;
-    
-        for i in self.book.summary.prefix_chapters {
-            render_chap_io(&i, &out_dir, &self.args.dir)?;
+    pub fn render(&self) -> Result<()> {
+        fs::create_dir_all(&self.out_dir)?;
+
+        for book in &self.books {
+            for i in &book.summary.prefix_chapters {
+                self.render_chap_io(i)?;
+            }
+            for i in &book.summary.suffix_chapters {
+                self.render_chap_io(i)?;
+            }
+            for i in &book.summary.numbered_chapters {
+                i.try_map(|chap| self.render_chap_io(chap))?;
+            }
         }
-        for i in self.book.summary.suffix_chapters {
-            render_chap_io(&i, &out_dir, &self.args.dir)?;
-        }
-        for i in self.book.summary.numbered_chapters {
-            i.try_map(|chap| render_chap_io(chap, &out_dir, &self.args.dir))?;
-        }
-    
+
         Ok(())
     }
 
-}
+    fn render_chap_io(&self, chapter: &Chapter) -> Result<()> {
+        // Not a draft
+        if let Some(ref loc) = chapter.location {
+            let content = fs::read_to_string(loc)?;
+            let html = render_chap(&content);
 
+            let mut path = self
+                .out_dir
+                .join(loc.strip_prefix(&self.args.dir).expect("Unreachble"));
 
-fn render_chap_io(chapter: &Chapter, build_dir: &Path, base_dir: &Path) -> Result<()> {
-    // Not a draft
-    if let Some(ref loc) = chapter.location {
-        let content = fs::read_to_string(loc)?;
-        let html = render_chap(&content);
+            path.set_extension("html");
 
-        let mut path = build_dir.join(loc.strip_prefix(base_dir).expect("Unreachble"));
+            fs::create_dir_all(path.parent().unwrap())?;
 
-        path.set_extension("html");
+            let mut file = fs::File::create(&path)
+                .wrap_err_with(|| format!("Failed to create {:?}", &path))?;
+            file.write_all(html.as_bytes())?;
+        }
 
-        fs::create_dir_all(path.parent().unwrap())?;
-
-        let mut file =
-            fs::File::create(&path).wrap_err_with(|| format!("Failed to create {:?}", &path))?;
-        file.write_all(html.as_bytes())?;
+        Ok(())
     }
-
-    Ok(())
 }
 
 // Pure inner for testing
@@ -99,9 +105,9 @@ mod tests {
             dir: temp.path().to_owned(),
         };
         let conf = config::load(&args).unwrap();
-        for book in conf.books {
-            html_render::render(book, &args).unwrap()
-        }
+        let render = html_render::HTMLRender::new(conf.books, &args);
+        render.render().unwrap();
+       
 
         // BTree so it's in order.
         let paths: BTreeSet<_> = ignore::Walk::new(temp.path())

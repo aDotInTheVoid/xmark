@@ -20,7 +20,7 @@ pub struct GlobalConf {
     pub books: Vec<Book>,
 }
 
-// An book. 
+// An book.
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
 pub struct Book {
     pub location: PathBuf,
