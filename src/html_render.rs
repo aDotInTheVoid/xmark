@@ -1,6 +1,6 @@
 use std::fs;
 use std::io::Write;
-use std::path::{Path, PathBuf};
+use std::path::PathBuf;
 
 use eyre::{Context, Result};
 use pulldown_cmark::{html, Options, Parser};
@@ -11,14 +11,14 @@ use crate::summary::Chapter;
 
 /// Singleton
 #[derive(Clone, Debug)]
-pub struct HTMLRender<'a> {
-    books: Vec<Book>,
+pub struct HTMLRender<'a, 'b> {
+    books: &'b [Book],
     args: &'a cli::Args,
     out_dir: PathBuf,
 }
 
-impl<'a> HTMLRender<'a> {
-    pub fn new(books: Vec<Book>, args: &'a cli::Args) -> Self {
+impl<'a, 'b> HTMLRender<'a, 'b> {
+    pub fn new(books: &'b [Book], args: &'a cli::Args) -> Self {
         let out_dir = args.dir.clone().join("_out").join("html");
 
         Self {
@@ -31,7 +31,7 @@ impl<'a> HTMLRender<'a> {
     pub fn render(&self) -> Result<()> {
         fs::create_dir_all(&self.out_dir)?;
 
-        for book in &self.books {
+        for book in self.books {
             for i in &book.summary.prefix_chapters {
                 self.render_chap_io(i)?;
             }
@@ -105,9 +105,8 @@ mod tests {
             dir: temp.path().to_owned(),
         };
         let conf = config::load(&args).unwrap();
-        let render = html_render::HTMLRender::new(conf.books, &args);
+        let render = html_render::HTMLRender::new(&conf.books, &args);
         render.render().unwrap();
-       
 
         // BTree so it's in order.
         let paths: BTreeSet<_> = ignore::Walk::new(temp.path())

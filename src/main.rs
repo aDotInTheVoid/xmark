@@ -11,7 +11,7 @@ fn main() -> Result<()> {
     color_eyre::install()?;
     let args = cli::Args::parse()?;
     let conf = config::load(&args).context("Failed to load config")?;
-    let render = html_render::HTMLRender::new(conf.books, &args);
+    let render = html_render::HTMLRender::new(&conf.books, &args);
 
     render.render()?;
 
