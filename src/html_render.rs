@@ -80,7 +80,12 @@ struct HTMLRenderInner {
 }
 
 impl HTMLRenderInner {
-    pub fn from_templates(templates: tera::Tera) -> Self {
+    pub fn from_templates(mut templates: tera::Tera) -> Self {
+        // Is this right, I dont know.
+        // Also this is duped here and in Self::new
+        // TODO
+        // If the mdconverting is in the template, is can use `safe`
+        templates.autoescape_on(vec![]);
         Self { templates }
     }
 
@@ -92,6 +97,8 @@ impl HTMLRenderInner {
             ("base.html", include_str!("../www/base.html")),
             ("chapter.html", include_str!("../www/chapter.html")),
         ])?;
+        templates.autoescape_on(vec![]);
+
         Ok(Self { templates })
     }
 
