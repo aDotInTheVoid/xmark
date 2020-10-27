@@ -127,11 +127,10 @@ mod tests {
     use super::*;
 
     use std::collections::BTreeSet;
-    use std::fs;
     use std::path::PathBuf;
 
     use assert_fs::prelude::*;
-    use insta::{assert_snapshot, assert_yaml_snapshot, dynamic_redaction, glob};
+    use insta::{assert_yaml_snapshot, dynamic_redaction};
 
     use crate::{cli, config, html_render};
 

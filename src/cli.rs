@@ -1,8 +1,6 @@
 use clap::Clap;
 use eyre::Result;
-use path::PathBuf;
-
-use std::path::{self, Path};
+use std::path::PathBuf;
 
 #[derive(Debug, Default, Clone)]
 pub struct Args {
