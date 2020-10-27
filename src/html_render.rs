@@ -4,6 +4,7 @@ use std::path::PathBuf;
 
 use eyre::{Context, Result};
 use pulldown_cmark::{html, Options, Parser};
+use tera::Tera;
 
 use crate::cli;
 use crate::config::Book;
@@ -15,16 +16,19 @@ pub struct HTMLRender<'a, 'b> {
     books: &'b [Book],
     args: &'a cli::Args,
     out_dir: PathBuf,
+    inner: HTMLRenderInner,
 }
 
 impl<'a, 'b> HTMLRender<'a, 'b> {
     pub fn new(books: &'b [Book], args: &'a cli::Args) -> Self {
         let out_dir = args.dir.clone().join("_out").join("html");
+        let inner = HTMLRenderInner::new().unwrap();
 
         Self {
             books,
             args,
             out_dir,
+            inner,
         }
     }
 
@@ -50,7 +54,7 @@ impl<'a, 'b> HTMLRender<'a, 'b> {
         // Not a draft
         if let Some(ref loc) = chapter.location {
             let content = fs::read_to_string(loc)?;
-            let html = render_chap(&content);
+            let html = self.inner.render_chap(&content, &chapter.name)?;
 
             let mut path = self
                 .out_dir
@@ -69,8 +73,41 @@ impl<'a, 'b> HTMLRender<'a, 'b> {
     }
 }
 
-// Pure inner for testing
-pub(crate) fn render_chap(content: &str) -> String {
+// An abstraction of HTMLRender that does no io.
+#[derive(Debug, Clone)]
+struct HTMLRenderInner {
+    templates: Tera,
+}
+
+impl HTMLRenderInner {
+    pub fn from_templates(templates: tera::Tera) -> Self {
+        Self { templates }
+    }
+
+    // When iterating on templates, comment this out so you don't need to rebuild bins
+    pub fn new() -> Result<Self> {
+        let mut templates: Tera = Default::default();
+        templates.add_raw_templates(vec![
+            ("head.html", include_str!("../www/head.html")),
+            ("base.html", include_str!("../www/base.html")),
+            ("chapter.html", include_str!("../www/chapter.html")),
+        ])?;
+        Ok(Self { templates })
+    }
+
+    pub fn render_chap(&self, content: &str, name: &str) -> Result<String> {
+        let mut context = tera::Context::new();
+        let html = render_markdown(content);
+        context.insert("mdcontent", &html);
+        context.insert("title", name);
+        // Needed for Error conversion
+        let res = self.templates.render("chapter.html", &context)?;
+        Ok(res)
+    }
+}
+
+// TODO: A million customizations
+pub(crate) fn render_markdown(content: &str) -> String {
     let opts = Options::all();
     let parser = Parser::new_ext(content, opts);
     let mut out = String::new();
@@ -101,8 +138,8 @@ mod tests {
         .unwrap();
 
         let args = cli::Args {
-            create: false,
             dir: temp.path().to_owned(),
+            ..Default::default()
         };
         let conf = config::load(&args).unwrap();
         let render = html_render::HTMLRender::new(&conf.books, &args);
@@ -119,12 +156,18 @@ mod tests {
         })});
     }
 
+    // #[test]
+    // fn render_readmes() {
+    //     glob!("render_html_tests/*.md", |path| {
+    //         let input = fs::read_to_string(path).unwrap();
+    //         let out = render_chap(&input);
+    //         assert_snapshot!(out);
+    //     })
+    // }
+
     #[test]
-    fn render_readmes() {
-        glob!("render_html_tests/*.md", |path| {
-            let input = fs::read_to_string(path).unwrap();
-            let out = render_chap(&input);
-            assert_snapshot!(out);
-        })
+    fn html_inner_includes() {
+        let x = HTMLRenderInner::new();
+        assert!(x.is_ok());
     }
 }
