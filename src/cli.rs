@@ -60,8 +60,6 @@ use super::*;
         };
         let args = Args::parse_from(args).unwrap();
         // Yaml uses ~ for null
-        // TODO: use the redacter from `hydrate_dummy`
-        // This will fail CI
         assert_yaml_snapshot!(args, {
             ".*" => dynamic_redaction(manifest_dir_redacter)
         });
