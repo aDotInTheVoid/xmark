@@ -47,8 +47,6 @@ pub fn create_missing(src_dir: &Path, summary: &Summary) -> Result<()> {
 #[cfg(test)]
 mod tests {
     use std::collections::BTreeSet;
-    use std::fs;
-    use std::io::Write;
     use std::path::PathBuf;
 
     use assert_fs::prelude::*;
