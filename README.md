@@ -1,5 +1,13 @@
 # xMark
 
+Highly WIP.
+
+This readme is currently notes for me.  ¯\\_(ツ)_/¯.
+
+## License
+
+MPL-2.0 because I have lifted several parts from [mdBook](https://github.com/rust-lang/mdbook)
+
 ## Prior Art
 
 - [mdBook](https://github.com/rust-lang/mdbook)
@@ -60,3 +68,9 @@
   grid-column: 1 / 4;
 }
 ```
+
+## Other ideas
+- Use ninja or salsa for incremental
+- Use nix/meson to manage a bunch of deps(drawing gens)
+- Use [mdx](https://github.com/mdx-js/rust) (currently v-early days)
+- Use asciidoc [spec](https://projects.eclipse.org/proposals/asciidoc-language) also early
