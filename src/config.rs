@@ -82,7 +82,9 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
 mod tests {
     use insta::assert_yaml_snapshot;
 
-    use super::*;
+        use crate::test_utils::manifest_dir_redacter;
+
+use super::*;
 
     #[test]
     fn de_gloal_config() {
@@ -110,19 +112,7 @@ mod tests {
     #[test]
     fn hydrate_dummy() {
         // I don't know why I need the anotation
-        let redacter = |mut val, _: insta::internals::ContentPath| {
-            // TODO: Dont do insta crimes.
-            // This is in #[doc(Hidden)] internals.
-            while let insta::internals::Content::Some(some) = val {
-                val = *some;
-            }
 
-            if let insta::internals::Content::String(s) = val {
-                s.replace(env!("CARGO_MANIFEST_DIR"), "BASEDIR")
-            } else {
-                "".into()
-            }
-        };
 
         let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book");
         let args = cli::Args {
@@ -131,8 +121,8 @@ mod tests {
         };
         let conf = load(&args).unwrap();
         assert_yaml_snapshot!(conf, {
-            ".location" => insta::dynamic_redaction(redacter),
-            ".**.location" => insta::dynamic_redaction(redacter),
+            ".location" => insta::dynamic_redaction(manifest_dir_redacter),
+            ".**.location" => insta::dynamic_redaction(manifest_dir_redacter),
         });
     }
 }

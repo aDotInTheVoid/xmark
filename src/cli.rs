@@ -46,9 +46,11 @@ struct ArgsInner {
 
 #[cfg(test)]
 mod tests {
-    use insta::assert_yaml_snapshot;
+    use insta::{assert_yaml_snapshot, dynamic_redaction};
 
-    use super::*;
+        use crate::test_utils::manifest_dir_redacter;
+
+use super::*;
     #[test]
     fn canonicalize_cwd_dir() {
         let args = ArgsInner {
@@ -60,7 +62,9 @@ mod tests {
         // Yaml uses ~ for null
         // TODO: use the redacter from `hydrate_dummy`
         // This will fail CI
-        assert_yaml_snapshot!(args);
+        assert_yaml_snapshot!(args, {
+            ".*" => dynamic_redaction(manifest_dir_redacter)
+        });
     }
 
     #[test]
@@ -72,7 +76,9 @@ mod tests {
             templates: Some("./www".into()),
         };
         let args = Args::parse_from(args).unwrap();
-        assert_yaml_snapshot!(args);
+        assert_yaml_snapshot!(args, {
+            ".*" => dynamic_redaction(manifest_dir_redacter)
+        });
     }
 
     #[test]
@@ -85,6 +91,8 @@ mod tests {
             templates: None
         };
         let args = Args::parse_from(args).unwrap();
-        assert_yaml_snapshot!(args);  
+        assert_yaml_snapshot!(args, {
+            ".*" => dynamic_redaction(manifest_dir_redacter)
+        });  
     }
 }

@@ -2,6 +2,6 @@
 source: src/cli.rs
 expression: args
 ---
-dir: /home/nixon/git/xmark
+dir: BASEDIR
 create: true
-templates: /home/nixon/git/xmark/www
+templates: BASEDIR/www
