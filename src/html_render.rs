@@ -90,6 +90,7 @@ impl HTMLRenderInner {
     }
 
     // When iterating on templates, comment this out so you don't need to rebuild bins
+    // TODO: Use rust-embed to solve this
     pub fn new() -> Result<Self> {
         let mut templates: Tera = Default::default();
         templates.add_raw_templates(vec![
