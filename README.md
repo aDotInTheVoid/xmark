@@ -23,6 +23,7 @@ MPL-2.0 because I have lifted several parts from [mdBook](https://github.com/rus
 - doctave
 - https://github.com/squidfunk/mkdocs-material
 - https://lab.hakim.se/progress-nav/
+- [https://design.gitlab.com/](https://design.gitlab.com/) ([git](https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/tree/master))
 
 
 ## Drawing forms
