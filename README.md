@@ -1,23 +1,11 @@
 # xMark
 
-<<<<<<< HEAD
 A WIP "HighLy opINionAtED" static site/doc generator. Totaly unusable (for now)
 
 Loosly based on [mdBook](https://github.com/rust-lang/mdbook) and does use its code in some places.
 Therefor [MPL-2.0](LICENSE) licensed.
 
 ## Prior Art/Reference material
-=======
-Highly WIP.
-
-This readme is currently notes for me.  ¯\\_(ツ)_/¯.
-
-## License
-
-MPL-2.0 because I have lifted several parts from [mdBook](https://github.com/rust-lang/mdbook)
-
-## Prior Art
->>>>>>> 54c3eafec88d4cbfd46ee1bcce34c304c9b3ab52
 
 - [mdBook](https://github.com/rust-lang/mdbook)
 - [GitHub Docs](https://github.com/github/docs)
