@@ -33,7 +33,7 @@ pub struct Book {
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize, Default, Eq)]
 // https://doc.rust-lang.org/1.47.0/cargo/reference/specifying-dependencies.html#development-dependencies
 // Cargo uses kebab, and so shall we
-#[serde(default, rename_all="kebab-case")]
+#[serde(default, rename_all = "kebab-case")]
 pub struct HtmlConf {
     site_url: Option<String>,
 }
@@ -105,10 +105,12 @@ mod tests {
         assert_eq!(
             conf,
             GlobalConfigRepr {
-                books: (&["book-1", "book-2", "book-3"]).iter().copied().map(String::from).collect(),
-                html: HtmlConf{
-                    site_url: None
-                }
+                books: (&["book-1", "book-2", "book-3"])
+                    .iter()
+                    .copied()
+                    .map(String::from)
+                    .collect(),
+                html: HtmlConf { site_url: None }
             }
         );
 
@@ -118,12 +120,15 @@ mod tests {
 
         let inp = "books = []\n[html]\nsite-url=\"book\"";
         let conf: GlobalConfigRepr = toml::from_str(inp).unwrap();
-        assert_eq!(conf, GlobalConfigRepr {
-            html: HtmlConf {
-                site_url: Some("book".into())
-            },
-            ..Default::default()
-        })
+        assert_eq!(
+            conf,
+            GlobalConfigRepr {
+                html: HtmlConf {
+                    site_url: Some("book".into())
+                },
+                ..Default::default()
+            }
+        )
     }
 
     #[test]
@@ -132,8 +137,12 @@ mod tests {
             dir: "/home/etc/bax".into(),
             ..Default::default()
         };
-        let gcr = GlobalConfigRepr { ..Default::default() };
-        let gc = GlobalConf { ..Default::default() };
+        let gcr = GlobalConfigRepr {
+            ..Default::default()
+        };
+        let gc = GlobalConf {
+            ..Default::default()
+        };
         assert_eq!(hydrate(gcr, &args).unwrap(), gc);
     }
 

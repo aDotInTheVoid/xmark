@@ -1,4 +1,3 @@
-use crate::cli;
 use crate::config::{self, Book as CBook};
 use eyre::Result;
 use std::path::PathBuf;
