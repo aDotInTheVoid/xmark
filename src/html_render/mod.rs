@@ -11,10 +11,14 @@ use crate::cli;
 use crate::config::Book;
 use crate::summary::Chapter;
 
+mod content;
+
+use content::Content;
+
 /// Singleton
 #[derive(Clone, Debug)]
 pub struct HTMLRender<'a, 'b> {
-    books: &'b [Book],
+    content: Content<'b>,
     args: &'a cli::Args,
     out_dir: PathBuf,
     inner: HTMLRenderInner,
@@ -24,9 +28,10 @@ impl<'a, 'b> HTMLRender<'a, 'b> {
     pub fn new(books: &'b [Book], args: &'a cli::Args) -> Self {
         let out_dir = args.dir.clone().join("_out").join("html");
         let inner = HTMLRenderInner::new().unwrap();
+        let content = Content::new(books);
 
         Self {
-            books,
+            content,
             args,
             out_dir,
             inner,
@@ -36,7 +41,7 @@ impl<'a, 'b> HTMLRender<'a, 'b> {
     pub fn render(&self) -> Result<()> {
         fs::create_dir_all(&self.out_dir)?;
 
-        for book in self.books {
+        for book in self.content.books {
             for i in &book.summary.prefix_chapters {
                 self.render_chap_io(i)?;
             }

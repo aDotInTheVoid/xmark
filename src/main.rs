@@ -1,4 +1,3 @@
-pub mod book;
 pub mod cli;
 pub mod config;
 mod create_missing;
