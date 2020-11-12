@@ -1,3 +1,4 @@
+use std::ffi::OsStr;
 use std::fs;
 use std::io::Write;
 use std::path::PathBuf;
@@ -60,7 +61,14 @@ impl<'a, 'b> HTMLRender<'a, 'b> {
                 .out_dir
                 .join(loc.strip_prefix(&self.args.dir).expect("Unreachble"));
 
-            path.set_extension("html");
+            // foo/README.md -> foo/index.html     -> foo/
+            // foo/bar.md    -> foo/bar/index.html -> foo/bar
+            if path.file_name() == Some(OsStr::new("README.md")) {
+                path.set_file_name("index.html")
+            } else {
+                path.set_extension("");
+                path.push("index.html");
+            }
 
             fs::create_dir_all(path.parent().unwrap())?;
 
