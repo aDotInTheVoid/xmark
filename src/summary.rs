@@ -73,8 +73,6 @@ pub struct Chapter {
     pub name: String,
     // None => draft
     pub location: Option<PathBuf>,
-    // For the pritty on top
-    pub nested_items_path: Vec<(String, PathBuf)>,
 }
 
 /// A struct representing an entry in the `SUMMARY.md`, possibly with nested
@@ -313,7 +311,6 @@ impl<'a> SummaryParser<'a> {
             chapter: Chapter {
                 name,
                 location,
-                nested_items_path: vec![],
             },
             section_number: None,
             nested_items: Vec::new(),

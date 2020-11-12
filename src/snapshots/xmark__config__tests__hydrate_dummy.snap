@@ -4,29 +4,23 @@ expression: conf
 ---
 books:
   - location: BASEDIR/dummy-book/book-1
-    slug: book-1
     summary:
       title: The Rust Programming Language
       prefix_chapters:
         - name: The Rust Programming Language
           location: BASEDIR/dummy-book/book-1/title-page.md
-          nested_items_path: []
         - name: Foreword
           location: BASEDIR/dummy-book/book-1/foreword.md
-          nested_items_path: []
         - name: Introduction
           location: BASEDIR/dummy-book/book-1/ch00-00-introduction.md
-          nested_items_path: []
       numbered_chapters:
         - chapter:
             name: Getting Started
             location: BASEDIR/dummy-book/book-1/ch01-00-getting-started.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Installation
                 location: BASEDIR/dummy-book/book-1/ch01-01-installation.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 1
@@ -34,7 +28,6 @@ books:
             - chapter:
                 name: "Hello, World!"
                 location: BASEDIR/dummy-book/book-1/ch01-02-hello-world.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 1
@@ -42,7 +35,6 @@ books:
             - chapter:
                 name: "Hello, Cargo!"
                 location: BASEDIR/dummy-book/book-1/ch01-03-hello-cargo.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 1
@@ -52,19 +44,16 @@ books:
         - chapter:
             name: Programming a Guessing Game
             location: BASEDIR/dummy-book/book-1/ch02-00-guessing-game-tutorial.md
-            nested_items_path: []
           nested_items: []
           section_number:
             - 2
         - chapter:
             name: Common Programming Concepts
             location: BASEDIR/dummy-book/book-1/ch03-00-common-programming-concepts.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Variables and Mutability
                 location: BASEDIR/dummy-book/book-1/ch03-01-variables-and-mutability.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -72,7 +61,6 @@ books:
             - chapter:
                 name: Data Types
                 location: BASEDIR/dummy-book/book-1/ch03-02-data-types.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -80,7 +68,6 @@ books:
             - chapter:
                 name: Functions
                 location: BASEDIR/dummy-book/book-1/ch03-03-how-functions-work.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -88,7 +75,6 @@ books:
             - chapter:
                 name: Comments
                 location: BASEDIR/dummy-book/book-1/ch03-04-comments.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -96,7 +82,6 @@ books:
             - chapter:
                 name: Control Flow
                 location: BASEDIR/dummy-book/book-1/ch03-05-control-flow.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -106,12 +91,10 @@ books:
         - chapter:
             name: Understanding Ownership
             location: BASEDIR/dummy-book/book-1/ch04-00-understanding-ownership.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: What is Ownership?
                 location: BASEDIR/dummy-book/book-1/ch04-01-what-is-ownership.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 4
@@ -119,7 +102,6 @@ books:
             - chapter:
                 name: References and Borrowing
                 location: BASEDIR/dummy-book/book-1/ch04-02-references-and-borrowing.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 4
@@ -127,7 +109,6 @@ books:
             - chapter:
                 name: The Slice Type
                 location: BASEDIR/dummy-book/book-1/ch04-03-slices.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 4
@@ -137,12 +118,10 @@ books:
         - chapter:
             name: Using Structs to Structure Related Data
             location: BASEDIR/dummy-book/book-1/ch05-00-structs.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Defining and Instantiating Structs
                 location: BASEDIR/dummy-book/book-1/ch05-01-defining-structs.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 5
@@ -150,7 +129,6 @@ books:
             - chapter:
                 name: An Example Program Using Structs
                 location: BASEDIR/dummy-book/book-1/ch05-02-example-structs.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 5
@@ -158,7 +136,6 @@ books:
             - chapter:
                 name: Method Syntax
                 location: BASEDIR/dummy-book/book-1/ch05-03-method-syntax.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 5
@@ -168,12 +145,10 @@ books:
         - chapter:
             name: Enums and Pattern Matching
             location: BASEDIR/dummy-book/book-1/ch06-00-enums.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Defining an Enum
                 location: BASEDIR/dummy-book/book-1/ch06-01-defining-an-enum.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 6
@@ -181,7 +156,6 @@ books:
             - chapter:
                 name: The match Control Flow Operator
                 location: BASEDIR/dummy-book/book-1/ch06-02-match.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 6
@@ -189,7 +163,6 @@ books:
             - chapter:
                 name: Concise Control Flow with if let
                 location: BASEDIR/dummy-book/book-1/ch06-03-if-let.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 6
@@ -199,12 +172,10 @@ books:
         - chapter:
             name: "Managing Growing Projects with Packages, Crates, and Modules"
             location: BASEDIR/dummy-book/book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Packages and Crates
                 location: BASEDIR/dummy-book/book-1/ch07-01-packages-and-crates.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 7
@@ -212,7 +183,6 @@ books:
             - chapter:
                 name: Defining Modules to Control Scope and Privacy
                 location: BASEDIR/dummy-book/book-1/ch07-02-defining-modules-to-control-scope-and-privacy.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 7
@@ -220,7 +190,6 @@ books:
             - chapter:
                 name: Paths for Referring to an Item in the Module Tree
                 location: BASEDIR/dummy-book/book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 7
@@ -228,7 +197,6 @@ books:
             - chapter:
                 name: Bringing Paths Into Scope with the use Keyword
                 location: BASEDIR/dummy-book/book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 7
@@ -236,7 +204,6 @@ books:
             - chapter:
                 name: Separating Modules into Different Files
                 location: BASEDIR/dummy-book/book-1/ch07-05-separating-modules-into-different-files.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 7
@@ -246,12 +213,10 @@ books:
         - chapter:
             name: Common Collections
             location: BASEDIR/dummy-book/book-1/ch08-00-common-collections.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Storing Lists of Values with Vectors
                 location: BASEDIR/dummy-book/book-1/ch08-01-vectors.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 8
@@ -259,7 +224,6 @@ books:
             - chapter:
                 name: Storing UTF-8 Encoded Text with Strings
                 location: BASEDIR/dummy-book/book-1/ch08-02-strings.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 8
@@ -267,7 +231,6 @@ books:
             - chapter:
                 name: Storing Keys with Associated Values in Hash Maps
                 location: BASEDIR/dummy-book/book-1/ch08-03-hash-maps.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 8
@@ -277,12 +240,10 @@ books:
         - chapter:
             name: Error Handling
             location: BASEDIR/dummy-book/book-1/ch09-00-error-handling.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Unrecoverable Errors with panic!
                 location: BASEDIR/dummy-book/book-1/ch09-01-unrecoverable-errors-with-panic.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 9
@@ -290,7 +251,6 @@ books:
             - chapter:
                 name: Recoverable Errors with Result
                 location: BASEDIR/dummy-book/book-1/ch09-02-recoverable-errors-with-result.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 9
@@ -298,7 +258,6 @@ books:
             - chapter:
                 name: To panic! or Not To panic!
                 location: BASEDIR/dummy-book/book-1/ch09-03-to-panic-or-not-to-panic.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 9
@@ -308,12 +267,10 @@ books:
         - chapter:
             name: "Generic Types, Traits, and Lifetimes"
             location: BASEDIR/dummy-book/book-1/ch10-00-generics.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Generic Data Types
                 location: BASEDIR/dummy-book/book-1/ch10-01-syntax.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 10
@@ -321,7 +278,6 @@ books:
             - chapter:
                 name: "Traits: Defining Shared Behavior"
                 location: BASEDIR/dummy-book/book-1/ch10-02-traits.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 10
@@ -329,7 +285,6 @@ books:
             - chapter:
                 name: Validating References with Lifetimes
                 location: BASEDIR/dummy-book/book-1/ch10-03-lifetime-syntax.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 10
@@ -339,12 +294,10 @@ books:
         - chapter:
             name: Writing Automated Tests
             location: BASEDIR/dummy-book/book-1/ch11-00-testing.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: How to Write Tests
                 location: BASEDIR/dummy-book/book-1/ch11-01-writing-tests.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 11
@@ -352,7 +305,6 @@ books:
             - chapter:
                 name: Controlling How Tests Are Run
                 location: BASEDIR/dummy-book/book-1/ch11-02-running-tests.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 11
@@ -360,7 +312,6 @@ books:
             - chapter:
                 name: Test Organization
                 location: BASEDIR/dummy-book/book-1/ch11-03-test-organization.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 11
@@ -370,12 +321,10 @@ books:
         - chapter:
             name: "An I/O Project: Building a Command Line Program"
             location: BASEDIR/dummy-book/book-1/ch12-00-an-io-project.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Accepting Command Line Arguments
                 location: BASEDIR/dummy-book/book-1/ch12-01-accepting-command-line-arguments.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 12
@@ -383,7 +332,6 @@ books:
             - chapter:
                 name: Reading a File
                 location: BASEDIR/dummy-book/book-1/ch12-02-reading-a-file.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 12
@@ -391,7 +339,6 @@ books:
             - chapter:
                 name: Refactoring to Improve Modularity and Error Handling
                 location: BASEDIR/dummy-book/book-1/ch12-03-improving-error-handling-and-modularity.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 12
@@ -399,7 +346,6 @@ books:
             - chapter:
                 name: Developing the Library’s Functionality with Test Driven Development
                 location: BASEDIR/dummy-book/book-1/ch12-04-testing-the-librarys-functionality.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 12
@@ -407,7 +353,6 @@ books:
             - chapter:
                 name: Working with Environment Variables
                 location: BASEDIR/dummy-book/book-1/ch12-05-working-with-environment-variables.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 12
@@ -415,7 +360,6 @@ books:
             - chapter:
                 name: Writing Error Messages to Standard Error Instead of Standard Output
                 location: BASEDIR/dummy-book/book-1/ch12-06-writing-to-stderr-instead-of-stdout.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 12
@@ -425,12 +369,10 @@ books:
         - chapter:
             name: "Functional Language Features: Iterators and Closures"
             location: BASEDIR/dummy-book/book-1/ch13-00-functional-features.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: "Closures: Anonymous Functions that Can Capture Their Environment"
                 location: BASEDIR/dummy-book/book-1/ch13-01-closures.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 13
@@ -438,7 +380,6 @@ books:
             - chapter:
                 name: Processing a Series of Items with Iterators
                 location: BASEDIR/dummy-book/book-1/ch13-02-iterators.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 13
@@ -446,7 +387,6 @@ books:
             - chapter:
                 name: Improving Our I/O Project
                 location: BASEDIR/dummy-book/book-1/ch13-03-improving-our-io-project.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 13
@@ -454,7 +394,6 @@ books:
             - chapter:
                 name: "Comparing Performance: Loops vs. Iterators"
                 location: BASEDIR/dummy-book/book-1/ch13-04-performance.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 13
@@ -464,12 +403,10 @@ books:
         - chapter:
             name: More about Cargo and Crates.io
             location: BASEDIR/dummy-book/book-1/ch14-00-more-about-cargo.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Customizing Builds with Release Profiles
                 location: BASEDIR/dummy-book/book-1/ch14-01-release-profiles.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 14
@@ -477,7 +414,6 @@ books:
             - chapter:
                 name: Publishing a Crate to Crates.io
                 location: BASEDIR/dummy-book/book-1/ch14-02-publishing-to-crates-io.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 14
@@ -485,7 +421,6 @@ books:
             - chapter:
                 name: Cargo Workspaces
                 location: BASEDIR/dummy-book/book-1/ch14-03-cargo-workspaces.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 14
@@ -493,7 +428,6 @@ books:
             - chapter:
                 name: Installing Binaries from Crates.io with cargo install
                 location: BASEDIR/dummy-book/book-1/ch14-04-installing-binaries.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 14
@@ -501,7 +435,6 @@ books:
             - chapter:
                 name: Extending Cargo with Custom Commands
                 location: BASEDIR/dummy-book/book-1/ch14-05-extending-cargo.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 14
@@ -511,12 +444,10 @@ books:
         - chapter:
             name: Smart Pointers
             location: BASEDIR/dummy-book/book-1/ch15-00-smart-pointers.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Using Box<T> to Point to Data on the Heap
                 location: BASEDIR/dummy-book/book-1/ch15-01-box.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 15
@@ -524,7 +455,6 @@ books:
             - chapter:
                 name: Treating Smart Pointers Like Regular References with the Deref Trait
                 location: BASEDIR/dummy-book/book-1/ch15-02-deref.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 15
@@ -532,7 +462,6 @@ books:
             - chapter:
                 name: Running Code on Cleanup with the Drop Trait
                 location: BASEDIR/dummy-book/book-1/ch15-03-drop.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 15
@@ -540,7 +469,6 @@ books:
             - chapter:
                 name: "Rc<T>, the Reference Counted Smart Pointer"
                 location: BASEDIR/dummy-book/book-1/ch15-04-rc.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 15
@@ -548,7 +476,6 @@ books:
             - chapter:
                 name: RefCell<T> and the Interior Mutability Pattern
                 location: BASEDIR/dummy-book/book-1/ch15-05-interior-mutability.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 15
@@ -556,7 +483,6 @@ books:
             - chapter:
                 name: Reference Cycles Can Leak Memory
                 location: BASEDIR/dummy-book/book-1/ch15-06-reference-cycles.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 15
@@ -566,12 +492,10 @@ books:
         - chapter:
             name: Fearless Concurrency
             location: BASEDIR/dummy-book/book-1/ch16-00-concurrency.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Using Threads to Run Code Simultaneously
                 location: BASEDIR/dummy-book/book-1/ch16-01-threads.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 16
@@ -579,7 +503,6 @@ books:
             - chapter:
                 name: Using Message Passing to Transfer Data Between Threads
                 location: BASEDIR/dummy-book/book-1/ch16-02-message-passing.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 16
@@ -587,7 +510,6 @@ books:
             - chapter:
                 name: Shared-State Concurrency
                 location: BASEDIR/dummy-book/book-1/ch16-03-shared-state.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 16
@@ -595,7 +517,6 @@ books:
             - chapter:
                 name: Extensible Concurrency with the Sync and Send Traits
                 location: BASEDIR/dummy-book/book-1/ch16-04-extensible-concurrency-sync-and-send.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 16
@@ -605,12 +526,10 @@ books:
         - chapter:
             name: Object Oriented Programming Features of Rust
             location: BASEDIR/dummy-book/book-1/ch17-00-oop.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Characteristics of Object-Oriented Languages
                 location: BASEDIR/dummy-book/book-1/ch17-01-what-is-oo.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 17
@@ -618,7 +537,6 @@ books:
             - chapter:
                 name: Using Trait Objects That Allow for Values of Different Types
                 location: BASEDIR/dummy-book/book-1/ch17-02-trait-objects.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 17
@@ -626,7 +544,6 @@ books:
             - chapter:
                 name: Implementing an Object-Oriented Design Pattern
                 location: BASEDIR/dummy-book/book-1/ch17-03-oo-design-patterns.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 17
@@ -636,12 +553,10 @@ books:
         - chapter:
             name: Patterns and Matching
             location: BASEDIR/dummy-book/book-1/ch18-00-patterns.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: All the Places Patterns Can Be Used
                 location: BASEDIR/dummy-book/book-1/ch18-01-all-the-places-for-patterns.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 18
@@ -649,7 +564,6 @@ books:
             - chapter:
                 name: "Refutability: Whether a Pattern Might Fail to Match"
                 location: BASEDIR/dummy-book/book-1/ch18-02-refutability.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 18
@@ -657,7 +571,6 @@ books:
             - chapter:
                 name: Pattern Syntax
                 location: BASEDIR/dummy-book/book-1/ch18-03-pattern-syntax.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 18
@@ -667,12 +580,10 @@ books:
         - chapter:
             name: Advanced Features
             location: BASEDIR/dummy-book/book-1/ch19-00-advanced-features.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Unsafe Rust
                 location: BASEDIR/dummy-book/book-1/ch19-01-unsafe-rust.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 19
@@ -680,7 +591,6 @@ books:
             - chapter:
                 name: Advanced Traits
                 location: BASEDIR/dummy-book/book-1/ch19-03-advanced-traits.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 19
@@ -688,7 +598,6 @@ books:
             - chapter:
                 name: Advanced Types
                 location: BASEDIR/dummy-book/book-1/ch19-04-advanced-types.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 19
@@ -696,7 +605,6 @@ books:
             - chapter:
                 name: Advanced Functions and Closures
                 location: BASEDIR/dummy-book/book-1/ch19-05-advanced-functions-and-closures.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 19
@@ -704,7 +612,6 @@ books:
             - chapter:
                 name: Macros
                 location: BASEDIR/dummy-book/book-1/ch19-06-macros.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 19
@@ -714,12 +621,10 @@ books:
         - chapter:
             name: "Final Project: Building a Multithreaded Web Server"
             location: BASEDIR/dummy-book/book-1/ch20-00-final-project-a-web-server.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Building a Single-Threaded Web Server
                 location: BASEDIR/dummy-book/book-1/ch20-01-single-threaded.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 20
@@ -727,7 +632,6 @@ books:
             - chapter:
                 name: Turning Our Single-Threaded Server into a Multithreaded Server
                 location: BASEDIR/dummy-book/book-1/ch20-02-multithreaded.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 20
@@ -735,7 +639,6 @@ books:
             - chapter:
                 name: Graceful Shutdown and Cleanup
                 location: BASEDIR/dummy-book/book-1/ch20-03-graceful-shutdown-and-cleanup.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 20
@@ -745,12 +648,10 @@ books:
         - chapter:
             name: Appendix
             location: BASEDIR/dummy-book/book-1/appendix-00.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: A - Keywords
                 location: BASEDIR/dummy-book/book-1/appendix-01-keywords.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 21
@@ -758,7 +659,6 @@ books:
             - chapter:
                 name: B - Operators and Symbols
                 location: BASEDIR/dummy-book/book-1/appendix-02-operators.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 21
@@ -766,7 +666,6 @@ books:
             - chapter:
                 name: C - Derivable Traits
                 location: BASEDIR/dummy-book/book-1/appendix-03-derivable-traits.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 21
@@ -774,7 +673,6 @@ books:
             - chapter:
                 name: D - Useful Development Tools
                 location: BASEDIR/dummy-book/book-1/appendix-04-useful-development-tools.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 21
@@ -782,7 +680,6 @@ books:
             - chapter:
                 name: E - Editions
                 location: BASEDIR/dummy-book/book-1/appendix-05-editions.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 21
@@ -790,7 +687,6 @@ books:
             - chapter:
                 name: F - Translations of the Book
                 location: BASEDIR/dummy-book/book-1/appendix-06-translation.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 21
@@ -798,7 +694,6 @@ books:
             - chapter:
                 name: G - How Rust is Made and “Nightly Rust”
                 location: BASEDIR/dummy-book/book-1/appendix-07-nightly-rust.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 21
@@ -807,7 +702,6 @@ books:
             - 21
       suffix_chapters: []
   - location: BASEDIR/dummy-book/book-2
-    slug: book-2
     summary:
       title: Summary
       prefix_chapters: []
@@ -815,19 +709,16 @@ books:
         - chapter:
             name: mdBook
             location: BASEDIR/dummy-book/book-2/README.md
-            nested_items_path: []
           nested_items: []
           section_number:
             - 1
         - chapter:
             name: Command Line Tool
             location: BASEDIR/dummy-book/book-2/cli/README.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: init
                 location: BASEDIR/dummy-book/book-2/cli/init.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 2
@@ -835,7 +726,6 @@ books:
             - chapter:
                 name: build
                 location: BASEDIR/dummy-book/book-2/cli/build.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 2
@@ -843,7 +733,6 @@ books:
             - chapter:
                 name: watch
                 location: BASEDIR/dummy-book/book-2/cli/watch.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 2
@@ -851,7 +740,6 @@ books:
             - chapter:
                 name: serve
                 location: BASEDIR/dummy-book/book-2/cli/serve.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 2
@@ -859,7 +747,6 @@ books:
             - chapter:
                 name: test
                 location: BASEDIR/dummy-book/book-2/cli/test.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 2
@@ -867,7 +754,6 @@ books:
             - chapter:
                 name: clean
                 location: BASEDIR/dummy-book/book-2/cli/clean.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 2
@@ -877,17 +763,14 @@ books:
         - chapter:
             name: Format
             location: BASEDIR/dummy-book/book-2/format/README.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: SUMMARY.md
                 location: BASEDIR/dummy-book/book-2/format/summary.md
-                nested_items_path: []
               nested_items:
                 - chapter:
                     name: Draft chapter
                     location: ~
-                    nested_items_path: []
                   nested_items: []
                   section_number:
                     - 3
@@ -899,7 +782,6 @@ books:
             - chapter:
                 name: Configuration
                 location: BASEDIR/dummy-book/book-2/format/config.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -907,12 +789,10 @@ books:
             - chapter:
                 name: Theme
                 location: BASEDIR/dummy-book/book-2/format/theme/README.md
-                nested_items_path: []
               nested_items:
                 - chapter:
                     name: index.hbs
                     location: BASEDIR/dummy-book/book-2/format/theme/index-hbs.md
-                    nested_items_path: []
                   nested_items: []
                   section_number:
                     - 3
@@ -921,7 +801,6 @@ books:
                 - chapter:
                     name: Syntax highlighting
                     location: BASEDIR/dummy-book/book-2/format/theme/syntax-highlighting.md
-                    nested_items_path: []
                   nested_items: []
                   section_number:
                     - 3
@@ -930,7 +809,6 @@ books:
                 - chapter:
                     name: Editor
                     location: BASEDIR/dummy-book/book-2/format/theme/editor.md
-                    nested_items_path: []
                   nested_items: []
                   section_number:
                     - 3
@@ -942,7 +820,6 @@ books:
             - chapter:
                 name: MathJax Support
                 location: BASEDIR/dummy-book/book-2/format/mathjax.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -950,7 +827,6 @@ books:
             - chapter:
                 name: mdBook-specific features
                 location: BASEDIR/dummy-book/book-2/format/mdbook.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -960,19 +836,16 @@ books:
         - chapter:
             name: Continuous Integration
             location: BASEDIR/dummy-book/book-2/continuous-integration.md
-            nested_items_path: []
           nested_items: []
           section_number:
             - 4
         - chapter:
             name: For Developers
             location: BASEDIR/dummy-book/book-2/for_developers/README.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: Preprocessors
                 location: BASEDIR/dummy-book/book-2/for_developers/preprocessors.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 5
@@ -980,7 +853,6 @@ books:
             - chapter:
                 name: Alternative Backends
                 location: BASEDIR/dummy-book/book-2/for_developers/backends.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 5
@@ -990,42 +862,34 @@ books:
       suffix_chapters:
         - name: Contributors
           location: BASEDIR/dummy-book/book-2/misc/contributors.md
-          nested_items_path: []
   - location: BASEDIR/dummy-book/book-3
-    slug: book-3
     summary:
       title: "3"
       prefix_chapters:
         - name: pre 1
           location: BASEDIR/dummy-book/book-3/./pre1.md
-          nested_items_path: []
         - name: pre 2
           location: BASEDIR/dummy-book/book-3/./pre2.md
-          nested_items_path: []
       numbered_chapters:
         - chapter:
             name: c 1
             location: BASEDIR/dummy-book/book-3/./c1.md
-            nested_items_path: []
           nested_items: []
           section_number:
             - 1
         - chapter:
             name: c 2
             location: BASEDIR/dummy-book/book-3/./c2.md
-            nested_items_path: []
           nested_items: []
           section_number:
             - 2
         - chapter:
             name: c 3
             location: BASEDIR/dummy-book/book-3/./c3.md
-            nested_items_path: []
           nested_items:
             - chapter:
                 name: c 3 1
                 location: BASEDIR/dummy-book/book-3/./c31.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -1033,7 +897,6 @@ books:
             - chapter:
                 name: c 3 2
                 location: BASEDIR/dummy-book/book-3/./c32.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -1041,7 +904,6 @@ books:
             - chapter:
                 name: c 3 3
                 location: BASEDIR/dummy-book/book-3/./c33.md
-                nested_items_path: []
               nested_items: []
               section_number:
                 - 3
@@ -1051,7 +913,6 @@ books:
         - chapter:
             name: post 1
             location: BASEDIR/dummy-book/book-3/./post1.md
-            nested_items_path: []
           nested_items: []
           section_number:
             - 4

@@ -5,14 +5,12 @@ expression: got
 - chapter:
     name: test1
     location: "./test link1.md"
-    nested_items_path: []
   nested_items: []
   section_number:
     - 1
 - chapter:
     name: test2
     location: "./test link2.md"
-    nested_items_path: []
   nested_items: []
   section_number:
     - 2
