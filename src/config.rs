@@ -82,9 +82,9 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
 mod tests {
     use insta::assert_yaml_snapshot;
 
-        use crate::test_utils::manifest_dir_redacter;
+    use crate::test_utils::manifest_dir_redacter;
 
-use super::*;
+    use super::*;
 
     #[test]
     fn de_gloal_config() {
@@ -112,7 +112,6 @@ use super::*;
     #[test]
     fn hydrate_dummy() {
         // I don't know why I need the anotation
-
 
         let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book");
         let args = cli::Args {

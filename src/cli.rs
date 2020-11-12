@@ -48,9 +48,9 @@ struct ArgsInner {
 mod tests {
     use insta::{assert_yaml_snapshot, dynamic_redaction};
 
-        use crate::test_utils::manifest_dir_redacter;
+    use crate::test_utils::manifest_dir_redacter;
 
-use super::*;
+    use super::*;
     #[test]
     fn canonicalize_cwd_dir() {
         let args = ArgsInner {
@@ -66,7 +66,7 @@ use super::*;
     }
 
     #[test]
-    fn canonicalize_rel_templ () {
+    fn canonicalize_rel_templ() {
         let args = ArgsInner {
             dir: ".".into(),
             create: true,
@@ -86,11 +86,11 @@ use super::*;
             // TODO: win
             dir: "/usr".into(),
             create: false,
-            templates: None
+            templates: None,
         };
         let args = Args::parse_from(args).unwrap();
         assert_yaml_snapshot!(args, {
             ".*" => dynamic_redaction(manifest_dir_redacter)
-        });  
+        });
     }
 }
