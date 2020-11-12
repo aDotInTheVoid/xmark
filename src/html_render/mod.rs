@@ -93,14 +93,14 @@ struct HTMLRenderInner {
 }
 
 impl HTMLRenderInner {
-    pub fn from_templates(mut templates: tera::Tera) -> Self {
-        // Is this right, I dont know.
-        // Also this is duped here and in Self::new
-        // TODO
-        // If the mdconverting is in the template, is can use `safe`
-        templates.autoescape_on(vec![]);
-        Self { templates }
-    }
+    // pub fn from_templates(mut templates: tera::Tera) -> Self {
+    //     // Is this right, I dont know.
+    //     // Also this is duped here and in Self::new
+    //     // TODO
+    //     // If the mdconverting is in the template, is can use `safe`
+    //     templates.autoescape_on(vec![]);
+    //     Self { templates }
+    // }
 
     // When iterating on templates, comment this out so you don't need to rebuild bins
     // TODO: Use rust-embed to solve this

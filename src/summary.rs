@@ -308,10 +308,7 @@ impl<'a> SummaryParser<'a> {
         };
 
         Ok(Link {
-            chapter: Chapter {
-                name,
-                location,
-            },
+            chapter: Chapter { name, location },
             section_number: None,
             nested_items: Vec::new(),
         })

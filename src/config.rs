@@ -67,10 +67,7 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
                     chap.map_mut(fix_chap_loc);
                 });
 
-                Ok(Book {
-                    location,
-                    summary,
-                })
+                Ok(Book { location, summary })
             })
             .collect::<Result<_>>()?,
     })

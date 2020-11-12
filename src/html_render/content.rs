@@ -39,7 +39,7 @@ pub struct Page {
     /// [Getting started](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github) /
     /// [Quickstart](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/quickstart) /
     /// [Set up Git](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git)
-    pub heirachy: Vec<Link>
+    pub heirachy: Vec<Link>,
 }
 
 //TODO: Should this be the same as pagetoc::Link.
@@ -48,19 +48,18 @@ pub struct Page {
 #[derive(Debug, Clone)]
 pub struct Link {
     pub prity: String,
-    pub link: String
+    pub link: String,
 }
-
 
 mod pagetoc {
     //! The "minitoc" for the page
     //!
-    //! This is inspired by the right hand table of contents from 
+    //! This is inspired by the right hand table of contents from
     //! [MkDocs Material](https://squidfunk.github.io/mkdocs-material/getting-started/)
     //!
     //! It's different from the left hand table for contents, which is for the whole book.
     //! This is just for the the page we're on
-    //! 
+    //!
     //! A page with this content
     //! ```markdown
     //! # Controll Flow
@@ -77,7 +76,7 @@ mod pagetoc {
     //! ### loop
     //! ```
     //!
-    //! Will have this as a toc 
+    //! Will have this as a toc
     //! ```rust,notest
     //! # https://play.rust-lang.org/?version=stable&mode=debug&edition=2018&gist=14a9939a1d620cd67a9c8763a730a6df
     //! PageToc(
