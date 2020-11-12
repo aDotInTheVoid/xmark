@@ -1,0 +1,7 @@
+---
+source: src/cli.rs
+expression: args
+---
+dir: BASEDIR
+create: true
+templates: BASEDIR/www

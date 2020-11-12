@@ -886,7 +886,7 @@ books:
               nested_items:
                 - chapter:
                     name: Draft chapter
-                    location: ""
+                    location: ~
                     nested_items_path: []
                   nested_items: []
                   section_number:

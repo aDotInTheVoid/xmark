@@ -43,3 +43,46 @@ pub fn create_missing(src_dir: &Path, summary: &Summary) -> Result<()> {
 
     Ok(())
 }
+
+#[cfg(test)]
+mod tests {
+    use std::collections::BTreeSet;
+    use std::path::PathBuf;
+
+    use assert_fs::prelude::*;
+    use insta::{assert_yaml_snapshot, dynamic_redaction};
+
+    use crate::{cli, config, html_render};
+
+    #[test]
+    fn dummy_e2e() {
+        let temp = assert_fs::TempDir::new().unwrap();
+
+        temp.copy_from(
+            PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book"),
+            &["xmark.toml", "*/SUMMARY.md"],
+        )
+        .unwrap();
+
+        let args = cli::Args {
+            dir: temp.path().to_owned(),
+            create: true,
+            ..Default::default()
+        };
+
+        let conf = config::load(&args).unwrap();
+        let render = html_render::HTMLRender::new(&conf.books, &args);
+        render.render().unwrap();
+
+        // BTree so it's in order.
+        let paths: BTreeSet<_> = ignore::Walk::new(temp.path())
+            .filter_map(|x| x.ok().map(|y| y.into_path()))
+            .map(|x| x.into_os_string().into_string().unwrap())
+            .filter(|x| !x.contains("_out"))
+            .collect();
+
+        assert_yaml_snapshot!(paths, {"[]" => dynamic_redaction(move |val, _| {
+            val.as_str().unwrap().replace(temp.path().as_os_str().to_str().unwrap(), "")
+        })});
+    }
+}

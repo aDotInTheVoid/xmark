@@ -1,0 +1,7 @@
+---
+source: src/cli.rs
+expression: args
+---
+dir: /home/nixon/git/xmark
+create: true
+templates: ~

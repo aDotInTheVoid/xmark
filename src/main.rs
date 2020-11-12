@@ -4,6 +4,8 @@ pub mod config;
 mod create_missing;
 pub mod html_render;
 pub mod summary;
+#[cfg(test)]
+mod test_utils;
 
 use eyre::{Result, WrapErr};
 

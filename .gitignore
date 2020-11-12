@@ -267,3 +267,6 @@ _out/
 # Reference material
 # mdbook  minima  mkdocs-material  zifana
 ref/
+
+# Coverage
+tarpaulin-report.html
