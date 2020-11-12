@@ -917,3 +917,5 @@ books:
           section_number:
             - 4
       suffix_chapters: []
+html:
+  site-url: ~

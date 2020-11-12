@@ -9,15 +9,18 @@ use crate::create_missing::create_missing;
 use crate::summary::{parse_summary, Chapter, Summary};
 
 /// The Config as represented in the global xmark.toml
-#[derive(Clone, Debug, Hash, Serialize, Deserialize)]
+#[derive(Clone, Debug, Hash, Serialize, Deserialize, PartialEq, Default)]
 pub struct GlobalConfigRepr {
     pub books: Vec<String>,
+    #[serde(default)]
+    pub html: HtmlConf,
 }
 
 /// The config as usable for the programm
-#[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize, Default)]
 pub struct GlobalConf {
     pub books: Vec<Book>,
+    pub html: HtmlConf,
 }
 
 // An book.
@@ -25,6 +28,14 @@ pub struct GlobalConf {
 pub struct Book {
     pub location: PathBuf,
     pub summary: Summary,
+}
+
+#[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize, Default, Eq)]
+// https://doc.rust-lang.org/1.47.0/cargo/reference/specifying-dependencies.html#development-dependencies
+// Cargo uses kebab, and so shall we
+#[serde(default, rename_all="kebab-case")]
+pub struct HtmlConf {
+    site_url: Option<String>,
 }
 
 pub fn load(args: &cli::Args) -> Result<GlobalConf> {
@@ -36,7 +47,7 @@ pub fn load(args: &cli::Args) -> Result<GlobalConf> {
 }
 
 // Convert the disk format to a usable form
-pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
+fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
     Ok(GlobalConf {
         books: gcr
             .books
@@ -70,6 +81,7 @@ pub fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
                 Ok(Book { location, summary })
             })
             .collect::<Result<_>>()?,
+        html: gcr.html,
     })
 }
 
@@ -90,7 +102,28 @@ mod tests {
             ]
 ";
         let conf: GlobalConfigRepr = toml::from_str(inp).unwrap();
-        assert_eq!(conf.books, vec!["book-1", "book-2", "book-3"]);
+        assert_eq!(
+            conf,
+            GlobalConfigRepr {
+                books: (&["book-1", "book-2", "book-3"]).iter().copied().map(String::from).collect(),
+                html: HtmlConf{
+                    site_url: None
+                }
+            }
+        );
+
+        let inp = "books = []\n[html]";
+        let conf: GlobalConfigRepr = toml::from_str(inp).unwrap();
+        assert_eq!(conf, Default::default());
+
+        let inp = "books = []\n[html]\nsite-url=\"book\"";
+        let conf: GlobalConfigRepr = toml::from_str(inp).unwrap();
+        assert_eq!(conf, GlobalConfigRepr {
+            html: HtmlConf {
+                site_url: Some("book".into())
+            },
+            ..Default::default()
+        })
     }
 
     #[test]
@@ -99,15 +132,13 @@ mod tests {
             dir: "/home/etc/bax".into(),
             ..Default::default()
         };
-        let gcr = GlobalConfigRepr { books: vec![] };
-        let gc = GlobalConf { books: vec![] };
+        let gcr = GlobalConfigRepr { ..Default::default() };
+        let gc = GlobalConf { ..Default::default() };
         assert_eq!(hydrate(gcr, &args).unwrap(), gc);
     }
 
     #[test]
     fn hydrate_dummy() {
-        // I don't know why I need the anotation
-
         let dir = PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book");
         let args = cli::Args {
             dir,
