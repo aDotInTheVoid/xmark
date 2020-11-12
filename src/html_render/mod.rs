@@ -13,12 +13,12 @@ use crate::summary::Chapter;
 
 mod content;
 
-use content::Content;
+use content::ContentOld;
 
 /// Singleton
 #[derive(Clone, Debug)]
 pub struct HTMLRender<'a, 'b> {
-    content: Content<'b>,
+    content: ContentOld<'b>,
     args: &'a cli::Args,
     out_dir: PathBuf,
     inner: HTMLRenderInner,
@@ -28,7 +28,7 @@ impl<'a, 'b> HTMLRender<'a, 'b> {
     pub fn new(books: &'b [Book], args: &'a cli::Args) -> Self {
         let out_dir = args.dir.clone().join("_out").join("html");
         let inner = HTMLRenderInner::new().unwrap();
-        let content = Content::new(books);
+        let content = ContentOld::new(books);
 
         Self {
             content,

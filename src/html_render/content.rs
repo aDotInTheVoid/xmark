@@ -1,24 +1,28 @@
+use crate::cli;
+use crate::config::{self, Book as CBook};
+use eyre::Result;
 use std::path::PathBuf;
-
-use crate::config::Book as CBook;
 
 /// The content in a suitable form.
 
 #[derive(Clone, Debug)]
-pub struct Content<'a> {
+pub struct ContentOld<'a> {
     pub books: &'a [CBook],
 }
 
-impl<'a> Content<'a> {
+impl<'a> ContentOld<'a> {
     pub fn new(books: &'a [CBook]) -> Self {
         Self { books }
     }
 }
 
+#[derive(Debug, Clone)]
+pub struct Content(Vec<Book>);
+
 #[derive(Clone, Debug)]
 struct Book {
     title: String,
-    parts: Vec<Page>,
+    pages: Vec<Page>,
 }
 
 #[derive(Debug, Clone)]
@@ -40,6 +44,28 @@ pub struct Page {
     /// [Quickstart](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/quickstart) /
     /// [Set up Git](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git)
     pub heirachy: Vec<Link>,
+}
+
+impl Content {
+    pub fn new(config: &config::GlobalConf) -> Result<Self> {
+        Ok(Self(
+            config.books.iter().map(Book::new).collect::<Result<_>>()?,
+        ))
+    }
+}
+
+impl Book {
+    pub fn new(book: &config::Book) -> Result<Self> {
+        let title = book.summary.title.clone();
+        let pages = Self::capture_pages(book)?;
+
+        Ok(Self { title, pages })
+    }
+
+    fn capture_pages(book: &config::Book) -> Result<Vec<Page>> {
+        // We need to walk the recursive data structure, while maintaining a load of stuff.
+        todo!()
+    }
 }
 
 //TODO: Should this be the same as pagetoc::Link.
