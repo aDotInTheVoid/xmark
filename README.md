@@ -20,16 +20,13 @@ Therefor [MPL-2.0](LICENSE) licensed.
 - doctave
 - https://github.com/squidfunk/mkdocs-material
 - https://lab.hakim.se/progress-nav/
-<<<<<<< HEAD
 - https://lord.io/blog/2020/spreadsheets/ (esp futher reading)
 - https://github.com/google/docsy
 - https://markentier.tech/posts/2020/10/wrote-javascript-to-avoid-javascript/
 - https://github.com/slatedocs/slate
 - https://docsify.js.org/
 - [mdx](https://github.com/mdx-js/mdx) ([spec](https://github.com/mdx-js/specification))
-=======
 - [https://design.gitlab.com/](https://design.gitlab.com/) ([git](https://gitlab.com/gitlab-org/gitlab-services/design.gitlab.com/-/tree/master))
->>>>>>> 54c3eafec88d4cbfd46ee1bcce34c304c9b3ab52
 
 
 ## Drawing forms
