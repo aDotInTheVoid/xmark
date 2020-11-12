@@ -102,9 +102,9 @@ impl HTMLRenderInner {
     pub fn new() -> Result<Self> {
         let mut templates: Tera = Default::default();
         templates.add_raw_templates(vec![
-            ("head.html", include_str!("../www/head.html")),
-            ("base.html", include_str!("../www/base.html")),
-            ("chapter.html", include_str!("../www/chapter.html")),
+            ("head.html", include_str!("../../www/head.html")),
+            ("base.html", include_str!("../../www/base.html")),
+            ("chapter.html", include_str!("../../www/chapter.html")),
         ])?;
         templates.autoescape_on(vec![]);
 

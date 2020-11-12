@@ -1,5 +1,5 @@
 ---
-source: src/html_render.rs
+source: src/html_render/mod.rs
 expression: paths
 ---
 - ""
