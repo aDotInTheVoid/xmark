@@ -1,6 +1,11 @@
 # xMark
 
-## Prior Art
+A WIP "HighLy opINionAtED" static site/doc generator. Totaly unusable (for now)
+
+Loosly based on [mdBook](https://github.com/rust-lang/mdbook) and does use its code in some places.
+Therefor [MPL-2.0](LICENSE) licensed.
+
+## Prior Art/Reference material
 
 - [mdBook](https://github.com/rust-lang/mdbook)
 - [GitHub Docs](https://github.com/github/docs)
@@ -15,6 +20,12 @@
 - doctave
 - https://github.com/squidfunk/mkdocs-material
 - https://lab.hakim.se/progress-nav/
+- https://lord.io/blog/2020/spreadsheets/ (esp futher reading)
+- https://github.com/google/docsy
+- https://markentier.tech/posts/2020/10/wrote-javascript-to-avoid-javascript/
+- https://github.com/slatedocs/slate
+- https://docsify.js.org/
+- [mdx](https://github.com/mdx-js/mdx) ([spec](https://github.com/mdx-js/specification))
 
 
 ## Drawing forms
@@ -32,6 +43,7 @@
 - pyplot?
 - Any of the other formats suported by [adoc](https://github.com/asciidoctor/asciidoctor-diagram/blob/fd8ab7d9eb9d5de3c55a0e27c4276206c728a917/README.adoc#creating-a-diagram)
 - Svgbob
+- https://github.com/reanimate/reanimate
 
 ## Outputs
 
@@ -41,22 +53,9 @@
 ## Inputs
 
 - Markdown
-- Asciidoc?
+- Asciidoc? ([spec proposal](https://projects.eclipse.org/proposals/asciidoc-language))
 
+## License
 
-```css
-.wrapper {
-  display: grid;
-  grid-template-columns:
-    1fr
-    min(65ch, 100%)
-    1fr;
-}
-.wrapper > * {
-  grid-column: 2;
-}
-.full-bleed {
-  width: 100%;
-  grid-column: 1 / 4;
-}
-```
+All the code in this repository is released under the ***Mozilla Public License v2.0***, for more information take a look at the [LICENSE] file.
+
