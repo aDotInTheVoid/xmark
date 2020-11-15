@@ -1,6 +1,7 @@
 use crate::config::{self, Book as CBook, GlobalConf};
 use crate::{cli, summary};
 use eyre::Result;
+use serde::{Deserialize, Serialize};
 use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 
@@ -17,16 +18,16 @@ impl<'a> ContentOld<'a> {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Content(Vec<Book>);
 
-#[derive(Clone, Debug)]
+#[derive(Clone, Debug, Serialize, Deserialize)]
 struct Book {
     title: String,
     pages: Vec<Page>,
 }
 
-#[derive(Debug, Clone, Default)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize)]
 pub struct Page {
     pub name: String,
     /// The html file to render to
@@ -66,12 +67,12 @@ impl Dirs {
 }
 
 impl Content {
-    pub fn new(config: &config::GlobalConf, dirs: Dirs) -> Result<Self> {
+    pub fn new(config: &config::GlobalConf, dirs: &Dirs) -> Result<Self> {
         Ok(Self(
             config
                 .books
                 .iter()
-                .map(|x| Book::new(x, &dirs))
+                .map(|x| Book::new(x, dirs))
                 .collect::<Result<_>>()?,
         ))
     }
@@ -218,7 +219,7 @@ enum PageListParts<'a> {
 //TODO: Should this be the same as pagetoc::Link.
 // This is relative to site root, so needs special care when we're serving
 // on a subdir. that is just relative to the page
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Link {
     pub prity: String,
     pub link: String,
@@ -310,10 +311,13 @@ mod pagetoc {
     //!    ],
     //!)
     //!```
-    #[derive(Debug, Clone, Default)]
+
+    use serde::{Deserialize, Serialize};
+
+    #[derive(Debug, Clone, Default, Serialize, Deserialize)]
     pub struct PageToc(pub Vec<H2>);
 
-    #[derive(Debug, Clone)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct Link {
         // The "nice" name, eg "Creating a book"
         pub pritty: String,
@@ -321,10 +325,10 @@ mod pagetoc {
         pub link: String,
     }
 
-    #[derive(Debug, Clone)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct H3(pub Link);
 
-    #[derive(Debug, Clone)]
+    #[derive(Debug, Clone, Serialize, Deserialize)]
     pub struct H2 {
         pub this: Link,
         pub children: Vec<H3>,
@@ -344,6 +348,9 @@ pub fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<P
 
 #[cfg(test)]
 mod tests {
+    use assert_fs::prelude::*;
+    use insta::{assert_yaml_snapshot, dynamic_redaction};
+
     use super::*;
 
     fn test_output_loc(md: &str, out: &str, base: &str, expected: &str) {
@@ -406,7 +413,54 @@ mod tests {
             "/usr/src/fx/_out/html/book3/cd/f/index.html",
             "/books/",
             "/usr/src/fx/_out/html",
-            "/books/book3/cd/f/index.html"
+            "/books/book3/cd/f/index.html",
         )
+    }
+
+    #[test]
+    fn dummy_e2e() {
+        let temp = assert_fs::TempDir::new().unwrap();
+        temp.copy_from(
+            PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("dummy-book"),
+            &["xmark.toml", "book-*/**"],
+        )
+        .unwrap();
+
+        let args = cli::Args {
+            dir: temp.path().to_owned(),
+            ..Default::default()
+        };
+        let conf = config::load(&args).unwrap();
+        let dirs = Dirs::new(&conf, &args);
+        let content = Content::new(&conf, &dirs).unwrap();
+        let tp = temp.path().as_os_str().to_str().unwrap().to_owned();
+
+        // This is a amazing lifetime hack, because dynamic_redaction requires
+        // it's closures to be 'static, and I can't think of a better way to get
+        // arround this. Don't bother fixing unless you realy want fun lifetime
+        // issues.
+        let redaction = |string| {
+            move |mut val, _: insta::internals::ContentPath| {
+                // TODO: Dont do insta crimes.
+                // This is in #[doc(Hidden)] internals.
+                while let insta::internals::Content::Some(some) = val {
+                    val = *some;
+                }
+                if let insta::internals::Content::String(s) = val {
+                    s.replace(&string, "BASEDIR").into()
+                } else {
+                    val
+                }
+            }
+        };
+
+        // TODO: The output is wrong, but we're testing it now.
+        // heirachy is wrong, and we have a load of foo/./bar
+        assert_yaml_snapshot!(content,
+            {
+                 ".**.input" => dynamic_redaction(redaction(tp.clone())),
+                 ".**.output" => dynamic_redaction(redaction(tp)),
+            }
+        );
     }
 }

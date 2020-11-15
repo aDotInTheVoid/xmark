@@ -1,0 +1,1465 @@
+---
+source: src/html_render/content.rs
+expression: content
+---
+- title: The Rust Programming Language
+  pages:
+    - name: The Rust Programming Language
+      output: BASEDIR/_out/html/book-1/title-page/index.html
+      input: BASEDIR/book-1/title-page.md
+      toc: []
+      next: /book-1/foreword/index.html
+      prev: ~
+      heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1/title-page/index.html
+    - name: Foreword
+      output: BASEDIR/_out/html/book-1/foreword/index.html
+      input: BASEDIR/book-1/foreword.md
+      toc: []
+      next: /book-1/ch00-00-introduction/index.html
+      prev: /book-1/title-page/index.html
+      heirachy:
+        - prity: Foreword
+          link: /book-1/foreword/index.html
+    - name: Introduction
+      output: BASEDIR/_out/html/book-1/ch00-00-introduction/index.html
+      input: BASEDIR/book-1/ch00-00-introduction.md
+      toc: []
+      next: /book-1/ch01-00-getting-started/index.html
+      prev: /book-1/foreword/index.html
+      heirachy:
+        - prity: Introduction
+          link: /book-1/ch00-00-introduction/index.html
+    - name: Getting Started
+      output: BASEDIR/_out/html/book-1/ch01-00-getting-started/index.html
+      input: BASEDIR/book-1/ch01-00-getting-started.md
+      toc: []
+      next: /book-1/ch01-01-installation/index.html
+      prev: /book-1/ch00-00-introduction/index.html
+      heirachy:
+        - prity: Getting Started
+          link: /book-1/ch01-00-getting-started/index.html
+    - name: Installation
+      output: BASEDIR/_out/html/book-1/ch01-01-installation/index.html
+      input: BASEDIR/book-1/ch01-01-installation.md
+      toc: []
+      next: /book-1/ch01-02-hello-world/index.html
+      prev: /book-1/ch01-00-getting-started/index.html
+      heirachy:
+        - prity: Getting Started
+          link: /book-1/ch01-00-getting-started/index.html
+        - prity: Installation
+          link: /book-1/ch01-01-installation/index.html
+    - name: "Hello, World!"
+      output: BASEDIR/_out/html/book-1/ch01-02-hello-world/index.html
+      input: BASEDIR/book-1/ch01-02-hello-world.md
+      toc: []
+      next: /book-1/ch01-03-hello-cargo/index.html
+      prev: /book-1/ch01-01-installation/index.html
+      heirachy:
+        - prity: Getting Started
+          link: /book-1/ch01-00-getting-started/index.html
+        - prity: "Hello, World!"
+          link: /book-1/ch01-02-hello-world/index.html
+    - name: "Hello, Cargo!"
+      output: BASEDIR/_out/html/book-1/ch01-03-hello-cargo/index.html
+      input: BASEDIR/book-1/ch01-03-hello-cargo.md
+      toc: []
+      next: /book-1/ch02-00-guessing-game-tutorial/index.html
+      prev: /book-1/ch01-02-hello-world/index.html
+      heirachy:
+        - prity: Getting Started
+          link: /book-1/ch01-00-getting-started/index.html
+        - prity: "Hello, Cargo!"
+          link: /book-1/ch01-03-hello-cargo/index.html
+    - name: Programming a Guessing Game
+      output: BASEDIR/_out/html/book-1/ch02-00-guessing-game-tutorial/index.html
+      input: BASEDIR/book-1/ch02-00-guessing-game-tutorial.md
+      toc: []
+      next: /book-1/ch03-00-common-programming-concepts/index.html
+      prev: /book-1/ch01-03-hello-cargo/index.html
+      heirachy:
+        - prity: Programming a Guessing Game
+          link: /book-1/ch02-00-guessing-game-tutorial/index.html
+    - name: Common Programming Concepts
+      output: BASEDIR/_out/html/book-1/ch03-00-common-programming-concepts/index.html
+      input: BASEDIR/book-1/ch03-00-common-programming-concepts.md
+      toc: []
+      next: /book-1/ch03-01-variables-and-mutability/index.html
+      prev: /book-1/ch02-00-guessing-game-tutorial/index.html
+      heirachy:
+        - prity: Common Programming Concepts
+          link: /book-1/ch03-00-common-programming-concepts/index.html
+    - name: Variables and Mutability
+      output: BASEDIR/_out/html/book-1/ch03-01-variables-and-mutability/index.html
+      input: BASEDIR/book-1/ch03-01-variables-and-mutability.md
+      toc: []
+      next: /book-1/ch03-02-data-types/index.html
+      prev: /book-1/ch03-00-common-programming-concepts/index.html
+      heirachy:
+        - prity: Common Programming Concepts
+          link: /book-1/ch03-00-common-programming-concepts/index.html
+        - prity: Variables and Mutability
+          link: /book-1/ch03-01-variables-and-mutability/index.html
+    - name: Data Types
+      output: BASEDIR/_out/html/book-1/ch03-02-data-types/index.html
+      input: BASEDIR/book-1/ch03-02-data-types.md
+      toc: []
+      next: /book-1/ch03-03-how-functions-work/index.html
+      prev: /book-1/ch03-01-variables-and-mutability/index.html
+      heirachy:
+        - prity: Common Programming Concepts
+          link: /book-1/ch03-00-common-programming-concepts/index.html
+        - prity: Data Types
+          link: /book-1/ch03-02-data-types/index.html
+    - name: Functions
+      output: BASEDIR/_out/html/book-1/ch03-03-how-functions-work/index.html
+      input: BASEDIR/book-1/ch03-03-how-functions-work.md
+      toc: []
+      next: /book-1/ch03-04-comments/index.html
+      prev: /book-1/ch03-02-data-types/index.html
+      heirachy:
+        - prity: Common Programming Concepts
+          link: /book-1/ch03-00-common-programming-concepts/index.html
+        - prity: Functions
+          link: /book-1/ch03-03-how-functions-work/index.html
+    - name: Comments
+      output: BASEDIR/_out/html/book-1/ch03-04-comments/index.html
+      input: BASEDIR/book-1/ch03-04-comments.md
+      toc: []
+      next: /book-1/ch03-05-control-flow/index.html
+      prev: /book-1/ch03-03-how-functions-work/index.html
+      heirachy:
+        - prity: Common Programming Concepts
+          link: /book-1/ch03-00-common-programming-concepts/index.html
+        - prity: Comments
+          link: /book-1/ch03-04-comments/index.html
+    - name: Control Flow
+      output: BASEDIR/_out/html/book-1/ch03-05-control-flow/index.html
+      input: BASEDIR/book-1/ch03-05-control-flow.md
+      toc: []
+      next: /book-1/ch04-00-understanding-ownership/index.html
+      prev: /book-1/ch03-04-comments/index.html
+      heirachy:
+        - prity: Common Programming Concepts
+          link: /book-1/ch03-00-common-programming-concepts/index.html
+        - prity: Control Flow
+          link: /book-1/ch03-05-control-flow/index.html
+    - name: Understanding Ownership
+      output: BASEDIR/_out/html/book-1/ch04-00-understanding-ownership/index.html
+      input: BASEDIR/book-1/ch04-00-understanding-ownership.md
+      toc: []
+      next: /book-1/ch04-01-what-is-ownership/index.html
+      prev: /book-1/ch03-05-control-flow/index.html
+      heirachy:
+        - prity: Understanding Ownership
+          link: /book-1/ch04-00-understanding-ownership/index.html
+    - name: What is Ownership?
+      output: BASEDIR/_out/html/book-1/ch04-01-what-is-ownership/index.html
+      input: BASEDIR/book-1/ch04-01-what-is-ownership.md
+      toc: []
+      next: /book-1/ch04-02-references-and-borrowing/index.html
+      prev: /book-1/ch04-00-understanding-ownership/index.html
+      heirachy:
+        - prity: Understanding Ownership
+          link: /book-1/ch04-00-understanding-ownership/index.html
+        - prity: What is Ownership?
+          link: /book-1/ch04-01-what-is-ownership/index.html
+    - name: References and Borrowing
+      output: BASEDIR/_out/html/book-1/ch04-02-references-and-borrowing/index.html
+      input: BASEDIR/book-1/ch04-02-references-and-borrowing.md
+      toc: []
+      next: /book-1/ch04-03-slices/index.html
+      prev: /book-1/ch04-01-what-is-ownership/index.html
+      heirachy:
+        - prity: Understanding Ownership
+          link: /book-1/ch04-00-understanding-ownership/index.html
+        - prity: References and Borrowing
+          link: /book-1/ch04-02-references-and-borrowing/index.html
+    - name: The Slice Type
+      output: BASEDIR/_out/html/book-1/ch04-03-slices/index.html
+      input: BASEDIR/book-1/ch04-03-slices.md
+      toc: []
+      next: /book-1/ch05-00-structs/index.html
+      prev: /book-1/ch04-02-references-and-borrowing/index.html
+      heirachy:
+        - prity: Understanding Ownership
+          link: /book-1/ch04-00-understanding-ownership/index.html
+        - prity: The Slice Type
+          link: /book-1/ch04-03-slices/index.html
+    - name: Using Structs to Structure Related Data
+      output: BASEDIR/_out/html/book-1/ch05-00-structs/index.html
+      input: BASEDIR/book-1/ch05-00-structs.md
+      toc: []
+      next: /book-1/ch05-01-defining-structs/index.html
+      prev: /book-1/ch04-03-slices/index.html
+      heirachy:
+        - prity: Using Structs to Structure Related Data
+          link: /book-1/ch05-00-structs/index.html
+    - name: Defining and Instantiating Structs
+      output: BASEDIR/_out/html/book-1/ch05-01-defining-structs/index.html
+      input: BASEDIR/book-1/ch05-01-defining-structs.md
+      toc: []
+      next: /book-1/ch05-02-example-structs/index.html
+      prev: /book-1/ch05-00-structs/index.html
+      heirachy:
+        - prity: Using Structs to Structure Related Data
+          link: /book-1/ch05-00-structs/index.html
+        - prity: Defining and Instantiating Structs
+          link: /book-1/ch05-01-defining-structs/index.html
+    - name: An Example Program Using Structs
+      output: BASEDIR/_out/html/book-1/ch05-02-example-structs/index.html
+      input: BASEDIR/book-1/ch05-02-example-structs.md
+      toc: []
+      next: /book-1/ch05-03-method-syntax/index.html
+      prev: /book-1/ch05-01-defining-structs/index.html
+      heirachy:
+        - prity: Using Structs to Structure Related Data
+          link: /book-1/ch05-00-structs/index.html
+        - prity: An Example Program Using Structs
+          link: /book-1/ch05-02-example-structs/index.html
+    - name: Method Syntax
+      output: BASEDIR/_out/html/book-1/ch05-03-method-syntax/index.html
+      input: BASEDIR/book-1/ch05-03-method-syntax.md
+      toc: []
+      next: /book-1/ch06-00-enums/index.html
+      prev: /book-1/ch05-02-example-structs/index.html
+      heirachy:
+        - prity: Using Structs to Structure Related Data
+          link: /book-1/ch05-00-structs/index.html
+        - prity: Method Syntax
+          link: /book-1/ch05-03-method-syntax/index.html
+    - name: Enums and Pattern Matching
+      output: BASEDIR/_out/html/book-1/ch06-00-enums/index.html
+      input: BASEDIR/book-1/ch06-00-enums.md
+      toc: []
+      next: /book-1/ch06-01-defining-an-enum/index.html
+      prev: /book-1/ch05-03-method-syntax/index.html
+      heirachy:
+        - prity: Enums and Pattern Matching
+          link: /book-1/ch06-00-enums/index.html
+    - name: Defining an Enum
+      output: BASEDIR/_out/html/book-1/ch06-01-defining-an-enum/index.html
+      input: BASEDIR/book-1/ch06-01-defining-an-enum.md
+      toc: []
+      next: /book-1/ch06-02-match/index.html
+      prev: /book-1/ch06-00-enums/index.html
+      heirachy:
+        - prity: Enums and Pattern Matching
+          link: /book-1/ch06-00-enums/index.html
+        - prity: Defining an Enum
+          link: /book-1/ch06-01-defining-an-enum/index.html
+    - name: The match Control Flow Operator
+      output: BASEDIR/_out/html/book-1/ch06-02-match/index.html
+      input: BASEDIR/book-1/ch06-02-match.md
+      toc: []
+      next: /book-1/ch06-03-if-let/index.html
+      prev: /book-1/ch06-01-defining-an-enum/index.html
+      heirachy:
+        - prity: Enums and Pattern Matching
+          link: /book-1/ch06-00-enums/index.html
+        - prity: The match Control Flow Operator
+          link: /book-1/ch06-02-match/index.html
+    - name: Concise Control Flow with if let
+      output: BASEDIR/_out/html/book-1/ch06-03-if-let/index.html
+      input: BASEDIR/book-1/ch06-03-if-let.md
+      toc: []
+      next: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+      prev: /book-1/ch06-02-match/index.html
+      heirachy:
+        - prity: Enums and Pattern Matching
+          link: /book-1/ch06-00-enums/index.html
+        - prity: Concise Control Flow with if let
+          link: /book-1/ch06-03-if-let/index.html
+    - name: "Managing Growing Projects with Packages, Crates, and Modules"
+      output: BASEDIR/_out/html/book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+      input: BASEDIR/book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules.md
+      toc: []
+      next: /book-1/ch07-01-packages-and-crates/index.html
+      prev: /book-1/ch06-03-if-let/index.html
+      heirachy:
+        - prity: "Managing Growing Projects with Packages, Crates, and Modules"
+          link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+    - name: Packages and Crates
+      output: BASEDIR/_out/html/book-1/ch07-01-packages-and-crates/index.html
+      input: BASEDIR/book-1/ch07-01-packages-and-crates.md
+      toc: []
+      next: /book-1/ch07-02-defining-modules-to-control-scope-and-privacy/index.html
+      prev: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+      heirachy:
+        - prity: "Managing Growing Projects with Packages, Crates, and Modules"
+          link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+        - prity: Packages and Crates
+          link: /book-1/ch07-01-packages-and-crates/index.html
+    - name: Defining Modules to Control Scope and Privacy
+      output: BASEDIR/_out/html/book-1/ch07-02-defining-modules-to-control-scope-and-privacy/index.html
+      input: BASEDIR/book-1/ch07-02-defining-modules-to-control-scope-and-privacy.md
+      toc: []
+      next: /book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree/index.html
+      prev: /book-1/ch07-01-packages-and-crates/index.html
+      heirachy:
+        - prity: "Managing Growing Projects with Packages, Crates, and Modules"
+          link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+        - prity: Defining Modules to Control Scope and Privacy
+          link: /book-1/ch07-02-defining-modules-to-control-scope-and-privacy/index.html
+    - name: Paths for Referring to an Item in the Module Tree
+      output: BASEDIR/_out/html/book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree/index.html
+      input: BASEDIR/book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree.md
+      toc: []
+      next: /book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword/index.html
+      prev: /book-1/ch07-02-defining-modules-to-control-scope-and-privacy/index.html
+      heirachy:
+        - prity: "Managing Growing Projects with Packages, Crates, and Modules"
+          link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+        - prity: Paths for Referring to an Item in the Module Tree
+          link: /book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree/index.html
+    - name: Bringing Paths Into Scope with the use Keyword
+      output: BASEDIR/_out/html/book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword/index.html
+      input: BASEDIR/book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword.md
+      toc: []
+      next: /book-1/ch07-05-separating-modules-into-different-files/index.html
+      prev: /book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree/index.html
+      heirachy:
+        - prity: "Managing Growing Projects with Packages, Crates, and Modules"
+          link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+        - prity: Bringing Paths Into Scope with the use Keyword
+          link: /book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword/index.html
+    - name: Separating Modules into Different Files
+      output: BASEDIR/_out/html/book-1/ch07-05-separating-modules-into-different-files/index.html
+      input: BASEDIR/book-1/ch07-05-separating-modules-into-different-files.md
+      toc: []
+      next: /book-1/ch08-00-common-collections/index.html
+      prev: /book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword/index.html
+      heirachy:
+        - prity: "Managing Growing Projects with Packages, Crates, and Modules"
+          link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
+        - prity: Separating Modules into Different Files
+          link: /book-1/ch07-05-separating-modules-into-different-files/index.html
+    - name: Common Collections
+      output: BASEDIR/_out/html/book-1/ch08-00-common-collections/index.html
+      input: BASEDIR/book-1/ch08-00-common-collections.md
+      toc: []
+      next: /book-1/ch08-01-vectors/index.html
+      prev: /book-1/ch07-05-separating-modules-into-different-files/index.html
+      heirachy:
+        - prity: Common Collections
+          link: /book-1/ch08-00-common-collections/index.html
+    - name: Storing Lists of Values with Vectors
+      output: BASEDIR/_out/html/book-1/ch08-01-vectors/index.html
+      input: BASEDIR/book-1/ch08-01-vectors.md
+      toc: []
+      next: /book-1/ch08-02-strings/index.html
+      prev: /book-1/ch08-00-common-collections/index.html
+      heirachy:
+        - prity: Common Collections
+          link: /book-1/ch08-00-common-collections/index.html
+        - prity: Storing Lists of Values with Vectors
+          link: /book-1/ch08-01-vectors/index.html
+    - name: Storing UTF-8 Encoded Text with Strings
+      output: BASEDIR/_out/html/book-1/ch08-02-strings/index.html
+      input: BASEDIR/book-1/ch08-02-strings.md
+      toc: []
+      next: /book-1/ch08-03-hash-maps/index.html
+      prev: /book-1/ch08-01-vectors/index.html
+      heirachy:
+        - prity: Common Collections
+          link: /book-1/ch08-00-common-collections/index.html
+        - prity: Storing UTF-8 Encoded Text with Strings
+          link: /book-1/ch08-02-strings/index.html
+    - name: Storing Keys with Associated Values in Hash Maps
+      output: BASEDIR/_out/html/book-1/ch08-03-hash-maps/index.html
+      input: BASEDIR/book-1/ch08-03-hash-maps.md
+      toc: []
+      next: /book-1/ch09-00-error-handling/index.html
+      prev: /book-1/ch08-02-strings/index.html
+      heirachy:
+        - prity: Common Collections
+          link: /book-1/ch08-00-common-collections/index.html
+        - prity: Storing Keys with Associated Values in Hash Maps
+          link: /book-1/ch08-03-hash-maps/index.html
+    - name: Error Handling
+      output: BASEDIR/_out/html/book-1/ch09-00-error-handling/index.html
+      input: BASEDIR/book-1/ch09-00-error-handling.md
+      toc: []
+      next: /book-1/ch09-01-unrecoverable-errors-with-panic/index.html
+      prev: /book-1/ch08-03-hash-maps/index.html
+      heirachy:
+        - prity: Error Handling
+          link: /book-1/ch09-00-error-handling/index.html
+    - name: Unrecoverable Errors with panic!
+      output: BASEDIR/_out/html/book-1/ch09-01-unrecoverable-errors-with-panic/index.html
+      input: BASEDIR/book-1/ch09-01-unrecoverable-errors-with-panic.md
+      toc: []
+      next: /book-1/ch09-02-recoverable-errors-with-result/index.html
+      prev: /book-1/ch09-00-error-handling/index.html
+      heirachy:
+        - prity: Error Handling
+          link: /book-1/ch09-00-error-handling/index.html
+        - prity: Unrecoverable Errors with panic!
+          link: /book-1/ch09-01-unrecoverable-errors-with-panic/index.html
+    - name: Recoverable Errors with Result
+      output: BASEDIR/_out/html/book-1/ch09-02-recoverable-errors-with-result/index.html
+      input: BASEDIR/book-1/ch09-02-recoverable-errors-with-result.md
+      toc: []
+      next: /book-1/ch09-03-to-panic-or-not-to-panic/index.html
+      prev: /book-1/ch09-01-unrecoverable-errors-with-panic/index.html
+      heirachy:
+        - prity: Error Handling
+          link: /book-1/ch09-00-error-handling/index.html
+        - prity: Recoverable Errors with Result
+          link: /book-1/ch09-02-recoverable-errors-with-result/index.html
+    - name: To panic! or Not To panic!
+      output: BASEDIR/_out/html/book-1/ch09-03-to-panic-or-not-to-panic/index.html
+      input: BASEDIR/book-1/ch09-03-to-panic-or-not-to-panic.md
+      toc: []
+      next: /book-1/ch10-00-generics/index.html
+      prev: /book-1/ch09-02-recoverable-errors-with-result/index.html
+      heirachy:
+        - prity: Error Handling
+          link: /book-1/ch09-00-error-handling/index.html
+        - prity: To panic! or Not To panic!
+          link: /book-1/ch09-03-to-panic-or-not-to-panic/index.html
+    - name: "Generic Types, Traits, and Lifetimes"
+      output: BASEDIR/_out/html/book-1/ch10-00-generics/index.html
+      input: BASEDIR/book-1/ch10-00-generics.md
+      toc: []
+      next: /book-1/ch10-01-syntax/index.html
+      prev: /book-1/ch09-03-to-panic-or-not-to-panic/index.html
+      heirachy:
+        - prity: "Generic Types, Traits, and Lifetimes"
+          link: /book-1/ch10-00-generics/index.html
+    - name: Generic Data Types
+      output: BASEDIR/_out/html/book-1/ch10-01-syntax/index.html
+      input: BASEDIR/book-1/ch10-01-syntax.md
+      toc: []
+      next: /book-1/ch10-02-traits/index.html
+      prev: /book-1/ch10-00-generics/index.html
+      heirachy:
+        - prity: "Generic Types, Traits, and Lifetimes"
+          link: /book-1/ch10-00-generics/index.html
+        - prity: Generic Data Types
+          link: /book-1/ch10-01-syntax/index.html
+    - name: "Traits: Defining Shared Behavior"
+      output: BASEDIR/_out/html/book-1/ch10-02-traits/index.html
+      input: BASEDIR/book-1/ch10-02-traits.md
+      toc: []
+      next: /book-1/ch10-03-lifetime-syntax/index.html
+      prev: /book-1/ch10-01-syntax/index.html
+      heirachy:
+        - prity: "Generic Types, Traits, and Lifetimes"
+          link: /book-1/ch10-00-generics/index.html
+        - prity: "Traits: Defining Shared Behavior"
+          link: /book-1/ch10-02-traits/index.html
+    - name: Validating References with Lifetimes
+      output: BASEDIR/_out/html/book-1/ch10-03-lifetime-syntax/index.html
+      input: BASEDIR/book-1/ch10-03-lifetime-syntax.md
+      toc: []
+      next: /book-1/ch11-00-testing/index.html
+      prev: /book-1/ch10-02-traits/index.html
+      heirachy:
+        - prity: "Generic Types, Traits, and Lifetimes"
+          link: /book-1/ch10-00-generics/index.html
+        - prity: Validating References with Lifetimes
+          link: /book-1/ch10-03-lifetime-syntax/index.html
+    - name: Writing Automated Tests
+      output: BASEDIR/_out/html/book-1/ch11-00-testing/index.html
+      input: BASEDIR/book-1/ch11-00-testing.md
+      toc: []
+      next: /book-1/ch11-01-writing-tests/index.html
+      prev: /book-1/ch10-03-lifetime-syntax/index.html
+      heirachy:
+        - prity: Writing Automated Tests
+          link: /book-1/ch11-00-testing/index.html
+    - name: How to Write Tests
+      output: BASEDIR/_out/html/book-1/ch11-01-writing-tests/index.html
+      input: BASEDIR/book-1/ch11-01-writing-tests.md
+      toc: []
+      next: /book-1/ch11-02-running-tests/index.html
+      prev: /book-1/ch11-00-testing/index.html
+      heirachy:
+        - prity: Writing Automated Tests
+          link: /book-1/ch11-00-testing/index.html
+        - prity: How to Write Tests
+          link: /book-1/ch11-01-writing-tests/index.html
+    - name: Controlling How Tests Are Run
+      output: BASEDIR/_out/html/book-1/ch11-02-running-tests/index.html
+      input: BASEDIR/book-1/ch11-02-running-tests.md
+      toc: []
+      next: /book-1/ch11-03-test-organization/index.html
+      prev: /book-1/ch11-01-writing-tests/index.html
+      heirachy:
+        - prity: Writing Automated Tests
+          link: /book-1/ch11-00-testing/index.html
+        - prity: Controlling How Tests Are Run
+          link: /book-1/ch11-02-running-tests/index.html
+    - name: Test Organization
+      output: BASEDIR/_out/html/book-1/ch11-03-test-organization/index.html
+      input: BASEDIR/book-1/ch11-03-test-organization.md
+      toc: []
+      next: /book-1/ch12-00-an-io-project/index.html
+      prev: /book-1/ch11-02-running-tests/index.html
+      heirachy:
+        - prity: Writing Automated Tests
+          link: /book-1/ch11-00-testing/index.html
+        - prity: Test Organization
+          link: /book-1/ch11-03-test-organization/index.html
+    - name: "An I/O Project: Building a Command Line Program"
+      output: BASEDIR/_out/html/book-1/ch12-00-an-io-project/index.html
+      input: BASEDIR/book-1/ch12-00-an-io-project.md
+      toc: []
+      next: /book-1/ch12-01-accepting-command-line-arguments/index.html
+      prev: /book-1/ch11-03-test-organization/index.html
+      heirachy:
+        - prity: "An I/O Project: Building a Command Line Program"
+          link: /book-1/ch12-00-an-io-project/index.html
+    - name: Accepting Command Line Arguments
+      output: BASEDIR/_out/html/book-1/ch12-01-accepting-command-line-arguments/index.html
+      input: BASEDIR/book-1/ch12-01-accepting-command-line-arguments.md
+      toc: []
+      next: /book-1/ch12-02-reading-a-file/index.html
+      prev: /book-1/ch12-00-an-io-project/index.html
+      heirachy:
+        - prity: "An I/O Project: Building a Command Line Program"
+          link: /book-1/ch12-00-an-io-project/index.html
+        - prity: Accepting Command Line Arguments
+          link: /book-1/ch12-01-accepting-command-line-arguments/index.html
+    - name: Reading a File
+      output: BASEDIR/_out/html/book-1/ch12-02-reading-a-file/index.html
+      input: BASEDIR/book-1/ch12-02-reading-a-file.md
+      toc: []
+      next: /book-1/ch12-03-improving-error-handling-and-modularity/index.html
+      prev: /book-1/ch12-01-accepting-command-line-arguments/index.html
+      heirachy:
+        - prity: "An I/O Project: Building a Command Line Program"
+          link: /book-1/ch12-00-an-io-project/index.html
+        - prity: Reading a File
+          link: /book-1/ch12-02-reading-a-file/index.html
+    - name: Refactoring to Improve Modularity and Error Handling
+      output: BASEDIR/_out/html/book-1/ch12-03-improving-error-handling-and-modularity/index.html
+      input: BASEDIR/book-1/ch12-03-improving-error-handling-and-modularity.md
+      toc: []
+      next: /book-1/ch12-04-testing-the-librarys-functionality/index.html
+      prev: /book-1/ch12-02-reading-a-file/index.html
+      heirachy:
+        - prity: "An I/O Project: Building a Command Line Program"
+          link: /book-1/ch12-00-an-io-project/index.html
+        - prity: Refactoring to Improve Modularity and Error Handling
+          link: /book-1/ch12-03-improving-error-handling-and-modularity/index.html
+    - name: Developing the Library’s Functionality with Test Driven Development
+      output: BASEDIR/_out/html/book-1/ch12-04-testing-the-librarys-functionality/index.html
+      input: BASEDIR/book-1/ch12-04-testing-the-librarys-functionality.md
+      toc: []
+      next: /book-1/ch12-05-working-with-environment-variables/index.html
+      prev: /book-1/ch12-03-improving-error-handling-and-modularity/index.html
+      heirachy:
+        - prity: "An I/O Project: Building a Command Line Program"
+          link: /book-1/ch12-00-an-io-project/index.html
+        - prity: Developing the Library’s Functionality with Test Driven Development
+          link: /book-1/ch12-04-testing-the-librarys-functionality/index.html
+    - name: Working with Environment Variables
+      output: BASEDIR/_out/html/book-1/ch12-05-working-with-environment-variables/index.html
+      input: BASEDIR/book-1/ch12-05-working-with-environment-variables.md
+      toc: []
+      next: /book-1/ch12-06-writing-to-stderr-instead-of-stdout/index.html
+      prev: /book-1/ch12-04-testing-the-librarys-functionality/index.html
+      heirachy:
+        - prity: "An I/O Project: Building a Command Line Program"
+          link: /book-1/ch12-00-an-io-project/index.html
+        - prity: Working with Environment Variables
+          link: /book-1/ch12-05-working-with-environment-variables/index.html
+    - name: Writing Error Messages to Standard Error Instead of Standard Output
+      output: BASEDIR/_out/html/book-1/ch12-06-writing-to-stderr-instead-of-stdout/index.html
+      input: BASEDIR/book-1/ch12-06-writing-to-stderr-instead-of-stdout.md
+      toc: []
+      next: /book-1/ch13-00-functional-features/index.html
+      prev: /book-1/ch12-05-working-with-environment-variables/index.html
+      heirachy:
+        - prity: "An I/O Project: Building a Command Line Program"
+          link: /book-1/ch12-00-an-io-project/index.html
+        - prity: Writing Error Messages to Standard Error Instead of Standard Output
+          link: /book-1/ch12-06-writing-to-stderr-instead-of-stdout/index.html
+    - name: "Functional Language Features: Iterators and Closures"
+      output: BASEDIR/_out/html/book-1/ch13-00-functional-features/index.html
+      input: BASEDIR/book-1/ch13-00-functional-features.md
+      toc: []
+      next: /book-1/ch13-01-closures/index.html
+      prev: /book-1/ch12-06-writing-to-stderr-instead-of-stdout/index.html
+      heirachy:
+        - prity: "Functional Language Features: Iterators and Closures"
+          link: /book-1/ch13-00-functional-features/index.html
+    - name: "Closures: Anonymous Functions that Can Capture Their Environment"
+      output: BASEDIR/_out/html/book-1/ch13-01-closures/index.html
+      input: BASEDIR/book-1/ch13-01-closures.md
+      toc: []
+      next: /book-1/ch13-02-iterators/index.html
+      prev: /book-1/ch13-00-functional-features/index.html
+      heirachy:
+        - prity: "Functional Language Features: Iterators and Closures"
+          link: /book-1/ch13-00-functional-features/index.html
+        - prity: "Closures: Anonymous Functions that Can Capture Their Environment"
+          link: /book-1/ch13-01-closures/index.html
+    - name: Processing a Series of Items with Iterators
+      output: BASEDIR/_out/html/book-1/ch13-02-iterators/index.html
+      input: BASEDIR/book-1/ch13-02-iterators.md
+      toc: []
+      next: /book-1/ch13-03-improving-our-io-project/index.html
+      prev: /book-1/ch13-01-closures/index.html
+      heirachy:
+        - prity: "Functional Language Features: Iterators and Closures"
+          link: /book-1/ch13-00-functional-features/index.html
+        - prity: Processing a Series of Items with Iterators
+          link: /book-1/ch13-02-iterators/index.html
+    - name: Improving Our I/O Project
+      output: BASEDIR/_out/html/book-1/ch13-03-improving-our-io-project/index.html
+      input: BASEDIR/book-1/ch13-03-improving-our-io-project.md
+      toc: []
+      next: /book-1/ch13-04-performance/index.html
+      prev: /book-1/ch13-02-iterators/index.html
+      heirachy:
+        - prity: "Functional Language Features: Iterators and Closures"
+          link: /book-1/ch13-00-functional-features/index.html
+        - prity: Improving Our I/O Project
+          link: /book-1/ch13-03-improving-our-io-project/index.html
+    - name: "Comparing Performance: Loops vs. Iterators"
+      output: BASEDIR/_out/html/book-1/ch13-04-performance/index.html
+      input: BASEDIR/book-1/ch13-04-performance.md
+      toc: []
+      next: /book-1/ch14-00-more-about-cargo/index.html
+      prev: /book-1/ch13-03-improving-our-io-project/index.html
+      heirachy:
+        - prity: "Functional Language Features: Iterators and Closures"
+          link: /book-1/ch13-00-functional-features/index.html
+        - prity: "Comparing Performance: Loops vs. Iterators"
+          link: /book-1/ch13-04-performance/index.html
+    - name: More about Cargo and Crates.io
+      output: BASEDIR/_out/html/book-1/ch14-00-more-about-cargo/index.html
+      input: BASEDIR/book-1/ch14-00-more-about-cargo.md
+      toc: []
+      next: /book-1/ch14-01-release-profiles/index.html
+      prev: /book-1/ch13-04-performance/index.html
+      heirachy:
+        - prity: More about Cargo and Crates.io
+          link: /book-1/ch14-00-more-about-cargo/index.html
+    - name: Customizing Builds with Release Profiles
+      output: BASEDIR/_out/html/book-1/ch14-01-release-profiles/index.html
+      input: BASEDIR/book-1/ch14-01-release-profiles.md
+      toc: []
+      next: /book-1/ch14-02-publishing-to-crates-io/index.html
+      prev: /book-1/ch14-00-more-about-cargo/index.html
+      heirachy:
+        - prity: More about Cargo and Crates.io
+          link: /book-1/ch14-00-more-about-cargo/index.html
+        - prity: Customizing Builds with Release Profiles
+          link: /book-1/ch14-01-release-profiles/index.html
+    - name: Publishing a Crate to Crates.io
+      output: BASEDIR/_out/html/book-1/ch14-02-publishing-to-crates-io/index.html
+      input: BASEDIR/book-1/ch14-02-publishing-to-crates-io.md
+      toc: []
+      next: /book-1/ch14-03-cargo-workspaces/index.html
+      prev: /book-1/ch14-01-release-profiles/index.html
+      heirachy:
+        - prity: More about Cargo and Crates.io
+          link: /book-1/ch14-00-more-about-cargo/index.html
+        - prity: Publishing a Crate to Crates.io
+          link: /book-1/ch14-02-publishing-to-crates-io/index.html
+    - name: Cargo Workspaces
+      output: BASEDIR/_out/html/book-1/ch14-03-cargo-workspaces/index.html
+      input: BASEDIR/book-1/ch14-03-cargo-workspaces.md
+      toc: []
+      next: /book-1/ch14-04-installing-binaries/index.html
+      prev: /book-1/ch14-02-publishing-to-crates-io/index.html
+      heirachy:
+        - prity: More about Cargo and Crates.io
+          link: /book-1/ch14-00-more-about-cargo/index.html
+        - prity: Cargo Workspaces
+          link: /book-1/ch14-03-cargo-workspaces/index.html
+    - name: Installing Binaries from Crates.io with cargo install
+      output: BASEDIR/_out/html/book-1/ch14-04-installing-binaries/index.html
+      input: BASEDIR/book-1/ch14-04-installing-binaries.md
+      toc: []
+      next: /book-1/ch14-05-extending-cargo/index.html
+      prev: /book-1/ch14-03-cargo-workspaces/index.html
+      heirachy:
+        - prity: More about Cargo and Crates.io
+          link: /book-1/ch14-00-more-about-cargo/index.html
+        - prity: Installing Binaries from Crates.io with cargo install
+          link: /book-1/ch14-04-installing-binaries/index.html
+    - name: Extending Cargo with Custom Commands
+      output: BASEDIR/_out/html/book-1/ch14-05-extending-cargo/index.html
+      input: BASEDIR/book-1/ch14-05-extending-cargo.md
+      toc: []
+      next: /book-1/ch15-00-smart-pointers/index.html
+      prev: /book-1/ch14-04-installing-binaries/index.html
+      heirachy:
+        - prity: More about Cargo and Crates.io
+          link: /book-1/ch14-00-more-about-cargo/index.html
+        - prity: Extending Cargo with Custom Commands
+          link: /book-1/ch14-05-extending-cargo/index.html
+    - name: Smart Pointers
+      output: BASEDIR/_out/html/book-1/ch15-00-smart-pointers/index.html
+      input: BASEDIR/book-1/ch15-00-smart-pointers.md
+      toc: []
+      next: /book-1/ch15-01-box/index.html
+      prev: /book-1/ch14-05-extending-cargo/index.html
+      heirachy:
+        - prity: Smart Pointers
+          link: /book-1/ch15-00-smart-pointers/index.html
+    - name: Using Box<T> to Point to Data on the Heap
+      output: BASEDIR/_out/html/book-1/ch15-01-box/index.html
+      input: BASEDIR/book-1/ch15-01-box.md
+      toc: []
+      next: /book-1/ch15-02-deref/index.html
+      prev: /book-1/ch15-00-smart-pointers/index.html
+      heirachy:
+        - prity: Smart Pointers
+          link: /book-1/ch15-00-smart-pointers/index.html
+        - prity: Using Box<T> to Point to Data on the Heap
+          link: /book-1/ch15-01-box/index.html
+    - name: Treating Smart Pointers Like Regular References with the Deref Trait
+      output: BASEDIR/_out/html/book-1/ch15-02-deref/index.html
+      input: BASEDIR/book-1/ch15-02-deref.md
+      toc: []
+      next: /book-1/ch15-03-drop/index.html
+      prev: /book-1/ch15-01-box/index.html
+      heirachy:
+        - prity: Smart Pointers
+          link: /book-1/ch15-00-smart-pointers/index.html
+        - prity: Treating Smart Pointers Like Regular References with the Deref Trait
+          link: /book-1/ch15-02-deref/index.html
+    - name: Running Code on Cleanup with the Drop Trait
+      output: BASEDIR/_out/html/book-1/ch15-03-drop/index.html
+      input: BASEDIR/book-1/ch15-03-drop.md
+      toc: []
+      next: /book-1/ch15-04-rc/index.html
+      prev: /book-1/ch15-02-deref/index.html
+      heirachy:
+        - prity: Smart Pointers
+          link: /book-1/ch15-00-smart-pointers/index.html
+        - prity: Running Code on Cleanup with the Drop Trait
+          link: /book-1/ch15-03-drop/index.html
+    - name: "Rc<T>, the Reference Counted Smart Pointer"
+      output: BASEDIR/_out/html/book-1/ch15-04-rc/index.html
+      input: BASEDIR/book-1/ch15-04-rc.md
+      toc: []
+      next: /book-1/ch15-05-interior-mutability/index.html
+      prev: /book-1/ch15-03-drop/index.html
+      heirachy:
+        - prity: Smart Pointers
+          link: /book-1/ch15-00-smart-pointers/index.html
+        - prity: "Rc<T>, the Reference Counted Smart Pointer"
+          link: /book-1/ch15-04-rc/index.html
+    - name: RefCell<T> and the Interior Mutability Pattern
+      output: BASEDIR/_out/html/book-1/ch15-05-interior-mutability/index.html
+      input: BASEDIR/book-1/ch15-05-interior-mutability.md
+      toc: []
+      next: /book-1/ch15-06-reference-cycles/index.html
+      prev: /book-1/ch15-04-rc/index.html
+      heirachy:
+        - prity: Smart Pointers
+          link: /book-1/ch15-00-smart-pointers/index.html
+        - prity: RefCell<T> and the Interior Mutability Pattern
+          link: /book-1/ch15-05-interior-mutability/index.html
+    - name: Reference Cycles Can Leak Memory
+      output: BASEDIR/_out/html/book-1/ch15-06-reference-cycles/index.html
+      input: BASEDIR/book-1/ch15-06-reference-cycles.md
+      toc: []
+      next: /book-1/ch16-00-concurrency/index.html
+      prev: /book-1/ch15-05-interior-mutability/index.html
+      heirachy:
+        - prity: Smart Pointers
+          link: /book-1/ch15-00-smart-pointers/index.html
+        - prity: Reference Cycles Can Leak Memory
+          link: /book-1/ch15-06-reference-cycles/index.html
+    - name: Fearless Concurrency
+      output: BASEDIR/_out/html/book-1/ch16-00-concurrency/index.html
+      input: BASEDIR/book-1/ch16-00-concurrency.md
+      toc: []
+      next: /book-1/ch16-01-threads/index.html
+      prev: /book-1/ch15-06-reference-cycles/index.html
+      heirachy:
+        - prity: Fearless Concurrency
+          link: /book-1/ch16-00-concurrency/index.html
+    - name: Using Threads to Run Code Simultaneously
+      output: BASEDIR/_out/html/book-1/ch16-01-threads/index.html
+      input: BASEDIR/book-1/ch16-01-threads.md
+      toc: []
+      next: /book-1/ch16-02-message-passing/index.html
+      prev: /book-1/ch16-00-concurrency/index.html
+      heirachy:
+        - prity: Fearless Concurrency
+          link: /book-1/ch16-00-concurrency/index.html
+        - prity: Using Threads to Run Code Simultaneously
+          link: /book-1/ch16-01-threads/index.html
+    - name: Using Message Passing to Transfer Data Between Threads
+      output: BASEDIR/_out/html/book-1/ch16-02-message-passing/index.html
+      input: BASEDIR/book-1/ch16-02-message-passing.md
+      toc: []
+      next: /book-1/ch16-03-shared-state/index.html
+      prev: /book-1/ch16-01-threads/index.html
+      heirachy:
+        - prity: Fearless Concurrency
+          link: /book-1/ch16-00-concurrency/index.html
+        - prity: Using Message Passing to Transfer Data Between Threads
+          link: /book-1/ch16-02-message-passing/index.html
+    - name: Shared-State Concurrency
+      output: BASEDIR/_out/html/book-1/ch16-03-shared-state/index.html
+      input: BASEDIR/book-1/ch16-03-shared-state.md
+      toc: []
+      next: /book-1/ch16-04-extensible-concurrency-sync-and-send/index.html
+      prev: /book-1/ch16-02-message-passing/index.html
+      heirachy:
+        - prity: Fearless Concurrency
+          link: /book-1/ch16-00-concurrency/index.html
+        - prity: Shared-State Concurrency
+          link: /book-1/ch16-03-shared-state/index.html
+    - name: Extensible Concurrency with the Sync and Send Traits
+      output: BASEDIR/_out/html/book-1/ch16-04-extensible-concurrency-sync-and-send/index.html
+      input: BASEDIR/book-1/ch16-04-extensible-concurrency-sync-and-send.md
+      toc: []
+      next: /book-1/ch17-00-oop/index.html
+      prev: /book-1/ch16-03-shared-state/index.html
+      heirachy:
+        - prity: Fearless Concurrency
+          link: /book-1/ch16-00-concurrency/index.html
+        - prity: Extensible Concurrency with the Sync and Send Traits
+          link: /book-1/ch16-04-extensible-concurrency-sync-and-send/index.html
+    - name: Object Oriented Programming Features of Rust
+      output: BASEDIR/_out/html/book-1/ch17-00-oop/index.html
+      input: BASEDIR/book-1/ch17-00-oop.md
+      toc: []
+      next: /book-1/ch17-01-what-is-oo/index.html
+      prev: /book-1/ch16-04-extensible-concurrency-sync-and-send/index.html
+      heirachy:
+        - prity: Object Oriented Programming Features of Rust
+          link: /book-1/ch17-00-oop/index.html
+    - name: Characteristics of Object-Oriented Languages
+      output: BASEDIR/_out/html/book-1/ch17-01-what-is-oo/index.html
+      input: BASEDIR/book-1/ch17-01-what-is-oo.md
+      toc: []
+      next: /book-1/ch17-02-trait-objects/index.html
+      prev: /book-1/ch17-00-oop/index.html
+      heirachy:
+        - prity: Object Oriented Programming Features of Rust
+          link: /book-1/ch17-00-oop/index.html
+        - prity: Characteristics of Object-Oriented Languages
+          link: /book-1/ch17-01-what-is-oo/index.html
+    - name: Using Trait Objects That Allow for Values of Different Types
+      output: BASEDIR/_out/html/book-1/ch17-02-trait-objects/index.html
+      input: BASEDIR/book-1/ch17-02-trait-objects.md
+      toc: []
+      next: /book-1/ch17-03-oo-design-patterns/index.html
+      prev: /book-1/ch17-01-what-is-oo/index.html
+      heirachy:
+        - prity: Object Oriented Programming Features of Rust
+          link: /book-1/ch17-00-oop/index.html
+        - prity: Using Trait Objects That Allow for Values of Different Types
+          link: /book-1/ch17-02-trait-objects/index.html
+    - name: Implementing an Object-Oriented Design Pattern
+      output: BASEDIR/_out/html/book-1/ch17-03-oo-design-patterns/index.html
+      input: BASEDIR/book-1/ch17-03-oo-design-patterns.md
+      toc: []
+      next: /book-1/ch18-00-patterns/index.html
+      prev: /book-1/ch17-02-trait-objects/index.html
+      heirachy:
+        - prity: Object Oriented Programming Features of Rust
+          link: /book-1/ch17-00-oop/index.html
+        - prity: Implementing an Object-Oriented Design Pattern
+          link: /book-1/ch17-03-oo-design-patterns/index.html
+    - name: Patterns and Matching
+      output: BASEDIR/_out/html/book-1/ch18-00-patterns/index.html
+      input: BASEDIR/book-1/ch18-00-patterns.md
+      toc: []
+      next: /book-1/ch18-01-all-the-places-for-patterns/index.html
+      prev: /book-1/ch17-03-oo-design-patterns/index.html
+      heirachy:
+        - prity: Patterns and Matching
+          link: /book-1/ch18-00-patterns/index.html
+    - name: All the Places Patterns Can Be Used
+      output: BASEDIR/_out/html/book-1/ch18-01-all-the-places-for-patterns/index.html
+      input: BASEDIR/book-1/ch18-01-all-the-places-for-patterns.md
+      toc: []
+      next: /book-1/ch18-02-refutability/index.html
+      prev: /book-1/ch18-00-patterns/index.html
+      heirachy:
+        - prity: Patterns and Matching
+          link: /book-1/ch18-00-patterns/index.html
+        - prity: All the Places Patterns Can Be Used
+          link: /book-1/ch18-01-all-the-places-for-patterns/index.html
+    - name: "Refutability: Whether a Pattern Might Fail to Match"
+      output: BASEDIR/_out/html/book-1/ch18-02-refutability/index.html
+      input: BASEDIR/book-1/ch18-02-refutability.md
+      toc: []
+      next: /book-1/ch18-03-pattern-syntax/index.html
+      prev: /book-1/ch18-01-all-the-places-for-patterns/index.html
+      heirachy:
+        - prity: Patterns and Matching
+          link: /book-1/ch18-00-patterns/index.html
+        - prity: "Refutability: Whether a Pattern Might Fail to Match"
+          link: /book-1/ch18-02-refutability/index.html
+    - name: Pattern Syntax
+      output: BASEDIR/_out/html/book-1/ch18-03-pattern-syntax/index.html
+      input: BASEDIR/book-1/ch18-03-pattern-syntax.md
+      toc: []
+      next: /book-1/ch19-00-advanced-features/index.html
+      prev: /book-1/ch18-02-refutability/index.html
+      heirachy:
+        - prity: Patterns and Matching
+          link: /book-1/ch18-00-patterns/index.html
+        - prity: Pattern Syntax
+          link: /book-1/ch18-03-pattern-syntax/index.html
+    - name: Advanced Features
+      output: BASEDIR/_out/html/book-1/ch19-00-advanced-features/index.html
+      input: BASEDIR/book-1/ch19-00-advanced-features.md
+      toc: []
+      next: /book-1/ch19-01-unsafe-rust/index.html
+      prev: /book-1/ch18-03-pattern-syntax/index.html
+      heirachy:
+        - prity: Advanced Features
+          link: /book-1/ch19-00-advanced-features/index.html
+    - name: Unsafe Rust
+      output: BASEDIR/_out/html/book-1/ch19-01-unsafe-rust/index.html
+      input: BASEDIR/book-1/ch19-01-unsafe-rust.md
+      toc: []
+      next: /book-1/ch19-03-advanced-traits/index.html
+      prev: /book-1/ch19-00-advanced-features/index.html
+      heirachy:
+        - prity: Advanced Features
+          link: /book-1/ch19-00-advanced-features/index.html
+        - prity: Unsafe Rust
+          link: /book-1/ch19-01-unsafe-rust/index.html
+    - name: Advanced Traits
+      output: BASEDIR/_out/html/book-1/ch19-03-advanced-traits/index.html
+      input: BASEDIR/book-1/ch19-03-advanced-traits.md
+      toc: []
+      next: /book-1/ch19-04-advanced-types/index.html
+      prev: /book-1/ch19-01-unsafe-rust/index.html
+      heirachy:
+        - prity: Advanced Features
+          link: /book-1/ch19-00-advanced-features/index.html
+        - prity: Advanced Traits
+          link: /book-1/ch19-03-advanced-traits/index.html
+    - name: Advanced Types
+      output: BASEDIR/_out/html/book-1/ch19-04-advanced-types/index.html
+      input: BASEDIR/book-1/ch19-04-advanced-types.md
+      toc: []
+      next: /book-1/ch19-05-advanced-functions-and-closures/index.html
+      prev: /book-1/ch19-03-advanced-traits/index.html
+      heirachy:
+        - prity: Advanced Features
+          link: /book-1/ch19-00-advanced-features/index.html
+        - prity: Advanced Types
+          link: /book-1/ch19-04-advanced-types/index.html
+    - name: Advanced Functions and Closures
+      output: BASEDIR/_out/html/book-1/ch19-05-advanced-functions-and-closures/index.html
+      input: BASEDIR/book-1/ch19-05-advanced-functions-and-closures.md
+      toc: []
+      next: /book-1/ch19-06-macros/index.html
+      prev: /book-1/ch19-04-advanced-types/index.html
+      heirachy:
+        - prity: Advanced Features
+          link: /book-1/ch19-00-advanced-features/index.html
+        - prity: Advanced Functions and Closures
+          link: /book-1/ch19-05-advanced-functions-and-closures/index.html
+    - name: Macros
+      output: BASEDIR/_out/html/book-1/ch19-06-macros/index.html
+      input: BASEDIR/book-1/ch19-06-macros.md
+      toc: []
+      next: /book-1/ch20-00-final-project-a-web-server/index.html
+      prev: /book-1/ch19-05-advanced-functions-and-closures/index.html
+      heirachy:
+        - prity: Advanced Features
+          link: /book-1/ch19-00-advanced-features/index.html
+        - prity: Macros
+          link: /book-1/ch19-06-macros/index.html
+    - name: "Final Project: Building a Multithreaded Web Server"
+      output: BASEDIR/_out/html/book-1/ch20-00-final-project-a-web-server/index.html
+      input: BASEDIR/book-1/ch20-00-final-project-a-web-server.md
+      toc: []
+      next: /book-1/ch20-01-single-threaded/index.html
+      prev: /book-1/ch19-06-macros/index.html
+      heirachy:
+        - prity: "Final Project: Building a Multithreaded Web Server"
+          link: /book-1/ch20-00-final-project-a-web-server/index.html
+    - name: Building a Single-Threaded Web Server
+      output: BASEDIR/_out/html/book-1/ch20-01-single-threaded/index.html
+      input: BASEDIR/book-1/ch20-01-single-threaded.md
+      toc: []
+      next: /book-1/ch20-02-multithreaded/index.html
+      prev: /book-1/ch20-00-final-project-a-web-server/index.html
+      heirachy:
+        - prity: "Final Project: Building a Multithreaded Web Server"
+          link: /book-1/ch20-00-final-project-a-web-server/index.html
+        - prity: Building a Single-Threaded Web Server
+          link: /book-1/ch20-01-single-threaded/index.html
+    - name: Turning Our Single-Threaded Server into a Multithreaded Server
+      output: BASEDIR/_out/html/book-1/ch20-02-multithreaded/index.html
+      input: BASEDIR/book-1/ch20-02-multithreaded.md
+      toc: []
+      next: /book-1/ch20-03-graceful-shutdown-and-cleanup/index.html
+      prev: /book-1/ch20-01-single-threaded/index.html
+      heirachy:
+        - prity: "Final Project: Building a Multithreaded Web Server"
+          link: /book-1/ch20-00-final-project-a-web-server/index.html
+        - prity: Turning Our Single-Threaded Server into a Multithreaded Server
+          link: /book-1/ch20-02-multithreaded/index.html
+    - name: Graceful Shutdown and Cleanup
+      output: BASEDIR/_out/html/book-1/ch20-03-graceful-shutdown-and-cleanup/index.html
+      input: BASEDIR/book-1/ch20-03-graceful-shutdown-and-cleanup.md
+      toc: []
+      next: /book-1/appendix-00/index.html
+      prev: /book-1/ch20-02-multithreaded/index.html
+      heirachy:
+        - prity: "Final Project: Building a Multithreaded Web Server"
+          link: /book-1/ch20-00-final-project-a-web-server/index.html
+        - prity: Graceful Shutdown and Cleanup
+          link: /book-1/ch20-03-graceful-shutdown-and-cleanup/index.html
+    - name: Appendix
+      output: BASEDIR/_out/html/book-1/appendix-00/index.html
+      input: BASEDIR/book-1/appendix-00.md
+      toc: []
+      next: /book-1/appendix-01-keywords/index.html
+      prev: /book-1/ch20-03-graceful-shutdown-and-cleanup/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+    - name: A - Keywords
+      output: BASEDIR/_out/html/book-1/appendix-01-keywords/index.html
+      input: BASEDIR/book-1/appendix-01-keywords.md
+      toc: []
+      next: /book-1/appendix-02-operators/index.html
+      prev: /book-1/appendix-00/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+        - prity: A - Keywords
+          link: /book-1/appendix-01-keywords/index.html
+    - name: B - Operators and Symbols
+      output: BASEDIR/_out/html/book-1/appendix-02-operators/index.html
+      input: BASEDIR/book-1/appendix-02-operators.md
+      toc: []
+      next: /book-1/appendix-03-derivable-traits/index.html
+      prev: /book-1/appendix-01-keywords/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+        - prity: B - Operators and Symbols
+          link: /book-1/appendix-02-operators/index.html
+    - name: C - Derivable Traits
+      output: BASEDIR/_out/html/book-1/appendix-03-derivable-traits/index.html
+      input: BASEDIR/book-1/appendix-03-derivable-traits.md
+      toc: []
+      next: /book-1/appendix-04-useful-development-tools/index.html
+      prev: /book-1/appendix-02-operators/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+        - prity: C - Derivable Traits
+          link: /book-1/appendix-03-derivable-traits/index.html
+    - name: D - Useful Development Tools
+      output: BASEDIR/_out/html/book-1/appendix-04-useful-development-tools/index.html
+      input: BASEDIR/book-1/appendix-04-useful-development-tools.md
+      toc: []
+      next: /book-1/appendix-05-editions/index.html
+      prev: /book-1/appendix-03-derivable-traits/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+        - prity: D - Useful Development Tools
+          link: /book-1/appendix-04-useful-development-tools/index.html
+    - name: E - Editions
+      output: BASEDIR/_out/html/book-1/appendix-05-editions/index.html
+      input: BASEDIR/book-1/appendix-05-editions.md
+      toc: []
+      next: /book-1/appendix-06-translation/index.html
+      prev: /book-1/appendix-04-useful-development-tools/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+        - prity: E - Editions
+          link: /book-1/appendix-05-editions/index.html
+    - name: F - Translations of the Book
+      output: BASEDIR/_out/html/book-1/appendix-06-translation/index.html
+      input: BASEDIR/book-1/appendix-06-translation.md
+      toc: []
+      next: /book-1/appendix-07-nightly-rust/index.html
+      prev: /book-1/appendix-05-editions/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+        - prity: F - Translations of the Book
+          link: /book-1/appendix-06-translation/index.html
+    - name: G - How Rust is Made and “Nightly Rust”
+      output: BASEDIR/_out/html/book-1/appendix-07-nightly-rust/index.html
+      input: BASEDIR/book-1/appendix-07-nightly-rust.md
+      toc: []
+      next: /book-1/title-page/index.html
+      prev: /book-1/appendix-06-translation/index.html
+      heirachy:
+        - prity: Appendix
+          link: /book-1/appendix-00/index.html
+        - prity: G - How Rust is Made and “Nightly Rust”
+          link: /book-1/appendix-07-nightly-rust/index.html
+    - name: The Rust Programming Language
+      output: BASEDIR/_out/html/book-1/title-page/index.html
+      input: BASEDIR/book-1/title-page.md
+      toc: []
+      next: /book-1/foreword/index.html
+      prev: /book-1/appendix-07-nightly-rust/index.html
+      heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1/title-page/index.html
+    - name: Foreword
+      output: BASEDIR/_out/html/book-1/foreword/index.html
+      input: BASEDIR/book-1/foreword.md
+      toc: []
+      next: /book-1/ch00-00-introduction/index.html
+      prev: /book-1/title-page/index.html
+      heirachy:
+        - prity: Foreword
+          link: /book-1/foreword/index.html
+    - name: Introduction
+      output: BASEDIR/_out/html/book-1/ch00-00-introduction/index.html
+      input: BASEDIR/book-1/ch00-00-introduction.md
+      toc: []
+      next: ~
+      prev: /book-1/foreword/index.html
+      heirachy:
+        - prity: Introduction
+          link: /book-1/ch00-00-introduction/index.html
+- title: Summary
+  pages:
+    - name: mdBook
+      output: BASEDIR/_out/html/book-2/index.html
+      input: BASEDIR/book-2/README.md
+      toc: []
+      next: /book-2/cli/index.html
+      prev: ~
+      heirachy:
+        - prity: mdBook
+          link: /book-2/index.html
+    - name: Command Line Tool
+      output: BASEDIR/_out/html/book-2/cli/index.html
+      input: BASEDIR/book-2/cli/README.md
+      toc: []
+      next: /book-2/cli/init/index.html
+      prev: /book-2/index.html
+      heirachy:
+        - prity: Command Line Tool
+          link: /book-2/cli/index.html
+    - name: init
+      output: BASEDIR/_out/html/book-2/cli/init/index.html
+      input: BASEDIR/book-2/cli/init.md
+      toc: []
+      next: /book-2/cli/build/index.html
+      prev: /book-2/cli/index.html
+      heirachy:
+        - prity: Command Line Tool
+          link: /book-2/cli/index.html
+        - prity: init
+          link: /book-2/cli/init/index.html
+    - name: build
+      output: BASEDIR/_out/html/book-2/cli/build/index.html
+      input: BASEDIR/book-2/cli/build.md
+      toc: []
+      next: /book-2/cli/watch/index.html
+      prev: /book-2/cli/init/index.html
+      heirachy:
+        - prity: Command Line Tool
+          link: /book-2/cli/index.html
+        - prity: build
+          link: /book-2/cli/build/index.html
+    - name: watch
+      output: BASEDIR/_out/html/book-2/cli/watch/index.html
+      input: BASEDIR/book-2/cli/watch.md
+      toc: []
+      next: /book-2/cli/serve/index.html
+      prev: /book-2/cli/build/index.html
+      heirachy:
+        - prity: Command Line Tool
+          link: /book-2/cli/index.html
+        - prity: watch
+          link: /book-2/cli/watch/index.html
+    - name: serve
+      output: BASEDIR/_out/html/book-2/cli/serve/index.html
+      input: BASEDIR/book-2/cli/serve.md
+      toc: []
+      next: /book-2/cli/test/index.html
+      prev: /book-2/cli/watch/index.html
+      heirachy:
+        - prity: Command Line Tool
+          link: /book-2/cli/index.html
+        - prity: serve
+          link: /book-2/cli/serve/index.html
+    - name: test
+      output: BASEDIR/_out/html/book-2/cli/test/index.html
+      input: BASEDIR/book-2/cli/test.md
+      toc: []
+      next: /book-2/cli/clean/index.html
+      prev: /book-2/cli/serve/index.html
+      heirachy:
+        - prity: Command Line Tool
+          link: /book-2/cli/index.html
+        - prity: test
+          link: /book-2/cli/test/index.html
+    - name: clean
+      output: BASEDIR/_out/html/book-2/cli/clean/index.html
+      input: BASEDIR/book-2/cli/clean.md
+      toc: []
+      next: /book-2/format/index.html
+      prev: /book-2/cli/test/index.html
+      heirachy:
+        - prity: Command Line Tool
+          link: /book-2/cli/index.html
+        - prity: clean
+          link: /book-2/cli/clean/index.html
+    - name: Format
+      output: BASEDIR/_out/html/book-2/format/index.html
+      input: BASEDIR/book-2/format/README.md
+      toc: []
+      next: /book-2/format/summary/index.html
+      prev: /book-2/cli/clean/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+    - name: SUMMARY.md
+      output: BASEDIR/_out/html/book-2/format/summary/index.html
+      input: BASEDIR/book-2/format/summary.md
+      toc: []
+      next: /book-2/format/config/index.html
+      prev: /book-2/format/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: SUMMARY.md
+          link: /book-2/format/summary/index.html
+    - name: Configuration
+      output: BASEDIR/_out/html/book-2/format/config/index.html
+      input: BASEDIR/book-2/format/config.md
+      toc: []
+      next: /book-2/format/theme/index.html
+      prev: /book-2/format/summary/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: Configuration
+          link: /book-2/format/config/index.html
+    - name: Theme
+      output: BASEDIR/_out/html/book-2/format/theme/index.html
+      input: BASEDIR/book-2/format/theme/README.md
+      toc: []
+      next: /book-2/format/theme/index-hbs/index.html
+      prev: /book-2/format/config/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: Theme
+          link: /book-2/format/theme/index.html
+    - name: index.hbs
+      output: BASEDIR/_out/html/book-2/format/theme/index-hbs/index.html
+      input: BASEDIR/book-2/format/theme/index-hbs.md
+      toc: []
+      next: /book-2/format/theme/syntax-highlighting/index.html
+      prev: /book-2/format/theme/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: Theme
+          link: /book-2/format/theme/index.html
+        - prity: index.hbs
+          link: /book-2/format/theme/index-hbs/index.html
+    - name: Syntax highlighting
+      output: BASEDIR/_out/html/book-2/format/theme/syntax-highlighting/index.html
+      input: BASEDIR/book-2/format/theme/syntax-highlighting.md
+      toc: []
+      next: /book-2/format/theme/editor/index.html
+      prev: /book-2/format/theme/index-hbs/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: Theme
+          link: /book-2/format/theme/index.html
+        - prity: Syntax highlighting
+          link: /book-2/format/theme/syntax-highlighting/index.html
+    - name: Editor
+      output: BASEDIR/_out/html/book-2/format/theme/editor/index.html
+      input: BASEDIR/book-2/format/theme/editor.md
+      toc: []
+      next: /book-2/format/mathjax/index.html
+      prev: /book-2/format/theme/syntax-highlighting/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: Theme
+          link: /book-2/format/theme/index.html
+        - prity: Editor
+          link: /book-2/format/theme/editor/index.html
+    - name: MathJax Support
+      output: BASEDIR/_out/html/book-2/format/mathjax/index.html
+      input: BASEDIR/book-2/format/mathjax.md
+      toc: []
+      next: /book-2/format/mdbook/index.html
+      prev: /book-2/format/theme/editor/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: MathJax Support
+          link: /book-2/format/mathjax/index.html
+    - name: mdBook-specific features
+      output: BASEDIR/_out/html/book-2/format/mdbook/index.html
+      input: BASEDIR/book-2/format/mdbook.md
+      toc: []
+      next: /book-2/continuous-integration/index.html
+      prev: /book-2/format/mathjax/index.html
+      heirachy:
+        - prity: Format
+          link: /book-2/format/index.html
+        - prity: mdBook-specific features
+          link: /book-2/format/mdbook/index.html
+    - name: Continuous Integration
+      output: BASEDIR/_out/html/book-2/continuous-integration/index.html
+      input: BASEDIR/book-2/continuous-integration.md
+      toc: []
+      next: /book-2/for_developers/index.html
+      prev: /book-2/format/mdbook/index.html
+      heirachy:
+        - prity: Continuous Integration
+          link: /book-2/continuous-integration/index.html
+    - name: For Developers
+      output: BASEDIR/_out/html/book-2/for_developers/index.html
+      input: BASEDIR/book-2/for_developers/README.md
+      toc: []
+      next: /book-2/for_developers/preprocessors/index.html
+      prev: /book-2/continuous-integration/index.html
+      heirachy:
+        - prity: For Developers
+          link: /book-2/for_developers/index.html
+    - name: Preprocessors
+      output: BASEDIR/_out/html/book-2/for_developers/preprocessors/index.html
+      input: BASEDIR/book-2/for_developers/preprocessors.md
+      toc: []
+      next: /book-2/for_developers/backends/index.html
+      prev: /book-2/for_developers/index.html
+      heirachy:
+        - prity: For Developers
+          link: /book-2/for_developers/index.html
+        - prity: Preprocessors
+          link: /book-2/for_developers/preprocessors/index.html
+    - name: Alternative Backends
+      output: BASEDIR/_out/html/book-2/for_developers/backends/index.html
+      input: BASEDIR/book-2/for_developers/backends.md
+      toc: []
+      next: ~
+      prev: /book-2/for_developers/preprocessors/index.html
+      heirachy:
+        - prity: For Developers
+          link: /book-2/for_developers/index.html
+        - prity: Alternative Backends
+          link: /book-2/for_developers/backends/index.html
+- title: "3"
+  pages:
+    - name: pre 1
+      output: BASEDIR/_out/html/book-3/./pre1/index.html
+      input: BASEDIR/book-3/./pre1.md
+      toc: []
+      next: /book-3/./pre2/index.html
+      prev: ~
+      heirachy:
+        - prity: pre 1
+          link: /book-3/./pre1/index.html
+    - name: pre 2
+      output: BASEDIR/_out/html/book-3/./pre2/index.html
+      input: BASEDIR/book-3/./pre2.md
+      toc: []
+      next: /book-3/./c1/index.html
+      prev: /book-3/./pre1/index.html
+      heirachy:
+        - prity: pre 2
+          link: /book-3/./pre2/index.html
+    - name: c 1
+      output: BASEDIR/_out/html/book-3/./c1/index.html
+      input: BASEDIR/book-3/./c1.md
+      toc: []
+      next: /book-3/./c2/index.html
+      prev: /book-3/./pre2/index.html
+      heirachy:
+        - prity: c 1
+          link: /book-3/./c1/index.html
+    - name: c 2
+      output: BASEDIR/_out/html/book-3/./c2/index.html
+      input: BASEDIR/book-3/./c2.md
+      toc: []
+      next: /book-3/./c3/index.html
+      prev: /book-3/./c1/index.html
+      heirachy:
+        - prity: c 2
+          link: /book-3/./c2/index.html
+    - name: c 3
+      output: BASEDIR/_out/html/book-3/./c3/index.html
+      input: BASEDIR/book-3/./c3.md
+      toc: []
+      next: /book-3/./c31/index.html
+      prev: /book-3/./c2/index.html
+      heirachy:
+        - prity: c 3
+          link: /book-3/./c3/index.html
+    - name: c 3 1
+      output: BASEDIR/_out/html/book-3/./c31/index.html
+      input: BASEDIR/book-3/./c31.md
+      toc: []
+      next: /book-3/./c32/index.html
+      prev: /book-3/./c3/index.html
+      heirachy:
+        - prity: c 3
+          link: /book-3/./c3/index.html
+        - prity: c 3 1
+          link: /book-3/./c31/index.html
+    - name: c 3 2
+      output: BASEDIR/_out/html/book-3/./c32/index.html
+      input: BASEDIR/book-3/./c32.md
+      toc: []
+      next: /book-3/./c33/index.html
+      prev: /book-3/./c31/index.html
+      heirachy:
+        - prity: c 3
+          link: /book-3/./c3/index.html
+        - prity: c 3 2
+          link: /book-3/./c32/index.html
+    - name: c 3 3
+      output: BASEDIR/_out/html/book-3/./c33/index.html
+      input: BASEDIR/book-3/./c33.md
+      toc: []
+      next: /book-3/./post1/index.html
+      prev: /book-3/./c32/index.html
+      heirachy:
+        - prity: c 3
+          link: /book-3/./c3/index.html
+        - prity: c 3 3
+          link: /book-3/./c33/index.html
+    - name: post 1
+      output: BASEDIR/_out/html/book-3/./post1/index.html
+      input: BASEDIR/book-3/./post1.md
+      toc: []
+      next: /book-3/./pre1/index.html
+      prev: /book-3/./c33/index.html
+      heirachy:
+        - prity: post 1
+          link: /book-3/./post1/index.html
+    - name: pre 1
+      output: BASEDIR/_out/html/book-3/./pre1/index.html
+      input: BASEDIR/book-3/./pre1.md
+      toc: []
+      next: /book-3/./pre2/index.html
+      prev: /book-3/./post1/index.html
+      heirachy:
+        - prity: pre 1
+          link: /book-3/./pre1/index.html
+    - name: pre 2
+      output: BASEDIR/_out/html/book-3/./pre2/index.html
+      input: BASEDIR/book-3/./pre2.md
+      toc: []
+      next: ~
+      prev: /book-3/./pre1/index.html
+      heirachy:
+        - prity: pre 2
+          link: /book-3/./pre2/index.html
