@@ -24,7 +24,7 @@ pub struct GlobalConf {
 }
 
 // An book.
-#[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize)]
+#[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize, Default)]
 pub struct Book {
     pub location: PathBuf,
     pub summary: Summary,

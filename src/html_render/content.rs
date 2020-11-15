@@ -7,16 +7,16 @@ use std::path::{Path, PathBuf};
 
 /// The content in a suitable form.
 
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Content(pub Vec<Book>);
 
-#[derive(Clone, Debug, Serialize, Deserialize)]
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Default)]
 pub struct Book {
     pub title: String,
     pub pages: Vec<Page>,
 }
 
-#[derive(Debug, Clone, Default, Serialize, Deserialize)]
+#[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 pub struct Page {
     pub name: String,
     /// The html file to render to
@@ -155,7 +155,7 @@ impl Book {
         //     after.prev = Some(before.url());
         // }
         // Because GAT's.
-        for i in 0..out.len() - 1 {
+        for i in 0..out.len().saturating_sub(1) {
             let before_url = out[i].url(dirs)?;
             let after_url = out[i + 1].url(dirs)?;
             out[i].next = Some(after_url);
@@ -222,7 +222,7 @@ enum PageListParts<'a> {
 //TODO: Should this be the same as pagetoc::Link.
 // This is relative to site root, so needs special care when we're serving
 // on a subdir. that is just relative to the page
-#[derive(Debug, Clone, Serialize, Deserialize)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 pub struct Link {
     pub prity: String,
     pub link: String,
@@ -317,10 +317,10 @@ mod pagetoc {
 
     use serde::{Deserialize, Serialize};
 
-    #[derive(Debug, Clone, Default, Serialize, Deserialize)]
+    #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
     pub struct PageToc(pub Vec<H2>);
 
-    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
     pub struct Link {
         // The "nice" name, eg "Creating a book"
         pub pritty: String,
@@ -328,10 +328,10 @@ mod pagetoc {
         pub link: String,
     }
 
-    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
     pub struct H3(pub Link);
 
-    #[derive(Debug, Clone, Serialize, Deserialize)]
+    #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
     pub struct H2 {
         pub this: Link,
         pub children: Vec<H3>,
@@ -463,5 +463,27 @@ mod tests {
                  ".**.output" => dynamic_redaction(redaction(tp)),
             }
         );
+    }
+
+    #[test]
+    fn empty_conf() {
+        let args = Default::default();
+        let conf = Default::default();
+        let content = Content::new(&conf, &args).unwrap();
+        assert_eq!(content.0.len(), 0);
+    }
+
+    #[test]
+    fn empty_book() {
+        let args = Default::default();
+        let book = Default::default();
+        let conf = GlobalConf {
+            books: vec![book],
+            ..Default::default()
+        };
+        let content = Content::new(&conf, &args).unwrap();
+        assert_eq!(content, Content(
+            vec![Default::default()]
+        ));
     }
 }
