@@ -1,4 +1,5 @@
 use crate::config::{self, Book as CBook};
+use crate::summary;
 use eyre::Result;
 use std::path::PathBuf;
 
@@ -62,9 +63,56 @@ impl Book {
     }
 
     fn capture_pages(book: &config::Book) -> Result<Vec<Page>> {
-        // We need to walk the recursive data structure, while maintaining a load of stuff.
+        use PageListParts::*;
+
+        // We need to hold onto a bungh of stuff as we walk the tree, ands its
+        // nicer if thats a list, and we just preserve the tree structure by
+        // saying when we go up and down.
+
+        let mut pages_parts = Vec::new();
+        for i in &book.summary.prefix_chapters {
+            pages_parts.push(Chapter(i));
+        }
+        for i in &book.summary.numbered_chapters {
+            Self::capture_raw_parts(i, &mut pages_parts);
+        }
+        for i in &book.summary.prefix_chapters {
+            pages_parts.push(Chapter(i));
+        }
+
         todo!()
     }
+
+    fn capture_raw_parts<'a>(link: &'a summary::Link, out: &mut Vec<PageListParts<'a>>) {
+        use PageListParts::*;
+
+        out.push(Chapter(&link.chapter));
+        if !link.nested_items.is_empty() {
+            out.push(StartSection);
+            Self::capture_raw_parts(link, out);
+            out.push(EndSection)
+        }
+    }
+}
+
+/// Fun helper type
+///
+/// 1. Foo
+/// 2. Bar
+/// 2.1. Baz
+/// 2.1.1 Quix
+/// 2.2 Spam
+///
+/// Chapter(Foo)
+/// Chapter(Bar)
+/// StartSection
+/// Chapter(Baz)
+/// StartSection
+enum PageListParts<'a> {
+    //TODO: A better name
+    Chapter(&'a summary::Chapter),
+    StartSection,
+    EndSection,
 }
 
 //TODO: Should this be the same as pagetoc::Link.
