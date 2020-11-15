@@ -12,6 +12,8 @@ expression: content
       prev: ~
       heirachy:
         - prity: The Rust Programming Language
+          link: /book-1
+        - prity: The Rust Programming Language
           link: /book-1/title-page/index.html
     - name: Foreword
       output: BASEDIR/_out/html/book-1/foreword/index.html
@@ -20,6 +22,8 @@ expression: content
       next: /book-1/ch00-00-introduction/index.html
       prev: /book-1/title-page/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Foreword
           link: /book-1/foreword/index.html
     - name: Introduction
@@ -29,6 +33,8 @@ expression: content
       next: /book-1/ch01-00-getting-started/index.html
       prev: /book-1/foreword/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Introduction
           link: /book-1/ch00-00-introduction/index.html
     - name: Getting Started
@@ -38,6 +44,8 @@ expression: content
       next: /book-1/ch01-01-installation/index.html
       prev: /book-1/ch00-00-introduction/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Getting Started
           link: /book-1/ch01-00-getting-started/index.html
     - name: Installation
@@ -47,6 +55,8 @@ expression: content
       next: /book-1/ch01-02-hello-world/index.html
       prev: /book-1/ch01-00-getting-started/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Getting Started
           link: /book-1/ch01-00-getting-started/index.html
         - prity: Installation
@@ -58,6 +68,8 @@ expression: content
       next: /book-1/ch01-03-hello-cargo/index.html
       prev: /book-1/ch01-01-installation/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Getting Started
           link: /book-1/ch01-00-getting-started/index.html
         - prity: "Hello, World!"
@@ -69,6 +81,8 @@ expression: content
       next: /book-1/ch02-00-guessing-game-tutorial/index.html
       prev: /book-1/ch01-02-hello-world/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Getting Started
           link: /book-1/ch01-00-getting-started/index.html
         - prity: "Hello, Cargo!"
@@ -80,6 +94,8 @@ expression: content
       next: /book-1/ch03-00-common-programming-concepts/index.html
       prev: /book-1/ch01-03-hello-cargo/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Programming a Guessing Game
           link: /book-1/ch02-00-guessing-game-tutorial/index.html
     - name: Common Programming Concepts
@@ -89,6 +105,8 @@ expression: content
       next: /book-1/ch03-01-variables-and-mutability/index.html
       prev: /book-1/ch02-00-guessing-game-tutorial/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Programming Concepts
           link: /book-1/ch03-00-common-programming-concepts/index.html
     - name: Variables and Mutability
@@ -98,6 +116,8 @@ expression: content
       next: /book-1/ch03-02-data-types/index.html
       prev: /book-1/ch03-00-common-programming-concepts/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Programming Concepts
           link: /book-1/ch03-00-common-programming-concepts/index.html
         - prity: Variables and Mutability
@@ -109,6 +129,8 @@ expression: content
       next: /book-1/ch03-03-how-functions-work/index.html
       prev: /book-1/ch03-01-variables-and-mutability/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Programming Concepts
           link: /book-1/ch03-00-common-programming-concepts/index.html
         - prity: Data Types
@@ -120,6 +142,8 @@ expression: content
       next: /book-1/ch03-04-comments/index.html
       prev: /book-1/ch03-02-data-types/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Programming Concepts
           link: /book-1/ch03-00-common-programming-concepts/index.html
         - prity: Functions
@@ -131,6 +155,8 @@ expression: content
       next: /book-1/ch03-05-control-flow/index.html
       prev: /book-1/ch03-03-how-functions-work/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Programming Concepts
           link: /book-1/ch03-00-common-programming-concepts/index.html
         - prity: Comments
@@ -142,6 +168,8 @@ expression: content
       next: /book-1/ch04-00-understanding-ownership/index.html
       prev: /book-1/ch03-04-comments/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Programming Concepts
           link: /book-1/ch03-00-common-programming-concepts/index.html
         - prity: Control Flow
@@ -153,6 +181,8 @@ expression: content
       next: /book-1/ch04-01-what-is-ownership/index.html
       prev: /book-1/ch03-05-control-flow/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Understanding Ownership
           link: /book-1/ch04-00-understanding-ownership/index.html
     - name: What is Ownership?
@@ -162,6 +192,8 @@ expression: content
       next: /book-1/ch04-02-references-and-borrowing/index.html
       prev: /book-1/ch04-00-understanding-ownership/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Understanding Ownership
           link: /book-1/ch04-00-understanding-ownership/index.html
         - prity: What is Ownership?
@@ -173,6 +205,8 @@ expression: content
       next: /book-1/ch04-03-slices/index.html
       prev: /book-1/ch04-01-what-is-ownership/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Understanding Ownership
           link: /book-1/ch04-00-understanding-ownership/index.html
         - prity: References and Borrowing
@@ -184,6 +218,8 @@ expression: content
       next: /book-1/ch05-00-structs/index.html
       prev: /book-1/ch04-02-references-and-borrowing/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Understanding Ownership
           link: /book-1/ch04-00-understanding-ownership/index.html
         - prity: The Slice Type
@@ -195,6 +231,8 @@ expression: content
       next: /book-1/ch05-01-defining-structs/index.html
       prev: /book-1/ch04-03-slices/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Using Structs to Structure Related Data
           link: /book-1/ch05-00-structs/index.html
     - name: Defining and Instantiating Structs
@@ -204,6 +242,8 @@ expression: content
       next: /book-1/ch05-02-example-structs/index.html
       prev: /book-1/ch05-00-structs/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Using Structs to Structure Related Data
           link: /book-1/ch05-00-structs/index.html
         - prity: Defining and Instantiating Structs
@@ -215,6 +255,8 @@ expression: content
       next: /book-1/ch05-03-method-syntax/index.html
       prev: /book-1/ch05-01-defining-structs/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Using Structs to Structure Related Data
           link: /book-1/ch05-00-structs/index.html
         - prity: An Example Program Using Structs
@@ -226,6 +268,8 @@ expression: content
       next: /book-1/ch06-00-enums/index.html
       prev: /book-1/ch05-02-example-structs/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Using Structs to Structure Related Data
           link: /book-1/ch05-00-structs/index.html
         - prity: Method Syntax
@@ -237,6 +281,8 @@ expression: content
       next: /book-1/ch06-01-defining-an-enum/index.html
       prev: /book-1/ch05-03-method-syntax/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Enums and Pattern Matching
           link: /book-1/ch06-00-enums/index.html
     - name: Defining an Enum
@@ -246,6 +292,8 @@ expression: content
       next: /book-1/ch06-02-match/index.html
       prev: /book-1/ch06-00-enums/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Enums and Pattern Matching
           link: /book-1/ch06-00-enums/index.html
         - prity: Defining an Enum
@@ -257,6 +305,8 @@ expression: content
       next: /book-1/ch06-03-if-let/index.html
       prev: /book-1/ch06-01-defining-an-enum/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Enums and Pattern Matching
           link: /book-1/ch06-00-enums/index.html
         - prity: The match Control Flow Operator
@@ -268,6 +318,8 @@ expression: content
       next: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
       prev: /book-1/ch06-02-match/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Enums and Pattern Matching
           link: /book-1/ch06-00-enums/index.html
         - prity: Concise Control Flow with if let
@@ -279,6 +331,8 @@ expression: content
       next: /book-1/ch07-01-packages-and-crates/index.html
       prev: /book-1/ch06-03-if-let/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Managing Growing Projects with Packages, Crates, and Modules"
           link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
     - name: Packages and Crates
@@ -288,6 +342,8 @@ expression: content
       next: /book-1/ch07-02-defining-modules-to-control-scope-and-privacy/index.html
       prev: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Managing Growing Projects with Packages, Crates, and Modules"
           link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
         - prity: Packages and Crates
@@ -299,6 +355,8 @@ expression: content
       next: /book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree/index.html
       prev: /book-1/ch07-01-packages-and-crates/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Managing Growing Projects with Packages, Crates, and Modules"
           link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
         - prity: Defining Modules to Control Scope and Privacy
@@ -310,6 +368,8 @@ expression: content
       next: /book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword/index.html
       prev: /book-1/ch07-02-defining-modules-to-control-scope-and-privacy/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Managing Growing Projects with Packages, Crates, and Modules"
           link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
         - prity: Paths for Referring to an Item in the Module Tree
@@ -321,6 +381,8 @@ expression: content
       next: /book-1/ch07-05-separating-modules-into-different-files/index.html
       prev: /book-1/ch07-03-paths-for-referring-to-an-item-in-the-module-tree/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Managing Growing Projects with Packages, Crates, and Modules"
           link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
         - prity: Bringing Paths Into Scope with the use Keyword
@@ -332,6 +394,8 @@ expression: content
       next: /book-1/ch08-00-common-collections/index.html
       prev: /book-1/ch07-04-bringing-paths-into-scope-with-the-use-keyword/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Managing Growing Projects with Packages, Crates, and Modules"
           link: /book-1/ch07-00-managing-growing-projects-with-packages-crates-and-modules/index.html
         - prity: Separating Modules into Different Files
@@ -343,6 +407,8 @@ expression: content
       next: /book-1/ch08-01-vectors/index.html
       prev: /book-1/ch07-05-separating-modules-into-different-files/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Collections
           link: /book-1/ch08-00-common-collections/index.html
     - name: Storing Lists of Values with Vectors
@@ -352,6 +418,8 @@ expression: content
       next: /book-1/ch08-02-strings/index.html
       prev: /book-1/ch08-00-common-collections/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Collections
           link: /book-1/ch08-00-common-collections/index.html
         - prity: Storing Lists of Values with Vectors
@@ -363,6 +431,8 @@ expression: content
       next: /book-1/ch08-03-hash-maps/index.html
       prev: /book-1/ch08-01-vectors/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Collections
           link: /book-1/ch08-00-common-collections/index.html
         - prity: Storing UTF-8 Encoded Text with Strings
@@ -374,6 +444,8 @@ expression: content
       next: /book-1/ch09-00-error-handling/index.html
       prev: /book-1/ch08-02-strings/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Common Collections
           link: /book-1/ch08-00-common-collections/index.html
         - prity: Storing Keys with Associated Values in Hash Maps
@@ -385,6 +457,8 @@ expression: content
       next: /book-1/ch09-01-unrecoverable-errors-with-panic/index.html
       prev: /book-1/ch08-03-hash-maps/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Error Handling
           link: /book-1/ch09-00-error-handling/index.html
     - name: Unrecoverable Errors with panic!
@@ -394,6 +468,8 @@ expression: content
       next: /book-1/ch09-02-recoverable-errors-with-result/index.html
       prev: /book-1/ch09-00-error-handling/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Error Handling
           link: /book-1/ch09-00-error-handling/index.html
         - prity: Unrecoverable Errors with panic!
@@ -405,6 +481,8 @@ expression: content
       next: /book-1/ch09-03-to-panic-or-not-to-panic/index.html
       prev: /book-1/ch09-01-unrecoverable-errors-with-panic/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Error Handling
           link: /book-1/ch09-00-error-handling/index.html
         - prity: Recoverable Errors with Result
@@ -416,6 +494,8 @@ expression: content
       next: /book-1/ch10-00-generics/index.html
       prev: /book-1/ch09-02-recoverable-errors-with-result/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Error Handling
           link: /book-1/ch09-00-error-handling/index.html
         - prity: To panic! or Not To panic!
@@ -427,6 +507,8 @@ expression: content
       next: /book-1/ch10-01-syntax/index.html
       prev: /book-1/ch09-03-to-panic-or-not-to-panic/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Generic Types, Traits, and Lifetimes"
           link: /book-1/ch10-00-generics/index.html
     - name: Generic Data Types
@@ -436,6 +518,8 @@ expression: content
       next: /book-1/ch10-02-traits/index.html
       prev: /book-1/ch10-00-generics/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Generic Types, Traits, and Lifetimes"
           link: /book-1/ch10-00-generics/index.html
         - prity: Generic Data Types
@@ -447,6 +531,8 @@ expression: content
       next: /book-1/ch10-03-lifetime-syntax/index.html
       prev: /book-1/ch10-01-syntax/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Generic Types, Traits, and Lifetimes"
           link: /book-1/ch10-00-generics/index.html
         - prity: "Traits: Defining Shared Behavior"
@@ -458,6 +544,8 @@ expression: content
       next: /book-1/ch11-00-testing/index.html
       prev: /book-1/ch10-02-traits/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Generic Types, Traits, and Lifetimes"
           link: /book-1/ch10-00-generics/index.html
         - prity: Validating References with Lifetimes
@@ -469,6 +557,8 @@ expression: content
       next: /book-1/ch11-01-writing-tests/index.html
       prev: /book-1/ch10-03-lifetime-syntax/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Writing Automated Tests
           link: /book-1/ch11-00-testing/index.html
     - name: How to Write Tests
@@ -478,6 +568,8 @@ expression: content
       next: /book-1/ch11-02-running-tests/index.html
       prev: /book-1/ch11-00-testing/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Writing Automated Tests
           link: /book-1/ch11-00-testing/index.html
         - prity: How to Write Tests
@@ -489,6 +581,8 @@ expression: content
       next: /book-1/ch11-03-test-organization/index.html
       prev: /book-1/ch11-01-writing-tests/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Writing Automated Tests
           link: /book-1/ch11-00-testing/index.html
         - prity: Controlling How Tests Are Run
@@ -500,6 +594,8 @@ expression: content
       next: /book-1/ch12-00-an-io-project/index.html
       prev: /book-1/ch11-02-running-tests/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Writing Automated Tests
           link: /book-1/ch11-00-testing/index.html
         - prity: Test Organization
@@ -511,6 +607,8 @@ expression: content
       next: /book-1/ch12-01-accepting-command-line-arguments/index.html
       prev: /book-1/ch11-03-test-organization/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "An I/O Project: Building a Command Line Program"
           link: /book-1/ch12-00-an-io-project/index.html
     - name: Accepting Command Line Arguments
@@ -520,6 +618,8 @@ expression: content
       next: /book-1/ch12-02-reading-a-file/index.html
       prev: /book-1/ch12-00-an-io-project/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "An I/O Project: Building a Command Line Program"
           link: /book-1/ch12-00-an-io-project/index.html
         - prity: Accepting Command Line Arguments
@@ -531,6 +631,8 @@ expression: content
       next: /book-1/ch12-03-improving-error-handling-and-modularity/index.html
       prev: /book-1/ch12-01-accepting-command-line-arguments/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "An I/O Project: Building a Command Line Program"
           link: /book-1/ch12-00-an-io-project/index.html
         - prity: Reading a File
@@ -542,6 +644,8 @@ expression: content
       next: /book-1/ch12-04-testing-the-librarys-functionality/index.html
       prev: /book-1/ch12-02-reading-a-file/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "An I/O Project: Building a Command Line Program"
           link: /book-1/ch12-00-an-io-project/index.html
         - prity: Refactoring to Improve Modularity and Error Handling
@@ -553,6 +657,8 @@ expression: content
       next: /book-1/ch12-05-working-with-environment-variables/index.html
       prev: /book-1/ch12-03-improving-error-handling-and-modularity/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "An I/O Project: Building a Command Line Program"
           link: /book-1/ch12-00-an-io-project/index.html
         - prity: Developing the Library’s Functionality with Test Driven Development
@@ -564,6 +670,8 @@ expression: content
       next: /book-1/ch12-06-writing-to-stderr-instead-of-stdout/index.html
       prev: /book-1/ch12-04-testing-the-librarys-functionality/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "An I/O Project: Building a Command Line Program"
           link: /book-1/ch12-00-an-io-project/index.html
         - prity: Working with Environment Variables
@@ -575,6 +683,8 @@ expression: content
       next: /book-1/ch13-00-functional-features/index.html
       prev: /book-1/ch12-05-working-with-environment-variables/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "An I/O Project: Building a Command Line Program"
           link: /book-1/ch12-00-an-io-project/index.html
         - prity: Writing Error Messages to Standard Error Instead of Standard Output
@@ -586,6 +696,8 @@ expression: content
       next: /book-1/ch13-01-closures/index.html
       prev: /book-1/ch12-06-writing-to-stderr-instead-of-stdout/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Functional Language Features: Iterators and Closures"
           link: /book-1/ch13-00-functional-features/index.html
     - name: "Closures: Anonymous Functions that Can Capture Their Environment"
@@ -595,6 +707,8 @@ expression: content
       next: /book-1/ch13-02-iterators/index.html
       prev: /book-1/ch13-00-functional-features/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Functional Language Features: Iterators and Closures"
           link: /book-1/ch13-00-functional-features/index.html
         - prity: "Closures: Anonymous Functions that Can Capture Their Environment"
@@ -606,6 +720,8 @@ expression: content
       next: /book-1/ch13-03-improving-our-io-project/index.html
       prev: /book-1/ch13-01-closures/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Functional Language Features: Iterators and Closures"
           link: /book-1/ch13-00-functional-features/index.html
         - prity: Processing a Series of Items with Iterators
@@ -617,6 +733,8 @@ expression: content
       next: /book-1/ch13-04-performance/index.html
       prev: /book-1/ch13-02-iterators/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Functional Language Features: Iterators and Closures"
           link: /book-1/ch13-00-functional-features/index.html
         - prity: Improving Our I/O Project
@@ -628,6 +746,8 @@ expression: content
       next: /book-1/ch14-00-more-about-cargo/index.html
       prev: /book-1/ch13-03-improving-our-io-project/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Functional Language Features: Iterators and Closures"
           link: /book-1/ch13-00-functional-features/index.html
         - prity: "Comparing Performance: Loops vs. Iterators"
@@ -639,6 +759,8 @@ expression: content
       next: /book-1/ch14-01-release-profiles/index.html
       prev: /book-1/ch13-04-performance/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: More about Cargo and Crates.io
           link: /book-1/ch14-00-more-about-cargo/index.html
     - name: Customizing Builds with Release Profiles
@@ -648,6 +770,8 @@ expression: content
       next: /book-1/ch14-02-publishing-to-crates-io/index.html
       prev: /book-1/ch14-00-more-about-cargo/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: More about Cargo and Crates.io
           link: /book-1/ch14-00-more-about-cargo/index.html
         - prity: Customizing Builds with Release Profiles
@@ -659,6 +783,8 @@ expression: content
       next: /book-1/ch14-03-cargo-workspaces/index.html
       prev: /book-1/ch14-01-release-profiles/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: More about Cargo and Crates.io
           link: /book-1/ch14-00-more-about-cargo/index.html
         - prity: Publishing a Crate to Crates.io
@@ -670,6 +796,8 @@ expression: content
       next: /book-1/ch14-04-installing-binaries/index.html
       prev: /book-1/ch14-02-publishing-to-crates-io/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: More about Cargo and Crates.io
           link: /book-1/ch14-00-more-about-cargo/index.html
         - prity: Cargo Workspaces
@@ -681,6 +809,8 @@ expression: content
       next: /book-1/ch14-05-extending-cargo/index.html
       prev: /book-1/ch14-03-cargo-workspaces/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: More about Cargo and Crates.io
           link: /book-1/ch14-00-more-about-cargo/index.html
         - prity: Installing Binaries from Crates.io with cargo install
@@ -692,6 +822,8 @@ expression: content
       next: /book-1/ch15-00-smart-pointers/index.html
       prev: /book-1/ch14-04-installing-binaries/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: More about Cargo and Crates.io
           link: /book-1/ch14-00-more-about-cargo/index.html
         - prity: Extending Cargo with Custom Commands
@@ -703,6 +835,8 @@ expression: content
       next: /book-1/ch15-01-box/index.html
       prev: /book-1/ch14-05-extending-cargo/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Smart Pointers
           link: /book-1/ch15-00-smart-pointers/index.html
     - name: Using Box<T> to Point to Data on the Heap
@@ -712,6 +846,8 @@ expression: content
       next: /book-1/ch15-02-deref/index.html
       prev: /book-1/ch15-00-smart-pointers/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Smart Pointers
           link: /book-1/ch15-00-smart-pointers/index.html
         - prity: Using Box<T> to Point to Data on the Heap
@@ -723,6 +859,8 @@ expression: content
       next: /book-1/ch15-03-drop/index.html
       prev: /book-1/ch15-01-box/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Smart Pointers
           link: /book-1/ch15-00-smart-pointers/index.html
         - prity: Treating Smart Pointers Like Regular References with the Deref Trait
@@ -734,6 +872,8 @@ expression: content
       next: /book-1/ch15-04-rc/index.html
       prev: /book-1/ch15-02-deref/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Smart Pointers
           link: /book-1/ch15-00-smart-pointers/index.html
         - prity: Running Code on Cleanup with the Drop Trait
@@ -745,6 +885,8 @@ expression: content
       next: /book-1/ch15-05-interior-mutability/index.html
       prev: /book-1/ch15-03-drop/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Smart Pointers
           link: /book-1/ch15-00-smart-pointers/index.html
         - prity: "Rc<T>, the Reference Counted Smart Pointer"
@@ -756,6 +898,8 @@ expression: content
       next: /book-1/ch15-06-reference-cycles/index.html
       prev: /book-1/ch15-04-rc/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Smart Pointers
           link: /book-1/ch15-00-smart-pointers/index.html
         - prity: RefCell<T> and the Interior Mutability Pattern
@@ -767,6 +911,8 @@ expression: content
       next: /book-1/ch16-00-concurrency/index.html
       prev: /book-1/ch15-05-interior-mutability/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Smart Pointers
           link: /book-1/ch15-00-smart-pointers/index.html
         - prity: Reference Cycles Can Leak Memory
@@ -778,6 +924,8 @@ expression: content
       next: /book-1/ch16-01-threads/index.html
       prev: /book-1/ch15-06-reference-cycles/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Fearless Concurrency
           link: /book-1/ch16-00-concurrency/index.html
     - name: Using Threads to Run Code Simultaneously
@@ -787,6 +935,8 @@ expression: content
       next: /book-1/ch16-02-message-passing/index.html
       prev: /book-1/ch16-00-concurrency/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Fearless Concurrency
           link: /book-1/ch16-00-concurrency/index.html
         - prity: Using Threads to Run Code Simultaneously
@@ -798,6 +948,8 @@ expression: content
       next: /book-1/ch16-03-shared-state/index.html
       prev: /book-1/ch16-01-threads/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Fearless Concurrency
           link: /book-1/ch16-00-concurrency/index.html
         - prity: Using Message Passing to Transfer Data Between Threads
@@ -809,6 +961,8 @@ expression: content
       next: /book-1/ch16-04-extensible-concurrency-sync-and-send/index.html
       prev: /book-1/ch16-02-message-passing/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Fearless Concurrency
           link: /book-1/ch16-00-concurrency/index.html
         - prity: Shared-State Concurrency
@@ -820,6 +974,8 @@ expression: content
       next: /book-1/ch17-00-oop/index.html
       prev: /book-1/ch16-03-shared-state/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Fearless Concurrency
           link: /book-1/ch16-00-concurrency/index.html
         - prity: Extensible Concurrency with the Sync and Send Traits
@@ -831,6 +987,8 @@ expression: content
       next: /book-1/ch17-01-what-is-oo/index.html
       prev: /book-1/ch16-04-extensible-concurrency-sync-and-send/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Object Oriented Programming Features of Rust
           link: /book-1/ch17-00-oop/index.html
     - name: Characteristics of Object-Oriented Languages
@@ -840,6 +998,8 @@ expression: content
       next: /book-1/ch17-02-trait-objects/index.html
       prev: /book-1/ch17-00-oop/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Object Oriented Programming Features of Rust
           link: /book-1/ch17-00-oop/index.html
         - prity: Characteristics of Object-Oriented Languages
@@ -851,6 +1011,8 @@ expression: content
       next: /book-1/ch17-03-oo-design-patterns/index.html
       prev: /book-1/ch17-01-what-is-oo/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Object Oriented Programming Features of Rust
           link: /book-1/ch17-00-oop/index.html
         - prity: Using Trait Objects That Allow for Values of Different Types
@@ -862,6 +1024,8 @@ expression: content
       next: /book-1/ch18-00-patterns/index.html
       prev: /book-1/ch17-02-trait-objects/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Object Oriented Programming Features of Rust
           link: /book-1/ch17-00-oop/index.html
         - prity: Implementing an Object-Oriented Design Pattern
@@ -873,6 +1037,8 @@ expression: content
       next: /book-1/ch18-01-all-the-places-for-patterns/index.html
       prev: /book-1/ch17-03-oo-design-patterns/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Patterns and Matching
           link: /book-1/ch18-00-patterns/index.html
     - name: All the Places Patterns Can Be Used
@@ -882,6 +1048,8 @@ expression: content
       next: /book-1/ch18-02-refutability/index.html
       prev: /book-1/ch18-00-patterns/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Patterns and Matching
           link: /book-1/ch18-00-patterns/index.html
         - prity: All the Places Patterns Can Be Used
@@ -893,6 +1061,8 @@ expression: content
       next: /book-1/ch18-03-pattern-syntax/index.html
       prev: /book-1/ch18-01-all-the-places-for-patterns/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Patterns and Matching
           link: /book-1/ch18-00-patterns/index.html
         - prity: "Refutability: Whether a Pattern Might Fail to Match"
@@ -904,6 +1074,8 @@ expression: content
       next: /book-1/ch19-00-advanced-features/index.html
       prev: /book-1/ch18-02-refutability/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Patterns and Matching
           link: /book-1/ch18-00-patterns/index.html
         - prity: Pattern Syntax
@@ -915,6 +1087,8 @@ expression: content
       next: /book-1/ch19-01-unsafe-rust/index.html
       prev: /book-1/ch18-03-pattern-syntax/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Advanced Features
           link: /book-1/ch19-00-advanced-features/index.html
     - name: Unsafe Rust
@@ -924,6 +1098,8 @@ expression: content
       next: /book-1/ch19-03-advanced-traits/index.html
       prev: /book-1/ch19-00-advanced-features/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Advanced Features
           link: /book-1/ch19-00-advanced-features/index.html
         - prity: Unsafe Rust
@@ -935,6 +1111,8 @@ expression: content
       next: /book-1/ch19-04-advanced-types/index.html
       prev: /book-1/ch19-01-unsafe-rust/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Advanced Features
           link: /book-1/ch19-00-advanced-features/index.html
         - prity: Advanced Traits
@@ -946,6 +1124,8 @@ expression: content
       next: /book-1/ch19-05-advanced-functions-and-closures/index.html
       prev: /book-1/ch19-03-advanced-traits/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Advanced Features
           link: /book-1/ch19-00-advanced-features/index.html
         - prity: Advanced Types
@@ -957,6 +1137,8 @@ expression: content
       next: /book-1/ch19-06-macros/index.html
       prev: /book-1/ch19-04-advanced-types/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Advanced Features
           link: /book-1/ch19-00-advanced-features/index.html
         - prity: Advanced Functions and Closures
@@ -968,6 +1150,8 @@ expression: content
       next: /book-1/ch20-00-final-project-a-web-server/index.html
       prev: /book-1/ch19-05-advanced-functions-and-closures/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Advanced Features
           link: /book-1/ch19-00-advanced-features/index.html
         - prity: Macros
@@ -979,6 +1163,8 @@ expression: content
       next: /book-1/ch20-01-single-threaded/index.html
       prev: /book-1/ch19-06-macros/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Final Project: Building a Multithreaded Web Server"
           link: /book-1/ch20-00-final-project-a-web-server/index.html
     - name: Building a Single-Threaded Web Server
@@ -988,6 +1174,8 @@ expression: content
       next: /book-1/ch20-02-multithreaded/index.html
       prev: /book-1/ch20-00-final-project-a-web-server/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Final Project: Building a Multithreaded Web Server"
           link: /book-1/ch20-00-final-project-a-web-server/index.html
         - prity: Building a Single-Threaded Web Server
@@ -999,6 +1187,8 @@ expression: content
       next: /book-1/ch20-03-graceful-shutdown-and-cleanup/index.html
       prev: /book-1/ch20-01-single-threaded/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Final Project: Building a Multithreaded Web Server"
           link: /book-1/ch20-00-final-project-a-web-server/index.html
         - prity: Turning Our Single-Threaded Server into a Multithreaded Server
@@ -1010,6 +1200,8 @@ expression: content
       next: /book-1/appendix-00/index.html
       prev: /book-1/ch20-02-multithreaded/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: "Final Project: Building a Multithreaded Web Server"
           link: /book-1/ch20-00-final-project-a-web-server/index.html
         - prity: Graceful Shutdown and Cleanup
@@ -1021,6 +1213,8 @@ expression: content
       next: /book-1/appendix-01-keywords/index.html
       prev: /book-1/ch20-03-graceful-shutdown-and-cleanup/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
     - name: A - Keywords
@@ -1030,6 +1224,8 @@ expression: content
       next: /book-1/appendix-02-operators/index.html
       prev: /book-1/appendix-00/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
         - prity: A - Keywords
@@ -1041,6 +1237,8 @@ expression: content
       next: /book-1/appendix-03-derivable-traits/index.html
       prev: /book-1/appendix-01-keywords/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
         - prity: B - Operators and Symbols
@@ -1052,6 +1250,8 @@ expression: content
       next: /book-1/appendix-04-useful-development-tools/index.html
       prev: /book-1/appendix-02-operators/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
         - prity: C - Derivable Traits
@@ -1063,6 +1263,8 @@ expression: content
       next: /book-1/appendix-05-editions/index.html
       prev: /book-1/appendix-03-derivable-traits/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
         - prity: D - Useful Development Tools
@@ -1074,6 +1276,8 @@ expression: content
       next: /book-1/appendix-06-translation/index.html
       prev: /book-1/appendix-04-useful-development-tools/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
         - prity: E - Editions
@@ -1085,6 +1289,8 @@ expression: content
       next: /book-1/appendix-07-nightly-rust/index.html
       prev: /book-1/appendix-05-editions/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
         - prity: F - Translations of the Book
@@ -1096,6 +1302,8 @@ expression: content
       next: /book-1/title-page/index.html
       prev: /book-1/appendix-06-translation/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Appendix
           link: /book-1/appendix-00/index.html
         - prity: G - How Rust is Made and “Nightly Rust”
@@ -1108,6 +1316,8 @@ expression: content
       prev: /book-1/appendix-07-nightly-rust/index.html
       heirachy:
         - prity: The Rust Programming Language
+          link: /book-1
+        - prity: The Rust Programming Language
           link: /book-1/title-page/index.html
     - name: Foreword
       output: BASEDIR/_out/html/book-1/foreword/index.html
@@ -1116,6 +1326,8 @@ expression: content
       next: /book-1/ch00-00-introduction/index.html
       prev: /book-1/title-page/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Foreword
           link: /book-1/foreword/index.html
     - name: Introduction
@@ -1125,6 +1337,8 @@ expression: content
       next: ~
       prev: /book-1/foreword/index.html
       heirachy:
+        - prity: The Rust Programming Language
+          link: /book-1
         - prity: Introduction
           link: /book-1/ch00-00-introduction/index.html
 - title: Summary
@@ -1136,6 +1350,8 @@ expression: content
       next: /book-2/cli/index.html
       prev: ~
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: mdBook
           link: /book-2/index.html
     - name: Command Line Tool
@@ -1145,6 +1361,8 @@ expression: content
       next: /book-2/cli/init/index.html
       prev: /book-2/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Command Line Tool
           link: /book-2/cli/index.html
     - name: init
@@ -1154,6 +1372,8 @@ expression: content
       next: /book-2/cli/build/index.html
       prev: /book-2/cli/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Command Line Tool
           link: /book-2/cli/index.html
         - prity: init
@@ -1165,6 +1385,8 @@ expression: content
       next: /book-2/cli/watch/index.html
       prev: /book-2/cli/init/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Command Line Tool
           link: /book-2/cli/index.html
         - prity: build
@@ -1176,6 +1398,8 @@ expression: content
       next: /book-2/cli/serve/index.html
       prev: /book-2/cli/build/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Command Line Tool
           link: /book-2/cli/index.html
         - prity: watch
@@ -1187,6 +1411,8 @@ expression: content
       next: /book-2/cli/test/index.html
       prev: /book-2/cli/watch/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Command Line Tool
           link: /book-2/cli/index.html
         - prity: serve
@@ -1198,6 +1424,8 @@ expression: content
       next: /book-2/cli/clean/index.html
       prev: /book-2/cli/serve/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Command Line Tool
           link: /book-2/cli/index.html
         - prity: test
@@ -1209,6 +1437,8 @@ expression: content
       next: /book-2/format/index.html
       prev: /book-2/cli/test/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Command Line Tool
           link: /book-2/cli/index.html
         - prity: clean
@@ -1220,6 +1450,8 @@ expression: content
       next: /book-2/format/summary/index.html
       prev: /book-2/cli/clean/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
     - name: SUMMARY.md
@@ -1229,6 +1461,8 @@ expression: content
       next: /book-2/format/config/index.html
       prev: /book-2/format/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: SUMMARY.md
@@ -1240,6 +1474,8 @@ expression: content
       next: /book-2/format/theme/index.html
       prev: /book-2/format/summary/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: Configuration
@@ -1251,6 +1487,8 @@ expression: content
       next: /book-2/format/theme/index-hbs/index.html
       prev: /book-2/format/config/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: Theme
@@ -1262,6 +1500,8 @@ expression: content
       next: /book-2/format/theme/syntax-highlighting/index.html
       prev: /book-2/format/theme/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: Theme
@@ -1275,6 +1515,8 @@ expression: content
       next: /book-2/format/theme/editor/index.html
       prev: /book-2/format/theme/index-hbs/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: Theme
@@ -1288,6 +1530,8 @@ expression: content
       next: /book-2/format/mathjax/index.html
       prev: /book-2/format/theme/syntax-highlighting/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: Theme
@@ -1301,6 +1545,8 @@ expression: content
       next: /book-2/format/mdbook/index.html
       prev: /book-2/format/theme/editor/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: MathJax Support
@@ -1312,6 +1558,8 @@ expression: content
       next: /book-2/continuous-integration/index.html
       prev: /book-2/format/mathjax/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Format
           link: /book-2/format/index.html
         - prity: mdBook-specific features
@@ -1323,6 +1571,8 @@ expression: content
       next: /book-2/for_developers/index.html
       prev: /book-2/format/mdbook/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: Continuous Integration
           link: /book-2/continuous-integration/index.html
     - name: For Developers
@@ -1332,6 +1582,8 @@ expression: content
       next: /book-2/for_developers/preprocessors/index.html
       prev: /book-2/continuous-integration/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: For Developers
           link: /book-2/for_developers/index.html
     - name: Preprocessors
@@ -1341,6 +1593,8 @@ expression: content
       next: /book-2/for_developers/backends/index.html
       prev: /book-2/for_developers/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: For Developers
           link: /book-2/for_developers/index.html
         - prity: Preprocessors
@@ -1352,6 +1606,8 @@ expression: content
       next: ~
       prev: /book-2/for_developers/preprocessors/index.html
       heirachy:
+        - prity: Summary
+          link: /book-2
         - prity: For Developers
           link: /book-2/for_developers/index.html
         - prity: Alternative Backends
@@ -1365,6 +1621,8 @@ expression: content
       next: /book-3/./pre2/index.html
       prev: ~
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: pre 1
           link: /book-3/./pre1/index.html
     - name: pre 2
@@ -1374,6 +1632,8 @@ expression: content
       next: /book-3/./c1/index.html
       prev: /book-3/./pre1/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: pre 2
           link: /book-3/./pre2/index.html
     - name: c 1
@@ -1383,6 +1643,8 @@ expression: content
       next: /book-3/./c2/index.html
       prev: /book-3/./pre2/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: c 1
           link: /book-3/./c1/index.html
     - name: c 2
@@ -1392,6 +1654,8 @@ expression: content
       next: /book-3/./c3/index.html
       prev: /book-3/./c1/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: c 2
           link: /book-3/./c2/index.html
     - name: c 3
@@ -1401,6 +1665,8 @@ expression: content
       next: /book-3/./c31/index.html
       prev: /book-3/./c2/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: c 3
           link: /book-3/./c3/index.html
     - name: c 3 1
@@ -1410,6 +1676,8 @@ expression: content
       next: /book-3/./c32/index.html
       prev: /book-3/./c3/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: c 3
           link: /book-3/./c3/index.html
         - prity: c 3 1
@@ -1421,6 +1689,8 @@ expression: content
       next: /book-3/./c33/index.html
       prev: /book-3/./c31/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: c 3
           link: /book-3/./c3/index.html
         - prity: c 3 2
@@ -1432,6 +1702,8 @@ expression: content
       next: /book-3/./post1/index.html
       prev: /book-3/./c32/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: c 3
           link: /book-3/./c3/index.html
         - prity: c 3 3
@@ -1443,6 +1715,8 @@ expression: content
       next: /book-3/./pre1/index.html
       prev: /book-3/./c33/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: post 1
           link: /book-3/./post1/index.html
     - name: pre 1
@@ -1452,6 +1726,8 @@ expression: content
       next: /book-3/./pre2/index.html
       prev: /book-3/./post1/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: pre 1
           link: /book-3/./pre1/index.html
     - name: pre 2
@@ -1461,5 +1737,7 @@ expression: content
       next: ~
       prev: /book-3/./pre1/index.html
       heirachy:
+        - prity: "3"
+          link: /book-3
         - prity: pre 2
           link: /book-3/./pre2/index.html

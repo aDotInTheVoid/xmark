@@ -106,8 +106,15 @@ impl Book {
         }
 
         let mut out = Vec::<Page>::new();
+        let mut heirachy = vec![Link {
+            prity: book.summary.title.clone(),
+            link: Path::new(&dirs.base_url)
+                .join(book.location.strip_prefix(&dirs.base_dir)?)
+                .into_os_string()
+                .into_string()
+                .map_err(|x| eyre::eyre!("Invalid string {:?}", x))?,
+        }];
 
-        let mut heirachy = Vec::new();
         for i in pages_parts {
             match i {
                 PageListParts::Chapter(chap) => {
@@ -455,7 +462,7 @@ mod tests {
         };
 
         // TODO: The output is wrong, but we're testing it now.
-        // heirachy is wrong, and we have a load of foo/./bar
+        // we have a load of foo/./bar, and links should be to /foo, not /foo/index.html
         assert_yaml_snapshot!(content,
             {
                  ".**.input" => dynamic_redaction(redaction(tp.clone())),
