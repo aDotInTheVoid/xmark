@@ -1,87 +1,51 @@
-use std::ffi::OsStr;
 use std::fs;
 use std::io::Write;
-use std::path::PathBuf;
 
 use eyre::{Context, Result};
 use pulldown_cmark::{html, Options, Parser};
 use tera::Tera;
 
 use crate::cli;
-use crate::config::Book;
-use crate::summary::Chapter;
+use crate::config::GlobalConf;
+
+use self::content::Content;
 
 pub mod content;
 
-use content::ContentOld;
-
 /// Singleton
 #[derive(Clone, Debug)]
-pub struct HTMLRender<'a, 'b> {
-    content: ContentOld<'b>,
+pub struct HTMLRender<'a> {
+    content: Content,
     args: &'a cli::Args,
-    out_dir: PathBuf,
     inner: HTMLRenderInner,
 }
 
-impl<'a, 'b> HTMLRender<'a, 'b> {
-    pub fn new(books: &'b [Book], args: &'a cli::Args) -> Self {
-        let out_dir = args.dir.clone().join("_out").join("html");
-        let inner = HTMLRenderInner::new().unwrap();
-        let content = ContentOld::new(books);
+impl<'a> HTMLRender<'a> {
+    pub fn new(conf: &GlobalConf, args: &'a cli::Args) -> Result<Self> {
+        let dirs = content::Dirs::new(conf, args);
+        let content = content::Content::new(conf, &dirs)?;
 
-        Self {
+        let inner = HTMLRenderInner::new().unwrap();
+
+        Ok(Self {
             content,
             args,
-            out_dir,
             inner,
-        }
+        })
     }
 
     pub fn render(&self) -> Result<()> {
-        fs::create_dir_all(&self.out_dir)?;
-
-        for book in self.content.books {
-            for i in &book.summary.prefix_chapters {
-                self.render_chap_io(i)?;
-            }
-            for i in &book.summary.suffix_chapters {
-                self.render_chap_io(i)?;
-            }
-            for i in &book.summary.numbered_chapters {
-                i.try_map(|chap| self.render_chap_io(chap))?;
+        //TODO: Rayon
+        for book in &self.content.0 {
+            for page in &book.pages {
+                let content = fs::read_to_string(&page.input)?;
+                let html = self.inner.render_chap(&content, &page.name)?;
+                fs::create_dir_all(page.output.parent().unwrap())?;
+                let mut file = fs::File::create(&page.output)
+                    .wrap_err_with(|| format!("Failed to create {:?}", &page.output))?;
+                file.write_all(html.as_bytes())?;
             }
         }
-
-        Ok(())
-    }
-
-    fn render_chap_io(&self, chapter: &Chapter) -> Result<()> {
-        // Not a draft
-        if let Some(ref loc) = chapter.location {
-            let content = fs::read_to_string(loc)?;
-            let html = self.inner.render_chap(&content, &chapter.name)?;
-
-            let mut path = self
-                .out_dir
-                .join(loc.strip_prefix(&self.args.dir).expect("Unreachble"));
-
-            // foo/README.md -> foo/index.html     -> foo/
-            // foo/bar.md    -> foo/bar/index.html -> foo/bar
-            if path.file_name() == Some(OsStr::new("README.md")) {
-                path.set_file_name("index.html")
-            } else {
-                path.set_extension("");
-                path.push("index.html");
-            }
-
-            fs::create_dir_all(path.parent().unwrap())?;
-
-            let mut file = fs::File::create(&path)
-                .wrap_err_with(|| format!("Failed to create {:?}", &path))?;
-            file.write_all(html.as_bytes())?;
-        }
-
         Ok(())
     }
 }
@@ -162,7 +126,7 @@ mod tests {
             ..Default::default()
         };
         let conf = config::load(&args).unwrap();
-        let render = html_render::HTMLRender::new(&conf.books, &args);
+        let render = html_render::HTMLRender::new(&conf, &args).unwrap();
         render.render().unwrap();
 
         // BTree so it's in order.

@@ -71,7 +71,7 @@ mod tests {
         };
 
         let conf = config::load(&args).unwrap();
-        let render = html_render::HTMLRender::new(&conf.books, &args);
+        let render = html_render::HTMLRender::new(&conf, &args).unwrap();
         render.render().unwrap();
 
         // BTree so it's in order.
