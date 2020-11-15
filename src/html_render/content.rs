@@ -26,7 +26,7 @@ struct Book {
     pages: Vec<Page>,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Default)]
 pub struct Page {
     pub name: String,
     /// The html file to render to
@@ -48,6 +48,7 @@ pub struct Page {
     pub heirachy: Vec<Link>,
 }
 // Oh dear god the allocations
+#[derive(Debug, Clone, Default)]
 pub struct Dirs {
     out_dir: PathBuf,
     base_dir: PathBuf,
@@ -186,12 +187,12 @@ impl Page {
     }
 
     pub fn url(&self, dirs: &Dirs) -> Result<String> {
-        Ok(
-            output_loc(&self.input, Path::new(&dirs.base_url), &dirs.base_dir)?
-                .into_os_string()
-                .into_string()
-                .map_err(|x| eyre::eyre!("Invalid string {:?}", x))?,
-        )
+        let relative_pos = self.output.strip_prefix(&dirs.out_dir)?;
+        let url = Path::new(&dirs.base_url).join(relative_pos);
+        Ok(url
+            .into_os_string()
+            .into_string()
+            .map_err(|x| eyre::eyre!("Invalid string {:?}", x))?)
     }
 }
 /// Fun helper type
@@ -339,4 +340,73 @@ pub fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<P
         path.push("index.html");
     }
     Ok(path)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    fn test_output_loc(md: &str, out: &str, base: &str, expected: &str) {
+        assert_eq!(
+            output_loc(md.as_ref(), out.as_ref(), base.as_ref())
+                .unwrap()
+                .into_os_string()
+                .into_string()
+                .unwrap(),
+            expected
+        );
+    }
+
+    #[test]
+    fn output_locs() {
+        test_output_loc(
+            "/tmp/x/y.md",
+            "/tmp/x/out",
+            "/tmp/x/",
+            "/tmp/x/out/y/index.html",
+        );
+        test_output_loc(
+            "/tmp/x/z/README.md",
+            "/tmp/x/out",
+            "/tmp/x",
+            "/tmp/x/out/z/index.html",
+        );
+        test_output_loc(
+            "/tmp/x/z.md",
+            "/tmp/x/out",
+            "/tmp/x",
+            "/tmp/x/out/z/index.html",
+        );
+        test_output_loc(
+            "/tmp/zz/foo.md",
+            "/xmark/",
+            "/tmp/zz/",
+            "/xmark/foo/index.html",
+        );
+    }
+
+    fn test_page_url(out_file: &str, base_url: &str, out_dir: &str, expected: &str) {
+        let page = Page {
+            output: PathBuf::from(out_file),
+            ..Default::default()
+        };
+        let dirs = Dirs {
+            base_url: base_url.to_owned(),
+            out_dir: PathBuf::from(out_dir),
+            ..Default::default()
+        };
+        let url = page.url(&dirs).unwrap();
+        assert_eq!(url, expected);
+    }
+
+    #[test]
+    fn urls() {
+        test_page_url("/out/x/y/index.html", "/", "/out", "/x/y/index.html");
+        test_page_url(
+            "/usr/src/fx/_out/html/book3/cd/f/index.html",
+            "/books/",
+            "/usr/src/fx/_out/html",
+            "/books/book3/cd/f/index.html"
+        )
+    }
 }
