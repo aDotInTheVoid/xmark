@@ -1,5 +1,5 @@
-use crate::config::{self, Book as CBook};
-use crate::summary;
+use crate::config::{self, Book as CBook, GlobalConf};
+use crate::{cli, summary};
 use eyre::Result;
 use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
@@ -28,6 +28,7 @@ struct Book {
 
 #[derive(Debug, Clone)]
 pub struct Page {
+    pub name: String,
     /// The html file to render to
     pub output: PathBuf,
     /// The md input file.
@@ -46,10 +47,21 @@ pub struct Page {
     /// [Set up Git](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git)
     pub heirachy: Vec<Link>,
 }
+// Oh dear god the allocations
+pub struct Dirs {
+    out_dir: PathBuf,
+    base_dir: PathBuf,
+    base_url: String,
+}
 
-pub struct Dirs<'a> {
-    out_dir: &'a Path,
-    base_dir: &'a Path,
+impl Dirs {
+    pub fn new(conf: &GlobalConf, args: &cli::Args) -> Self {
+        Self {
+            base_dir: args.dir.clone(),
+            out_dir: args.dir.join("_out").join("html"),
+            base_url: conf.html.site_url.to_owned().unwrap_or("/".to_owned()),
+        }
+    }
 }
 
 impl Content {
@@ -104,25 +116,29 @@ impl Book {
                     }
                     .clone();
 
+                    let name = chap.name.clone();
+
+                    // This is quite wastefull in terms of allocs, but who cares
                     let heirachy = heirachy.clone();
 
-                    let output = output_loc(&input, dirs.out_dir, dirs.base_dir)?;
+                    let output = output_loc(&input, &dirs.out_dir, &dirs.base_dir)?;
                     let mut page = Page {
                         input,
+                        name,
                         output,
+                        heirachy,
                         // TODO: I think this is the wrong design, as toc can't
                         // be determined utill we read the file, which we arn't
                         // doing here.
                         toc: Default::default(),
                         prev: None,
                         next: None,
-                        heirachy,
                     };
-                    page.heirachy.push(page.heirachy_element());
+                    page.heirachy.push(page.heirachy_element(dirs)?);
                     out.push(page)
                 }
                 PageListParts::StartSection => {
-                    heirachy.push(out.last().unwrap().heirachy_element());
+                    heirachy.push(out.last().unwrap().heirachy_element(dirs)?);
                 }
                 PageListParts::EndSection => {
                     heirachy.pop();
@@ -138,8 +154,8 @@ impl Book {
         // }
         // Because GAT's.
         for i in 0..out.len() - 1 {
-            let before_url = out[i].url();
-            let after_url = out[i + 1].url();
+            let before_url = out[i].url(dirs)?;
+            let after_url = out[i + 1].url(dirs)?;
             out[i].next = Some(after_url);
             out[i + 1].prev = Some(before_url);
         }
@@ -153,19 +169,29 @@ impl Book {
         out.push(Chapter(&link.chapter));
         if !link.nested_items.is_empty() {
             out.push(StartSection);
-            Self::capture_raw_parts(link, out);
+            for i in &link.nested_items {
+                Self::capture_raw_parts(i, out);
+            }
             out.push(EndSection)
         }
     }
 }
 
 impl Page {
-    pub fn heirachy_element(&self) -> Link {
-        todo!()
+    pub fn heirachy_element(&self, dirs: &Dirs) -> Result<Link> {
+        Ok(Link {
+            prity: self.name.clone(),
+            link: self.url(dirs)?,
+        })
     }
 
-    pub fn url(&self) -> String {
-        todo!()
+    pub fn url(&self, dirs: &Dirs) -> Result<String> {
+        Ok(
+            output_loc(&self.input, Path::new(&dirs.base_url), &dirs.base_dir)?
+                .into_os_string()
+                .into_string()
+                .map_err(|x| eyre::eyre!("Invalid string {:?}", x))?,
+        )
     }
 }
 /// Fun helper type

@@ -13,6 +13,9 @@ fn main() -> Result<()> {
     let args = cli::Args::parse()?;
     let conf = config::load(&args).context("Failed to load config")?;
     let render = html_render::HTMLRender::new(&conf.books, &args);
+    let content =
+        html_render::content::Content::new(&conf, html_render::content::Dirs::new(&conf, &args));
+    dbg!(content);
 
     render.render()?;
 

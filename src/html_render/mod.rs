@@ -11,7 +11,7 @@ use crate::cli;
 use crate::config::Book;
 use crate::summary::Chapter;
 
-mod content;
+pub mod content;
 
 use content::ContentOld;
 

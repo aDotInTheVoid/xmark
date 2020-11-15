@@ -35,7 +35,7 @@ pub struct Book {
 // Cargo uses kebab, and so shall we
 #[serde(default, rename_all = "kebab-case")]
 pub struct HtmlConf {
-    site_url: Option<String>,
+    pub site_url: Option<String>,
 }
 
 pub fn load(args: &cli::Args) -> Result<GlobalConf> {
