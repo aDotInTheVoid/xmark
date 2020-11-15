@@ -19,12 +19,12 @@ impl<'a> ContentOld<'a> {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
-pub struct Content(Vec<Book>);
+pub struct Content(pub Vec<Book>);
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
-struct Book {
-    title: String,
-    pages: Vec<Page>,
+pub struct Book {
+    pub title: String,
+    pub pages: Vec<Page>,
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
@@ -105,7 +105,7 @@ impl Book {
         for i in &book.summary.numbered_chapters {
             Self::capture_raw_parts(i, &mut pages_parts);
         }
-        for i in &book.summary.prefix_chapters {
+        for i in &book.summary.suffix_chapters {
             pages_parts.push(Chapter(i));
         }
 
