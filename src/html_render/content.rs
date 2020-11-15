@@ -196,7 +196,8 @@ impl Page {
 
     pub fn url(&self, dirs: &Dirs) -> Result<String> {
         let relative_pos = self.output.strip_prefix(&dirs.out_dir)?;
-        let url = Path::new(&dirs.base_url).join(relative_pos);
+        let mut url = Path::new(&dirs.base_url).join(relative_pos);
+        url.pop();
         Ok(url
             .into_os_string()
             .into_string()
@@ -415,12 +416,12 @@ mod tests {
 
     #[test]
     fn urls() {
-        test_page_url("/out/x/y/index.html", "/", "/out", "/x/y/index.html");
+        test_page_url("/out/x/y/index.html", "/", "/out", "/x/y");
         test_page_url(
             "/usr/src/fx/_out/html/book3/cd/f/index.html",
             "/books/",
             "/usr/src/fx/_out/html",
-            "/books/book3/cd/f/index.html",
+            "/books/book3/cd/f",
         )
     }
 
@@ -462,7 +463,7 @@ mod tests {
         };
 
         // TODO: The output is wrong, but we're testing it now.
-        // we have a load of foo/./bar, and links should be to /foo, not /foo/index.html
+        // we have a load of foo/./bar
         assert_yaml_snapshot!(content,
             {
                  ".**.input" => dynamic_redaction(redaction(tp.clone())),
