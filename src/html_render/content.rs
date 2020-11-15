@@ -1,4 +1,4 @@
-use crate::config::{self, Book as CBook, GlobalConf};
+use crate::config::{self, GlobalConf};
 use crate::{cli, summary};
 use eyre::Result;
 use serde::{Deserialize, Serialize};
@@ -6,17 +6,6 @@ use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 
 /// The content in a suitable form.
-
-#[derive(Clone, Debug)]
-pub struct ContentOld<'a> {
-    pub books: &'a [CBook],
-}
-
-impl<'a> ContentOld<'a> {
-    pub fn new(books: &'a [CBook]) -> Self {
-        Self { books }
-    }
-}
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct Content(pub Vec<Book>);
