@@ -61,7 +61,11 @@ impl Dirs {
         Self {
             base_dir: args.dir.clone(),
             out_dir: args.dir.join("_out").join("html"),
-            base_url: conf.html.site_url.to_owned().unwrap_or("/".to_owned()),
+            base_url: conf
+                .html
+                .site_url
+                .to_owned()
+                .unwrap_or_else(|| "/".to_owned()),
         }
     }
 }
@@ -198,10 +202,12 @@ impl Page {
         let relative_pos = self.output.strip_prefix(&dirs.out_dir)?;
         let mut url = Path::new(&dirs.base_url).join(relative_pos);
         url.pop();
-        Ok(url
-            .into_os_string()
-            .into_string()
-            .map_err(|x| eyre::eyre!("Invalid string {:?}", x))?)
+        Ok(
+            url.into_os_string()
+                .into_string()
+                .map_err(|x| eyre::eyre!("Invalid string {:?}", x))?
+                .replace("/./", "/"), // Hack
+        )
     }
 }
 /// Fun helper type
@@ -462,8 +468,6 @@ mod tests {
             }
         };
 
-        // TODO: The output is wrong, but we're testing it now.
-        // we have a load of foo/./bar
         assert_yaml_snapshot!(content,
             {
                  ".**.input" => dynamic_redaction(redaction(tp.clone())),

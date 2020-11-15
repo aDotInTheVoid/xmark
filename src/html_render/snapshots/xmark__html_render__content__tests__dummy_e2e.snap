@@ -1618,126 +1618,126 @@ expression: content
       output: BASEDIR/_out/html/book-3/./pre1/index.html
       input: BASEDIR/book-3/./pre1.md
       toc: []
-      next: /book-3/./pre2
+      next: /book-3/pre2
       prev: ~
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: pre 1
-          link: /book-3/./pre1
+          link: /book-3/pre1
     - name: pre 2
       output: BASEDIR/_out/html/book-3/./pre2/index.html
       input: BASEDIR/book-3/./pre2.md
       toc: []
-      next: /book-3/./c1
-      prev: /book-3/./pre1
+      next: /book-3/c1
+      prev: /book-3/pre1
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: pre 2
-          link: /book-3/./pre2
+          link: /book-3/pre2
     - name: c 1
       output: BASEDIR/_out/html/book-3/./c1/index.html
       input: BASEDIR/book-3/./c1.md
       toc: []
-      next: /book-3/./c2
-      prev: /book-3/./pre2
+      next: /book-3/c2
+      prev: /book-3/pre2
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: c 1
-          link: /book-3/./c1
+          link: /book-3/c1
     - name: c 2
       output: BASEDIR/_out/html/book-3/./c2/index.html
       input: BASEDIR/book-3/./c2.md
       toc: []
-      next: /book-3/./c3
-      prev: /book-3/./c1
+      next: /book-3/c3
+      prev: /book-3/c1
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: c 2
-          link: /book-3/./c2
+          link: /book-3/c2
     - name: c 3
       output: BASEDIR/_out/html/book-3/./c3/index.html
       input: BASEDIR/book-3/./c3.md
       toc: []
-      next: /book-3/./c31
-      prev: /book-3/./c2
+      next: /book-3/c31
+      prev: /book-3/c2
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: c 3
-          link: /book-3/./c3
+          link: /book-3/c3
     - name: c 3 1
       output: BASEDIR/_out/html/book-3/./c31/index.html
       input: BASEDIR/book-3/./c31.md
       toc: []
-      next: /book-3/./c32
-      prev: /book-3/./c3
+      next: /book-3/c32
+      prev: /book-3/c3
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: c 3
-          link: /book-3/./c3
+          link: /book-3/c3
         - prity: c 3 1
-          link: /book-3/./c31
+          link: /book-3/c31
     - name: c 3 2
       output: BASEDIR/_out/html/book-3/./c32/index.html
       input: BASEDIR/book-3/./c32.md
       toc: []
-      next: /book-3/./c33
-      prev: /book-3/./c31
+      next: /book-3/c33
+      prev: /book-3/c31
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: c 3
-          link: /book-3/./c3
+          link: /book-3/c3
         - prity: c 3 2
-          link: /book-3/./c32
+          link: /book-3/c32
     - name: c 3 3
       output: BASEDIR/_out/html/book-3/./c33/index.html
       input: BASEDIR/book-3/./c33.md
       toc: []
-      next: /book-3/./post1
-      prev: /book-3/./c32
+      next: /book-3/post1
+      prev: /book-3/c32
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: c 3
-          link: /book-3/./c3
+          link: /book-3/c3
         - prity: c 3 3
-          link: /book-3/./c33
+          link: /book-3/c33
     - name: post 1
       output: BASEDIR/_out/html/book-3/./post1/index.html
       input: BASEDIR/book-3/./post1.md
       toc: []
-      next: /book-3/./pre1
-      prev: /book-3/./c33
+      next: /book-3/pre1
+      prev: /book-3/c33
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: post 1
-          link: /book-3/./post1
+          link: /book-3/post1
     - name: pre 1
       output: BASEDIR/_out/html/book-3/./pre1/index.html
       input: BASEDIR/book-3/./pre1.md
       toc: []
-      next: /book-3/./pre2
-      prev: /book-3/./post1
+      next: /book-3/pre2
+      prev: /book-3/post1
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: pre 1
-          link: /book-3/./pre1
+          link: /book-3/pre1
     - name: pre 2
       output: BASEDIR/_out/html/book-3/./pre2/index.html
       input: BASEDIR/book-3/./pre2.md
       toc: []
       next: ~
-      prev: /book-3/./pre1
+      prev: /book-3/pre1
       heirachy:
         - prity: "3"
           link: /book-3
         - prity: pre 2
-          link: /book-3/./pre2
+          link: /book-3/pre2
