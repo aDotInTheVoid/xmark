@@ -57,7 +57,7 @@ struct HTMLRenderInner {
 impl HTMLRenderInner {
     // TODO: Use rust-embed.
     pub fn new() -> Result<Self> {
-        let templates = ramhorns::Ramhorns::from_folder("/home/nixon/git/xmark/www/").unwrap();
+        let templates = ramhorns::Ramhorns::from_folder(concat!(env!("CARGO_MANIFEST_DIR"), "/www/")).unwrap();
 
         Ok(Self { templates })
     }
