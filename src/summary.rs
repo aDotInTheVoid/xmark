@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 use eyre::{bail, eyre, Error, Result, WrapErr};
 use log::{debug, trace, warn};
 use memchr::{self, Memchr};

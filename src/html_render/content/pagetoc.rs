@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 //! The "minitoc" for the page
 //!
 //! This is inspired by the right hand table of contents from

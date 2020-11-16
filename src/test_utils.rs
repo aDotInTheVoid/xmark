@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 use insta::internals::Content;
 
 pub fn manifest_dir_redacter(mut val: Content, _: insta::internals::ContentPath) -> Content {

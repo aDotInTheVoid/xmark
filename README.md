@@ -3,8 +3,6 @@
 A WIP "HighLy opINionAtED" static site/doc generator. Totaly unusable (for now)
 
 Loosly based on [mdBook](https://github.com/rust-lang/mdbook) and does use its code in some places.
-Therefor [MPL-2.0](LICENSE) licensed.
-
 ## Prior Art/Reference material
 
 - [mdBook](https://github.com/rust-lang/mdbook)
@@ -62,8 +60,8 @@ Therefor [MPL-2.0](LICENSE) licensed.
 - Use [mdx](https://github.com/mdx-js/rust) (currently v-early days)
 - Use asciidoc [spec](https://projects.eclipse.org/proposals/asciidoc-language) also early
 
-## License
 
-All the code in this repository is released under the ***Mozilla Public License v2.0***, for more information take a look at the [LICENSE] file.
+### License
 
-
+Ramhorns is free software, and is released under the terms of the GNU General Public
+License version 3. See [LICENSE](LICENSE).

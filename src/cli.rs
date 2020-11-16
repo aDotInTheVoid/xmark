@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 use clap::Clap;
 use eyre::Result;
 use serde::{Deserialize, Serialize};

@@ -1,3 +1,4 @@
+// SPDX-License-Identifier: GPL-3.0-only
 use crate::summary::{Link, Summary};
 use eyre::Result;
 use std::fs::{self, File};
