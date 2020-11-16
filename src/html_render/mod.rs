@@ -16,7 +16,7 @@ pub struct HTMLRender<'a> {
     content: Content,
     // I'll need em later, when this gets fancy
     _args: &'a cli::Args,
-    inner: HTMLRenderInner,
+    templates: ramhorns::Ramhorns,
 }
 
 impl<'a> HTMLRender<'a> {
@@ -24,12 +24,15 @@ impl<'a> HTMLRender<'a> {
         let dirs = content::Dirs::new(conf, args);
         let content = content::Content::new(conf, &dirs)?;
 
-        let inner = HTMLRenderInner::new().unwrap();
+        let templates = ramhorns::Ramhorns::from_folder(concat!(
+            env!("CARGO_MANIFEST_DIR"),
+            "/www/templates/"
+        ))?;
 
         Ok(Self {
             content,
             _args: args,
-            inner,
+            templates,
         })
     }
 
@@ -37,7 +40,7 @@ impl<'a> HTMLRender<'a> {
         //TODO: Rayon
         for book in &self.content.0 {
             for page in &book.pages {
-                let html = self.inner.render_page(page)?;
+                let html = self.render_page(page)?;
                 fs::create_dir_all(page.output.parent().unwrap())?;
                 let mut file = fs::File::create(&page.output)
                     .wrap_err_with(|| format!("Failed to create {:?}", &page.output))?;
@@ -45,22 +48,6 @@ impl<'a> HTMLRender<'a> {
             }
         }
         Ok(())
-    }
-}
-
-// An abstraction of HTMLRender that does no io.
-// TODO: we do IO here now, so why does this exist
-struct HTMLRenderInner {
-    templates: ramhorns::Ramhorns,
-}
-
-impl HTMLRenderInner {
-    // TODO: Use rust-embed.
-    pub fn new() -> Result<Self> {
-        let templates =
-            ramhorns::Ramhorns::from_folder(concat!(env!("CARGO_MANIFEST_DIR"), "/www/")).unwrap();
-
-        Ok(Self { templates })
     }
 
     pub fn render_page(&self, page: &Page) -> Result<String> {
@@ -73,8 +60,6 @@ impl HTMLRenderInner {
 
 #[cfg(test)]
 mod tests {
-    use super::*;
-
     use std::collections::BTreeSet;
     use std::path::PathBuf;
 
@@ -119,10 +104,4 @@ mod tests {
     //         assert_snapshot!(out);
     //     })
     // }
-
-    #[test]
-    fn html_inner_includes() {
-        let x = HTMLRenderInner::new();
-        assert!(x.is_ok());
-    }
 }
