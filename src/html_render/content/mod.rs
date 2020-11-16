@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
+use ramhorns::Content as Rhc;
 use serde::{Deserialize, Serialize};
+
 use std::path::PathBuf;
 
 pub mod collect;
 pub mod pagetoc;
+pub mod render;
 pub use collect::Dirs;
 
 /// The content in a suitable form.
@@ -24,7 +27,6 @@ pub struct Page {
     pub output: PathBuf,
     /// The md input file.
     pub input: PathBuf,
-    pub toc: pagetoc::PageToc,
     /// The link to the next page
     pub next: Option<String>,
     /// The link to the previous
@@ -42,7 +44,7 @@ pub struct Page {
 //TODO: Should this be the same as pagetoc::Link.
 // This is relative to site root, so needs special care when we're serving
 // on a subdir. that is just relative to the page
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Rhc)]
 pub struct Link {
     pub prity: String,
     pub link: String,

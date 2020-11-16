@@ -3,21 +3,19 @@ use std::fs;
 use std::io::Write;
 
 use eyre::{Context, Result};
-use pulldown_cmark::{html, Options, Parser};
-use tera::Tera;
 
 use crate::cli;
 use crate::config::GlobalConf;
 
-use self::content::Content;
+use self::content::{Content, Page};
 
 pub mod content;
 
 /// Singleton
-#[derive(Clone, Debug)]
 pub struct HTMLRender<'a> {
     content: Content,
-    args: &'a cli::Args,
+    // I'll need em later, when this gets fancy
+    _args: &'a cli::Args,
     inner: HTMLRenderInner,
 }
 
@@ -30,7 +28,7 @@ impl<'a> HTMLRender<'a> {
 
         Ok(Self {
             content,
-            args,
+            _args: args,
             inner,
         })
     }
@@ -39,8 +37,7 @@ impl<'a> HTMLRender<'a> {
         //TODO: Rayon
         for book in &self.content.0 {
             for page in &book.pages {
-                let content = fs::read_to_string(&page.input)?;
-                let html = self.inner.render_chap(&content, &page.name)?;
+                let html = self.inner.render_page(page)?;
                 fs::create_dir_all(page.output.parent().unwrap())?;
                 let mut file = fs::File::create(&page.output)
                     .wrap_err_with(|| format!("Failed to create {:?}", &page.output))?;
@@ -52,53 +49,25 @@ impl<'a> HTMLRender<'a> {
 }
 
 // An abstraction of HTMLRender that does no io.
-#[derive(Debug, Clone)]
+// TODO: we do IO here now, so why does this exist
 struct HTMLRenderInner {
-    templates: Tera,
+    templates: ramhorns::Ramhorns,
 }
 
 impl HTMLRenderInner {
-    // pub fn from_templates(mut templates: tera::Tera) -> Self {
-    //     // Is this right, I dont know.
-    //     // Also this is duped here and in Self::new
-    //     // TODO
-    //     // If the mdconverting is in the template, is can use `safe`
-    //     templates.autoescape_on(vec![]);
-    //     Self { templates }
-    // }
-
-    // When iterating on templates, comment this out so you don't need to rebuild bins
-    // TODO: Use rust-embed to solve this
+    // TODO: Use rust-embed.
     pub fn new() -> Result<Self> {
-        let mut templates: Tera = Default::default();
-        templates.add_raw_templates(vec![
-            ("head.html", include_str!("../../www/head.html")),
-            ("base.html", include_str!("../../www/base.html")),
-            ("chapter.html", include_str!("../../www/chapter.html")),
-        ])?;
-        templates.autoescape_on(vec![]);
+        let templates = ramhorns::Ramhorns::from_folder("/home/nixon/git/xmark/www/").unwrap();
 
         Ok(Self { templates })
     }
 
-    pub fn render_chap(&self, content: &str, name: &str) -> Result<String> {
-        let mut context = tera::Context::new();
-        let html = render_markdown(content);
-        context.insert("mdcontent", &html);
-        context.insert("title", name);
-        // Needed for Error conversion
-        let res = self.templates.render("chapter.html", &context)?;
-        Ok(res)
+    pub fn render_page(&self, page: &Page) -> Result<String> {
+        let rp = self::content::render::Page::new(page)?;
+        let tpl = self.templates.get("page.html").unwrap();
+        // TODO: Use render_to_file or something
+        Ok(tpl.render(&rp))
     }
-}
-
-// TODO: A million customizations
-pub(crate) fn render_markdown(content: &str) -> String {
-    let opts = Options::all();
-    let parser = Parser::new_ext(content, opts);
-    let mut out = String::new();
-    html::push_html(&mut out, parser);
-    out
 }
 
 #[cfg(test)]

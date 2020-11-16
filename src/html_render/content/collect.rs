@@ -101,10 +101,6 @@ impl Book {
                         name,
                         output,
                         heirachy,
-                        // TODO: I think this is the wrong design, as toc can't
-                        // be determined utill we read the file, which we arn't
-                        // doing here.
-                        toc: Default::default(),
                         prev: None,
                         next: None,
                     };
