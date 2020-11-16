@@ -482,8 +482,6 @@ mod tests {
             ..Default::default()
         };
         let content = Content::new(&conf, &args).unwrap();
-        assert_eq!(content, Content(
-            vec![Default::default()]
-        ));
+        assert_eq!(content, Content(vec![Default::default()]));
     }
 }
