@@ -52,7 +52,7 @@ pub struct Global<'a> {
     pub path_to_root: &'a str,
     pub language: &'a str,
     pub preferred_dark_theme: &'a str,
-    pub default_theme: &'a str
+    pub default_theme: &'a str,
 }
 
 impl<'a> Default for Global<'a> {
@@ -62,7 +62,7 @@ impl<'a> Default for Global<'a> {
             language: "en",
             // THESE ARE FACTS.
             default_theme: "rust",
-            preferred_dark_theme: "coal"
+            preferred_dark_theme: "coal",
         }
     }
 }
