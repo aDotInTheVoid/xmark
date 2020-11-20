@@ -19,12 +19,18 @@ pub struct Page<'a> {
     pub next: Option<&'a str>,
     /// The link to the previous
     pub prev: Option<&'a str>,
+    #[ramhorns(flatten)]
+    pub global: Global<'a>,
 }
 
 impl<'a> Page<'a> {
-    pub fn new(from: &'a CPage) -> Result<Self> {
+    pub fn new(from: &'a CPage, dirs: &'a super::Dirs) -> Result<Self> {
         // TODO: Don't buffer the whole input
         let inner_html = render_markdown(&fs::read_to_string(&from.input)?);
+
+        let global = Global {
+            path_to_root: &dirs.base_url,
+        };
 
         Ok(Self {
             title: &from.name,
@@ -34,8 +40,15 @@ impl<'a> Page<'a> {
             next: from.next.as_deref(),
             prev: from.prev.as_deref(),
             heirachy: &from.heirachy,
+            global,
         })
     }
+}
+
+/// Options every page needs not specific to a page
+#[derive(Debug, Clone, Serialize, PartialEq, Rhc)]
+pub struct Global<'a> {
+    pub path_to_root: &'a str,
 }
 
 // TODO: A million customizations

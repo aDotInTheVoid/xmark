@@ -18,6 +18,7 @@ pub struct HTMLRender<'a> {
     // I'll need em later, when this gets fancy
     _args: &'a cli::Args,
     templates: ramhorns::Ramhorns,
+    dirs: content::Dirs,
 }
 
 impl<'a> HTMLRender<'a> {
@@ -53,6 +54,7 @@ impl<'a> HTMLRender<'a> {
             content,
             _args: args,
             templates,
+            dirs,
         })
     }
 
@@ -71,7 +73,7 @@ impl<'a> HTMLRender<'a> {
     }
 
     pub fn render_page(&self, page: &Page) -> Result<String> {
-        let rp = self::content::render::Page::new(page)?;
+        let rp = self::content::render::Page::new(page, &self.dirs)?;
         let tpl = self.templates.get("page.html").unwrap();
         // TODO: Use render_to_file or something
         Ok(tpl.render(&rp))

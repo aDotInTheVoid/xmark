@@ -43,6 +43,7 @@ Loosly based on [mdBook](https://github.com/rust-lang/mdbook) and does use its c
 - Any of the other formats suported by [adoc](https://github.com/asciidoctor/asciidoctor-diagram/blob/fd8ab7d9eb9d5de3c55a0e27c4276206c728a917/README.adoc#creating-a-diagram)
 - Svgbob
 - https://github.com/reanimate/reanimate
+- https://github.com/kinnison/pikchr
 
 ## Outputs
 
@@ -63,5 +64,5 @@ Loosly based on [mdBook](https://github.com/rust-lang/mdbook) and does use its c
 
 ### License
 
-Ramhorns is free software, and is released under the terms of the GNU General Public
+xmark is released under the terms of the GNU General Public
 License version 3. See [LICENSE](LICENSE).
