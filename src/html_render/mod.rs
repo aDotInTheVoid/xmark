@@ -8,7 +8,7 @@ use fs_extra::dir as fsx;
 use crate::cli;
 use crate::config::GlobalConf;
 
-use self::content::{Content, Page};
+use self::content::{Book, Content, Page};
 
 pub mod content;
 
@@ -62,7 +62,7 @@ impl<'a> HTMLRender<'a> {
         //TODO: Rayon
         for book in &self.content.0 {
             for page in &book.pages {
-                let html = self.render_page(page)?;
+                let html = self.render_page(page, book)?;
                 fs::create_dir_all(page.output.parent().unwrap())?;
                 let mut file = fs::File::create(&page.output)
                     .wrap_err_with(|| format!("Failed to create {:?}", &page.output))?;
@@ -72,8 +72,8 @@ impl<'a> HTMLRender<'a> {
         Ok(())
     }
 
-    pub fn render_page(&self, page: &Page) -> Result<String> {
-        let rp = self::content::render::Page::new(page, &self.dirs)?;
+    pub fn render_page(&self, page: &Page, book: &Book) -> Result<String> {
+        let rp = self::content::render::Page::new(page, &self, book)?;
         let tpl = self.templates.get("page.html").unwrap();
         // TODO: Use render_to_file or something
         Ok(tpl.render(&rp))

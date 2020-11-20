@@ -120,6 +120,14 @@
             <div id="content" class="content">
                 <main>
                     {{{ inner_html }}}
+
+                    <hr/>
+
+                    <ul>
+                        {{#heirachy}}
+                        <li><a href="{{ link }}"> {{ prity }} </a></li>
+                        {{/heirachy}}
+                    </ul>
                 </main>
 
                 <nav class="nav-wrapper" aria-label="Page navigation">
@@ -156,12 +164,6 @@
         </nav>
 
     </div>
-
-    <ul>
-        {{#heirachy}}
-        <li><a href="{{ link }}"> {{ prity }} </a></li>
-        {{/heirachy}}
-    </ul>
 
     {{#livereload}}
         <!-- Livereload script (if served using the cli tool) -->
