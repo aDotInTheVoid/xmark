@@ -30,6 +30,7 @@ impl<'a> Page<'a> {
 
         let global = Global {
             path_to_root: &dirs.base_url,
+            ..Default::default()
         };
 
         Ok(Self {
@@ -49,6 +50,21 @@ impl<'a> Page<'a> {
 #[derive(Debug, Clone, Serialize, PartialEq, Rhc)]
 pub struct Global<'a> {
     pub path_to_root: &'a str,
+    pub language: &'a str,
+    pub preferred_dark_theme: &'a str,
+    pub default_theme: &'a str
+}
+
+impl<'a> Default for Global<'a> {
+    fn default() -> Self {
+        Global {
+            path_to_root: "/",
+            language: "en",
+            // THESE ARE FACTS.
+            default_theme: "rust",
+            preferred_dark_theme: "coal"
+        }
+    }
 }
 
 // TODO: A million customizations
