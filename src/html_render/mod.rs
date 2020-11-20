@@ -3,6 +3,7 @@ use std::fs;
 use std::io::Write;
 
 use eyre::{Context, Result};
+use fs_extra::dir as fsx;
 
 use crate::cli;
 use crate::config::GlobalConf;
@@ -22,6 +23,25 @@ pub struct HTMLRender<'a> {
 impl<'a> HTMLRender<'a> {
     pub fn new(conf: &GlobalConf, args: &'a cli::Args) -> Result<Self> {
         let dirs = content::Dirs::new(conf, args);
+
+        //TODO: This wount work for incrmental or multi-renderer
+        //TODO: Embed static
+        if dirs.out_dir.exists() {
+            fs::remove_dir_all(&dirs.out_dir)?;
+        }
+
+        let parent = dirs.out_dir.parent().unwrap();
+
+        fs::create_dir_all(parent)?;
+
+        fsx::copy(
+            concat!(env!("CARGO_MANIFEST_DIR"), "/www/static/"),
+            parent,
+            &Default::default(),
+        )?;
+
+        fs::rename(parent.join("static"), &dirs.out_dir)?;
+
         let content = content::Content::new(conf, &dirs)?;
 
         let templates = ramhorns::Ramhorns::from_folder(concat!(

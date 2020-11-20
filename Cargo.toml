@@ -15,6 +15,7 @@ color-eyre = "0.5.6"
 # dashmap = "3.11.10"
 # elasticlunr-rs = "2.3.9"
 eyre = { version = "0.6.2", features = ["track-caller"] }
+fs_extra = "1.2.0"
 # handlebars = "3.5.0"
 # liquid = "0.21.4"
 log = "0.4.11"
