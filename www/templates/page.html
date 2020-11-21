@@ -24,14 +24,18 @@
             if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
                 localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
             }
-        } catch (e) { }
+        } catch (e) {}
     </script>
 
     <!-- Set the theme before any content is loaded, prevents flash -->
     <script type="text/javascript">
         var theme;
-        try { theme = localStorage.getItem('mdbook-theme'); } catch (e) { }
-        if (theme === null || theme === undefined) { theme = default_theme; }
+        try {
+            theme = localStorage.getItem('mdbook-theme');
+        } catch (e) {}
+        if (theme === null || theme === undefined) {
+            theme = default_theme;
+        }
         var html = document.querySelector('html');
         html.classList.remove('no-js')
         html.classList.remove('rust')
@@ -44,7 +48,9 @@
         var html = document.querySelector('html');
         var sidebar = 'hidden';
         if (document.body.clientWidth >= 1080) {
-            try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch (e) { }
+            try {
+                sidebar = localStorage.getItem('mdbook-sidebar');
+            } catch (e) {}
             sidebar = sidebar || 'visible';
         }
         html.classList.remove('sidebar-visible');
@@ -78,9 +84,9 @@
                         <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
                     </ul>
                     {{#search_enabled}}
-                    <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
-                        <i class="fa fa-search"></i>
-                    </button>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
                     {{/search_enabled}}
                 </div>
 
@@ -88,24 +94,24 @@
 
                 <div class="right-buttons">
                     {{#git_repository_url}}
-                    <a href="{{git_repository_url}}" title="Git repository" aria-label="Git repository">
-                        <i id="git-repository-button" class="fa {{git_repository_icon}}"></i>
-                    </a>
+                        <a href="{{git_repository_url}}" title="Git repository" aria-label="Git repository">
+                            <i id="git-repository-button" class="fa {{git_repository_icon}}"></i>
+                        </a>
                     {{/git_repository_url}}
                 </div>
             </div>
 
             {{#search_enabled}}
-            <div id="search-wrapper" class="hidden">
-                <form id="searchbar-outer" class="searchbar-outer">
-                    <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
-                </form>
-                <div id="searchresults-outer" class="searchresults-outer hidden">
-                    <div id="searchresults-header" class="searchresults-header"></div>
-                    <ul id="searchresults">
-                    </ul>
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" name="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
                 </div>
-            </div>
             {{/search_enabled}}
 
             <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
@@ -121,11 +127,11 @@
                 <main>
                     {{{ inner_html }}}
 
-                    <hr/>
+                    <hr />
 
                     <ul>
                         {{#heirachy}}
-                        <li><a href="{{ link }}"> {{ prity }} </a></li>
+                            <li><a href="{{ link }}"> {{ prity }} </a></li>
                         {{/heirachy}}
                     </ul>
                 </main>
@@ -169,7 +175,7 @@
         <!-- Livereload script (if served using the cli tool) -->
         <script type="text/javascript">
             var socket = new WebSocket("{{{livereload}}}");
-            socket.onmessage = function (event) {
+            socket.onmessage = function(event) {
                 if (event.data === "reload") {
                     socket.close();
                     location.reload();
@@ -184,9 +190,9 @@
 
 
     {{#search_js}}
-    <script src="{{ path_to_root }}elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ path_to_root }}mark.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="{{ path_to_root }}searcher.js" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ path_to_root }}elasticlunr.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ path_to_root }}mark.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="{{ path_to_root }}searcher.js" type="text/javascript" charset="utf-8"></script>
     {{/search_js}}
 
     <script src="{{ path_to_root }}clipboard.min.js" type="text/javascript" charset="utf-8"></script>
