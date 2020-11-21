@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="{{ language }}" class="sidebar-visible no-js {{ default_theme }}">
-<!-- TODO: allow changine the default theme -->
 
 {{> head.html }}
 
@@ -156,14 +155,14 @@
         </div>
 
         <nav class="nav-wide-wrapper" aria-label="Page navigation">
-            {{#previous}}
-                <a rel="prev" href="{{ path_to_root }}{{link}}" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+            {{#prev}}
+                <a rel="prev" href="{{ prev }}" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                     <i class="fa fa-angle-left"></i>
                 </a>
-            {{/previous}}
+            {{/prev}}
 
             {{#next}}
-                <a rel="next" href="{{ path_to_root }}{{link}}" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                <a rel="next" href="{{ next }}" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                     <i class="fa fa-angle-right"></i>
                 </a>
             {{/next}}
