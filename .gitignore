@@ -270,3 +270,6 @@ ref/
 
 # Coverage
 tarpaulin-report.html
+cypress/reports/
+cypress/videos/
+cypress/screenshots/
