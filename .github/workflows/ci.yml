@@ -18,6 +18,9 @@ jobs:
     - uses: hecrj/setup-rust-action@v1
       with:
         rust-version: ${{ matrix.rust }}
+    - uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
 
     # THIS DOESN"T WORK LOL
     # - name: Cache Deps
