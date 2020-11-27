@@ -33,3 +33,7 @@ jobs:
       with:
         submodules: true
     - run: cargo test
+    - name: Cypress run
+      uses: cypress-io/github-action@v2
+      with:
+        start: make serve-dummy
