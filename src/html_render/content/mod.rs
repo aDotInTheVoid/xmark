@@ -229,6 +229,7 @@ pub struct Link {
 }
 
 mod pagetoc;
+mod collect;
 
 pub fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<PathBuf> {
     let mut path = out_dir.join(input_loc.strip_prefix(base_dir)?);
