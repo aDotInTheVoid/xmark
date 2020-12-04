@@ -8,16 +8,7 @@ pub mod collect;
 pub mod pagetoc;
 pub use collect::Dirs;
 
-/// The content in a suitable form.
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct Content(pub Vec<Book>);
-
-#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Book {
-    pub title: String,
-    pub pages: Vec<Page>,
-}
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
 pub struct Page {
