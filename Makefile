@@ -15,3 +15,10 @@ cy-test:
 serve-dummy:
 	cargo run -- -d dummy-book/
 	python3 -m http.server -d dummy-book/_out/html 9009
+
+.PHONY: docs
+docs:
+	cargo doc --document-private-items --no-deps
+
+docs-serve: docs
+	python3 -m http.server -d target/doc
