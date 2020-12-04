@@ -1,7 +1,0 @@
----
-source: src/cli.rs
-expression: args
----
-dir: /usr
-create: false
-templates: ~
