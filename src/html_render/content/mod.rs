@@ -26,7 +26,7 @@ pub struct Page {
     pub output: PathBuf,
     /// The md input file.
     pub input: PathBuf,
-    pub toc: pagetoc::PageToc,
+    pub toc: (),
     /// The link to the next page
     pub next: Option<String>,
     /// The link to the previous
