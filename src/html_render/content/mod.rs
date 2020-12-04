@@ -38,7 +38,7 @@ pub struct Page {
     /// [Getting started](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github) /
     /// [Quickstart](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/quickstart) /
     /// [Set up Git](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git)
-    pub heirachy: Vec<Link>,
+    pub heirachy: ()
 }
 // Oh dear god the allocations
 
@@ -61,14 +61,3 @@ enum PageListParts<'a> {
     StartSection,
     EndSection,
 }
-
-//TODO: Should this be the same as pagetoc::Link.
-// This is relative to site root, so needs special care when we're serving
-// on a subdir. that is just relative to the page
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct Link {
-    pub prity: String,
-    pub link: String,
-}
-
-
