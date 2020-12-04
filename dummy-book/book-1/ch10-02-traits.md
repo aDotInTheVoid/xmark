@@ -1,1 +1,0 @@
-# Traits: Defining Shared Behavior
