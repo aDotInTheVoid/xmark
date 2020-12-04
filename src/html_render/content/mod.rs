@@ -5,7 +5,8 @@ use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 
 pub mod collect;
-// pub use collect::Dirs;
+pub mod pagetoc;
+pub use collect::Dirs;
 
 /// The content in a suitable form.
 
@@ -25,7 +26,7 @@ pub struct Page {
     pub output: PathBuf,
     /// The md input file.
     pub input: PathBuf,
-    pub toc: (),
+    pub toc: pagetoc::PageToc,
     /// The link to the next page
     pub next: Option<String>,
     /// The link to the previous
