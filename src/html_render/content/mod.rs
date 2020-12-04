@@ -5,6 +5,10 @@ use serde::{Deserialize, Serialize};
 use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 
+pub mod collect;
+pub mod pagetoc;
+pub use collect::Dirs;
+
 /// The content in a suitable form.
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
@@ -38,26 +42,6 @@ pub struct Page {
     pub heirachy: Vec<Link>,
 }
 // Oh dear god the allocations
-#[derive(Debug, Clone, Default)]
-pub struct Dirs {
-    out_dir: PathBuf,
-    base_dir: PathBuf,
-    base_url: String,
-}
-
-impl Dirs {
-    pub fn new(conf: &GlobalConf, args: &cli::Args) -> Self {
-        Self {
-            base_dir: args.dir.clone(),
-            out_dir: args.dir.join("_out").join("html"),
-            base_url: conf
-                .html
-                .site_url
-                .to_owned()
-                .unwrap_or_else(|| "/".to_owned()),
-        }
-    }
-}
 
 impl Content {
     pub fn new(config: &config::GlobalConf, dirs: &Dirs) -> Result<Self> {
@@ -228,8 +212,7 @@ pub struct Link {
     pub link: String,
 }
 
-mod pagetoc;
-mod collect;
+
 
 pub fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<PathBuf> {
     let mut path = out_dir.join(input_loc.strip_prefix(base_dir)?);
