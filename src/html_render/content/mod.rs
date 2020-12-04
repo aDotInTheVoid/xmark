@@ -72,14 +72,3 @@ pub struct Link {
 }
 
 
-
-pub fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<PathBuf> {
-    let mut path = out_dir.join(input_loc.strip_prefix(base_dir)?);
-    if path.file_name() == Some(OsStr::new("README.md")) {
-        path.set_file_name("index.html")
-    } else {
-        path.set_extension("");
-        path.push("index.html");
-    }
-    Ok(path)
-}
