@@ -22,3 +22,7 @@ docs:
 
 docs-serve: docs
 	python3 -m http.server -d target/doc
+
+.PHONY: docs-json
+docs-json:
+	cargo rustdoc -- --output-format json 
