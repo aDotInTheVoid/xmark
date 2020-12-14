@@ -276,4 +276,4 @@ cypress/screenshots/
 
 .vscode/
 .config/
-api*
+api*.svg
