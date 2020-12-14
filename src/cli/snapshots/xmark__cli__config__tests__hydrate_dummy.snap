@@ -1,5 +1,5 @@
 ---
-source: src/config.rs
+source: src/cli/config.rs
 expression: conf
 ---
 books:

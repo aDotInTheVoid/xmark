@@ -53,10 +53,10 @@ pub struct Link {
 #[cfg(test)]
 mod tests {
     use assert_fs::prelude::*;
+    use cli::Args;
     use insta::{assert_yaml_snapshot, dynamic_redaction};
 
-    use crate::config::GlobalConf;
-    use crate::{cli, config};
+    use crate::cli::{self, config};
 
     use super::collect::output_loc;
     use super::*;
@@ -134,7 +134,7 @@ mod tests {
         )
         .unwrap();
 
-        let args = cli::Args {
+        let args = Args {
             dir: temp.path().to_owned(),
             ..Default::default()
         };
@@ -182,7 +182,7 @@ mod tests {
     fn empty_book() {
         let args = Default::default();
         let book = Default::default();
-        let conf = GlobalConf {
+        let conf = config::GlobalConf {
             books: vec![book],
             ..Default::default()
         };

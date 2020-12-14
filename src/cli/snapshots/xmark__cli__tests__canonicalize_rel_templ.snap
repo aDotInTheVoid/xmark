@@ -1,7 +1,7 @@
 ---
-source: src/cli.rs
+source: src/cli/mod.rs
 expression: args
 ---
 dir: BASEDIR
 create: true
-templates: ~
+templates: BASEDIR/www

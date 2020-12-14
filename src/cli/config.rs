@@ -5,9 +5,9 @@ use std::path::PathBuf;
 use eyre::{Result, WrapErr};
 use serde::{Deserialize, Serialize};
 
+use super::create_missing::create_missing;
+use super::summary::{parse_summary, Chapter, Summary};
 use crate::cli;
-use crate::create_missing::create_missing;
-use crate::summary::{parse_summary, Chapter, Summary};
 
 /// The Config as represented in the global xmark.toml
 #[derive(Clone, Debug, Hash, Serialize, Deserialize, PartialEq, Default)]

@@ -1,16 +1,16 @@
 ---
-source: src/summary.rs
+source: src/cli/summary.rs
 expression: got
 ---
 - chapter:
-    name: test1
-    location: "./test link1.md"
+    name: First
+    location: "./first.md"
   nested_items: []
   section_number:
     - 1
 - chapter:
-    name: test2
-    location: "./test link2.md"
+    name: Second
+    location: "./second.md"
   nested_items: []
   section_number:
     - 2

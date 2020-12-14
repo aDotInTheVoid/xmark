@@ -6,7 +6,7 @@ use eyre::{Context, Result};
 use fs_extra::dir as fsx;
 
 use crate::cli;
-use crate::config::GlobalConf;
+use crate::cli::config::GlobalConf;
 
 use self::content::{Book, Content, Page};
 
@@ -88,7 +88,10 @@ mod tests {
     use assert_fs::prelude::*;
     use insta::{assert_yaml_snapshot, dynamic_redaction};
 
-    use crate::{cli, config, html_render};
+    use crate::{
+        cli::{self, config},
+        html_render,
+    };
 
     #[test]
     fn dummy_e2e() {

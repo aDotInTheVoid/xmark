@@ -1,5 +1,5 @@
 ---
-source: src/summary.rs
+source: src/cli/summary.rs
 expression: got.unwrap()
 ---
 - chapter:

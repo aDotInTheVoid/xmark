@@ -1,5 +1,5 @@
 ---
-source: src/create_missing.rs
+source: src/cli/create_missing.rs
 expression: paths
 ---
 - ""

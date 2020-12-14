@@ -1,5 +1,5 @@
 ---
-source: src/cli.rs
+source: src/cli/mod.rs
 expression: args
 ---
 dir: /usr

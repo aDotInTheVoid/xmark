@@ -1,11 +1,18 @@
 ---
-source: src/summary.rs
+source: src/cli/summary.rs
 expression: got
 ---
 - chapter:
     name: First
     location: "./first.md"
-  nested_items: []
+  nested_items:
+    - chapter:
+        name: Nested
+        location: "./nested.md"
+      nested_items: []
+      section_number:
+        - 1
+        - 1
   section_number:
     - 1
 - chapter:
@@ -14,9 +21,3 @@ expression: got
   nested_items: []
   section_number:
     - 2
-- chapter:
-    name: Third
-    location: "./third.md"
-  nested_items: []
-  section_number:
-    - 3

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
-use crate::summary::{Link, Summary};
+use super::summary::{Link, Summary};
 use eyre::Result;
 use std::fs::{self, File};
 use std::io::Write;
@@ -53,7 +53,8 @@ mod tests {
     use assert_fs::prelude::*;
     use insta::{assert_yaml_snapshot, dynamic_redaction};
 
-    use crate::{cli, config, html_render};
+    use crate::cli::{self, config};
+    use crate::html_render;
 
     #[test]
     fn dummy_e2e() {
