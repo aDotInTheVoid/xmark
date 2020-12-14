@@ -47,10 +47,19 @@ class ItemVisitor:
         kind = ty["kind"]
         inner = ty["inner"]
         if kind == "resolved_path":
-            # TODO: this returns Vec for Vec<Page>
             idx = inner["id"]
             if idx.split(":")[0] == "0":
                 return idx
+
+        elif (
+            kind == "borrowed_ref"
+            or kind == "array"
+            or kind == "raw_pointer"
+            or kind == "borrowed_ref"
+        ):
+            return self.extract_ty_id(inner["type"])
+        elif kind == "qualified_path":
+            return self.extract_ty_id(inner["self_type"])
 
     ###########################################################################
     # Core visitors                                                           #
@@ -67,21 +76,18 @@ class ItemVisitor:
     def visit_method(self, method):
         # And this is a pain, because for Vec<T>, (T, T),
         # &T, &[T], we want T, and that normalizarion is hard.
-
         fn_index = method["id"]
+
         fn_decl = method["inner"]["decl"]
 
         self.add_node(fn_index, shape="box")
 
         for [_, in_ty] in fn_decl["inputs"]:
-            in_id = self.extract_ty_id(in_ty)
-            if in_id is not None:
-                self.dot.edge2(fn_index, in_id)
+            if in_id := self.extract_ty_id(in_ty):
+                self.dot.edge2(in_id, fn_index)
 
-        out_ty = fn_decl["output"]
-        if out_ty is not None:
-            out_id = self.extract_ty_id(out_ty)
-            if out_id is not None:
+        if out_ty := fn_decl["output"]:
+            if out_id := self.extract_ty_id(out_ty):
                 self.dot.edge2(fn_index, out_id)
 
     ###########################################################################
