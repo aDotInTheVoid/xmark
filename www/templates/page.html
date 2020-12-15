@@ -37,7 +37,7 @@
         }
         var html = document.querySelector('html');
         html.classList.remove('no-js')
-        html.classList.remove('rust')
+        html.classList.remove('{{ default_theme }}')
         html.classList.add(theme);
         html.classList.add('js');
     </script>
@@ -129,6 +129,7 @@
                     <hr />
 
                     <ul>
+                        {{!-- TODO: Put this somewhere nice --}}
                         {{#heirachy}}
                             <li><a href="{{ link }}"> {{ prity }} </a></li>
                         {{/heirachy}}

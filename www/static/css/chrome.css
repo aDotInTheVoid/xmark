@@ -110,8 +110,7 @@ a > .hljs {
 .menu-bar:visited,
 .nav-chapters,
 .nav-chapters:visited,
-.mobile-nav-chapters,
-.mobile-nav-chapters:visited,
+.nav-wrapper a.mobile-nav-chapters,
 .menu-bar .icon-button,
 .menu-bar a i {
     color: var(--icons);
