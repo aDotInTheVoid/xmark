@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-only
 pub mod cli;
+pub mod content;
 pub mod html_render;
 #[cfg(test)]
 mod test_utils;

@@ -10,6 +10,7 @@ use crate::cli::{self, config, summary};
 use super::{Book, Content, Link, Page};
 
 // Oh dear god the allocations
+// TODO: Where should this be.
 #[derive(Debug, Clone, Default)]
 pub struct Dirs {
     pub out_dir: PathBuf,

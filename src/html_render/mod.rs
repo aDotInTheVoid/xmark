@@ -8,9 +8,7 @@ use fs_extra::dir as fsx;
 use crate::cli;
 use crate::cli::config::GlobalConf;
 
-use self::content::{Book, Content, Page};
-
-pub mod content;
+use crate::content::{self, Book, Content, Page};
 
 /// Singleton
 pub struct HTMLRender<'a> {
@@ -18,7 +16,7 @@ pub struct HTMLRender<'a> {
     // I'll need em later, when this gets fancy
     _args: &'a cli::Args,
     templates: ramhorns::Ramhorns,
-    dirs: content::Dirs,
+    pub dirs: content::Dirs,
 }
 
 impl<'a> HTMLRender<'a> {
