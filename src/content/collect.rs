@@ -47,12 +47,20 @@ impl Content {
 impl Book {
     pub fn new(book: &config::Book, dirs: &Dirs) -> Result<Self> {
         let title = book.summary.title.clone();
-        let pages = Self::capture_pages(book, dirs)?;
+        let (pages, redirects) = Self::capture_pages(book, dirs)?;
 
-        Ok(Self { title, pages })
+        Ok(Self {
+            title,
+            pages,
+            redirects,
+        })
     }
 
-    fn capture_pages(book: &config::Book, dirs: &Dirs) -> Result<Vec<Page>> {
+    //TODO: does this need to be seperate from Book::new
+    fn capture_pages(
+        book: &config::Book,
+        dirs: &Dirs,
+    ) -> Result<(Vec<Page>, Vec<(PathBuf, String)>)> {
         use PageListParts::*;
 
         // We need to hold onto a bungh of stuff as we walk the tree, ands its
@@ -71,7 +79,9 @@ impl Book {
             pages_parts.push(Chapter(i));
         }
 
-        let mut out = Vec::<Page>::new();
+        let mut pages = Vec::with_capacity(pages_parts.len());
+        let mut redirs = Vec::new();
+
         let mut heirachy = vec![Link {
             prity: book.summary.title.clone(),
             link: Path::new(&dirs.base_url)
@@ -80,6 +90,13 @@ impl Book {
                 .into_string()
                 .map_err(|x| eyre::eyre!("Invalid string {:?}", x))?,
         }];
+
+        let redir_to_index_out = output_loc(
+            &book.location.join("README.md"),
+            &dirs.out_dir,
+            &dirs.base_dir,
+        )?;
+        let mut needs_redir = true;
 
         for i in pages_parts {
             match i {
@@ -97,6 +114,9 @@ impl Book {
                     let heirachy = heirachy.clone();
 
                     let output = output_loc(&input, &dirs.out_dir, &dirs.base_dir)?;
+                    if output == redir_to_index_out {
+                        needs_redir = false;
+                    }
                     let mut page = Page {
                         input,
                         name,
@@ -106,10 +126,10 @@ impl Book {
                         next: None,
                     };
                     page.heirachy.push(page.heirachy_element(dirs)?);
-                    out.push(page)
+                    pages.push(page)
                 }
                 PageListParts::StartSection => {
-                    heirachy.push(out.last().unwrap().heirachy_element(dirs)?);
+                    heirachy.push(pages.last().unwrap().heirachy_element(dirs)?);
                 }
                 PageListParts::EndSection => {
                     heirachy.pop();
@@ -124,14 +144,21 @@ impl Book {
         //     after.prev = Some(before.url());
         // }
         // Because GAT's.
-        for i in 0..out.len().saturating_sub(1) {
-            let before_url = out[i].url(dirs)?;
-            let after_url = out[i + 1].url(dirs)?;
-            out[i].next = Some(after_url);
-            out[i + 1].prev = Some(before_url);
+        for i in 0..pages.len().saturating_sub(1) {
+            let before_url = pages[i].url(dirs)?;
+            let after_url = pages[i + 1].url(dirs)?;
+            pages[i].next = Some(after_url);
+            pages[i + 1].prev = Some(before_url);
         }
 
-        Ok(out)
+        if needs_redir {
+            // TODO: What do we do if their are no pages.
+            if let Some(first_page) = pages.get(0) {
+                redirs.push((redir_to_index_out, first_page.url(dirs)?))
+            }
+        }
+
+        Ok((pages, redirs))
     }
 
     fn capture_raw_parts<'a>(link: &'a summary::Link, out: &mut Vec<PageListParts<'a>>) {

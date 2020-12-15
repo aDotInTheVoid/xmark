@@ -4,6 +4,7 @@ use std::io::Write;
 
 use eyre::{Context, Result};
 use fs_extra::dir as fsx;
+use ramhorns::{Content as Rhc, Ramhorns};
 
 use crate::cli;
 use crate::cli::config::GlobalConf;
@@ -15,7 +16,7 @@ pub struct HTMLRender<'a> {
     content: Content,
     // I'll need em later, when this gets fancy
     _args: &'a cli::Args,
-    templates: ramhorns::Ramhorns,
+    templates: Ramhorns,
     pub dirs: content::Dirs,
 }
 
@@ -43,10 +44,8 @@ impl<'a> HTMLRender<'a> {
 
         let content = content::Content::new(conf, &dirs)?;
 
-        let templates = ramhorns::Ramhorns::from_folder(concat!(
-            env!("CARGO_MANIFEST_DIR"),
-            "/www/templates/"
-        ))?;
+        let templates =
+            Ramhorns::from_folder(concat!(env!("CARGO_MANIFEST_DIR"), "/www/templates/"))?;
 
         Ok(Self {
             content,
@@ -66,7 +65,20 @@ impl<'a> HTMLRender<'a> {
                     .wrap_err_with(|| format!("Failed to create {:?}", &page.output))?;
                 file.write_all(html.as_bytes())?;
             }
+
+            for (file, url) in &book.redirects {
+                #[derive(Rhc)]
+                struct Params<'a> {
+                    url: &'a str,
+                }
+
+                self.templates
+                    .get("redirect.html")
+                    .unwrap()
+                    .render_to_file(file, &Params { url })?;
+            }
         }
+
         Ok(())
     }
 

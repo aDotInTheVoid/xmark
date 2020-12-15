@@ -1204,6 +1204,9 @@ expression: content
           link: /book-1/appendix-00
         - prity: G - How Rust is Made and “Nightly Rust”
           link: /book-1/appendix-07-nightly-rust
+  redirects:
+    - - BASEDIR/_out/html/book-1/index.html
+      - /book-1/title-page
 - title: Summary
   pages:
     - name: mdBook
@@ -1464,6 +1467,7 @@ expression: content
           link: /book-2
         - prity: Contributors
           link: /book-2/misc/contributors
+  redirects: []
 - title: "3"
   pages:
     - name: pre 1
@@ -1562,3 +1566,6 @@ expression: content
           link: /book-3
         - prity: post 1
           link: /book-3/post1
+  redirects:
+    - - BASEDIR/_out/html/book-3/index.html
+      - /book-3/pre1

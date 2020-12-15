@@ -18,6 +18,8 @@ pub struct Content(pub Vec<Book>);
 pub struct Book {
     pub title: String,
     pub pages: Vec<Page>,
+    /// List of files to be written, and the url to redirect to.
+    pub redirects: Vec<(PathBuf, String)>,
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
@@ -147,7 +149,7 @@ mod tests {
         // it's closures to be 'static, and I can't think of a better way to get
         // arround this. Don't bother fixing unless you realy want fun lifetime
         // issues.
-        let redaction = |string| {
+        let redaction = |string, db| {
             move |mut val, _: insta::internals::ContentPath| {
                 // TODO: Dont do insta crimes.
                 // This is in #[doc(Hidden)] internals.
@@ -155,17 +157,22 @@ mod tests {
                     val = *some;
                 }
                 if let insta::internals::Content::String(s) = val {
+                    if db {
+                        dbg!(&s);
+                    }
                     s.replace(&string, "BASEDIR").into()
                 } else {
                     val
                 }
             }
         };
-
+        dbg!(&tp);
         assert_yaml_snapshot!(content,
+
             {
-                 ".**.input" => dynamic_redaction(redaction(tp.clone())),
-                 ".**.output" => dynamic_redaction(redaction(tp)),
+                 ".**.input" => dynamic_redaction(redaction(tp.clone(), false)),
+                 ".*.redirects[][]" => dynamic_redaction(redaction(tp.clone(), true)),
+                 ".**.output" => dynamic_redaction(redaction(tp, false)),
             }
         );
     }

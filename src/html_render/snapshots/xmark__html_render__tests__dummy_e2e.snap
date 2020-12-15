@@ -223,6 +223,7 @@ expression: paths
 - /_out/html/book-1/ch20-03-graceful-shutdown-and-cleanup/index.html
 - /_out/html/book-1/foreword
 - /_out/html/book-1/foreword/index.html
+- /_out/html/book-1/index.html
 - /_out/html/book-1/title-page
 - /_out/html/book-1/title-page/index.html
 - /_out/html/book-2
@@ -283,6 +284,7 @@ expression: paths
 - /_out/html/book-3/c32/index.html
 - /_out/html/book-3/c33
 - /_out/html/book-3/c33/index.html
+- /_out/html/book-3/index.html
 - /_out/html/book-3/post1
 - /_out/html/book-3/post1/index.html
 - /_out/html/book-3/pre1
