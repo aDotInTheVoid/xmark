@@ -3,6 +3,7 @@ use std::ffi::OsStr;
 use std::path::{Path, PathBuf};
 
 use eyre::Result;
+use tracing::instrument;
 
 use crate::cli::config::GlobalConf;
 use crate::cli::{self, config, summary};
@@ -19,6 +20,7 @@ pub struct Dirs {
 }
 
 impl Dirs {
+    #[instrument]
     pub fn new(conf: &GlobalConf, args: &cli::Args) -> Self {
         Self {
             base_dir: args.dir.clone(),
@@ -33,6 +35,7 @@ impl Dirs {
 }
 
 impl Content {
+    #[instrument]
     pub fn new(config: &config::GlobalConf, dirs: &Dirs) -> Result<Self> {
         Ok(Self(
             config
@@ -45,6 +48,8 @@ impl Content {
 }
 
 impl Book {
+    #[instrument]
+
     pub fn new(book: &config::Book, dirs: &Dirs) -> Result<Self> {
         let title = book.summary.title.clone();
         let (pages, redirects) = Self::capture_pages(book, dirs)?;
@@ -57,6 +62,7 @@ impl Book {
     }
 
     //TODO: does this need to be seperate from Book::new
+    #[instrument]
     fn capture_pages(
         book: &config::Book,
         dirs: &Dirs,
@@ -161,6 +167,7 @@ impl Book {
         Ok((pages, redirs))
     }
 
+    #[instrument]
     fn capture_raw_parts<'a>(link: &'a summary::Link, out: &mut Vec<PageListParts<'a>>) {
         use PageListParts::*;
 
@@ -183,6 +190,7 @@ impl Page {
         })
     }
 
+    #[instrument]
     pub fn url(&self, dirs: &Dirs) -> Result<String> {
         let relative_pos = self.output.strip_prefix(&dirs.out_dir)?;
         let mut url = Path::new(&dirs.base_url).join(relative_pos);
@@ -208,6 +216,7 @@ impl Page {
 /// StartSection
 /// Chapter(Baz)
 /// StartSection
+#[derive(Debug)]
 enum PageListParts<'a> {
     //TODO: A better name
     Chapter(&'a summary::Chapter),
@@ -215,6 +224,7 @@ enum PageListParts<'a> {
     EndSection,
 }
 
+#[instrument]
 pub fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<PathBuf> {
     let mut path = out_dir.join(input_loc.strip_prefix(base_dir)?);
     if path.file_name() == Some(OsStr::new("README.md")) {

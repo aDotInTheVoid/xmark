@@ -5,6 +5,7 @@ use eyre::Result;
 use pulldown_cmark::{html, Options, Parser};
 use ramhorns::Content as Rhc;
 use serde::Serialize;
+use tracing::instrument;
 
 use crate::html_render::HTMLRender;
 
@@ -29,6 +30,7 @@ pub struct Page<'a> {
 }
 
 impl<'a> Page<'a> {
+    #[instrument]
     pub fn new(from: &'a CPage, rd: &'a HTMLRender<'a>, book: &Book) -> Result<Self> {
         // TODO: Don't buffer the whole input
         let inner_html = render_markdown(&fs::read_to_string(&from.input)?);
@@ -57,6 +59,7 @@ impl<'a> Page<'a> {
     // TODO: This doesn't have draft pages, which have been eliminated earlyer.
     // This requires rearchetecting the whole thing.
     // https://github.com/rust-lang/mdBook/blob/e5f74b6c8674bf23ed9c8d9b702fc9be7d409f1d/src/renderer/html_handlebars/helpers/toc.rs#L38-L146
+    #[instrument]
     fn write_toc(out: &mut String, book: &Book, rd: &HTMLRender<'_>, this: &CPage) -> fmt::Result {
         //TODO: Alloc size
         out.push_str("<ol class=\"chapter\">");
@@ -138,6 +141,7 @@ impl<'a> Default for Global<'a> {
 }
 
 // TODO: A million customizations
+#[instrument]
 pub(crate) fn render_markdown(content: &str) -> String {
     let opts = Options::all();
     let parser = Parser::new_ext(content, opts);

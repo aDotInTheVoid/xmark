@@ -3,6 +3,7 @@ use clap::Clap;
 use eyre::Result;
 use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
+use tracing::instrument;
 
 pub mod config;
 pub mod summary;
@@ -17,10 +18,12 @@ pub struct Args {
 }
 
 impl Args {
+    #[instrument]
     pub fn parse() -> Result<Self> {
         Self::parse_from(ArgsInner::parse())
     }
 
+    #[instrument]
     fn parse_from(inner: ArgsInner) -> Result<Self> {
         let ArgsInner {
             mut dir,
@@ -38,6 +41,28 @@ impl Args {
             templates,
         })
     }
+}
+
+#[instrument]
+pub fn init() -> Result<()> {
+    color_eyre::install()?;
+
+    use tracing_error::ErrorLayer;
+    use tracing_subscriber::prelude::*;
+    use tracing_subscriber::{fmt, EnvFilter};
+
+    let fmt_layer = fmt::layer().with_target(false);
+    let filter_layer = EnvFilter::try_from_default_env()
+        .or_else(|_| EnvFilter::try_new("info"))
+        .unwrap();
+
+    tracing_subscriber::registry()
+        .with(filter_layer)
+        .with(fmt_layer)
+        .with(ErrorLayer::default())
+        .init();
+
+    Ok(())
 }
 
 #[derive(Clap, Debug)]

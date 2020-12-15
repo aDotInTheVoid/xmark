@@ -41,7 +41,7 @@ Loosly based on [mdBook](https://github.com/rust-lang/mdbook) and does use its c
 - gnuplot?
 - pyplot?
 - Any of the other formats suported by [adoc](https://github.com/asciidoctor/asciidoctor-diagram/blob/fd8ab7d9eb9d5de3c55a0e27c4276206c728a917/README.adoc#creating-a-diagram)
-- Svgbob
+- https://github.com/ivanceras/svgbob
 - https://github.com/reanimate/reanimate
 - https://github.com/kinnison/pikchr
 

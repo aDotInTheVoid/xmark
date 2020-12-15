@@ -54,6 +54,8 @@ pub struct Link {
 
 #[cfg(test)]
 mod tests {
+    // TODO: these should be in the module that defined them
+
     use assert_fs::prelude::*;
     use cli::Args;
     use insta::{assert_yaml_snapshot, dynamic_redaction};

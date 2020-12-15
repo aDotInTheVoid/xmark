@@ -4,6 +4,7 @@ use std::path::PathBuf;
 
 use eyre::{Result, WrapErr};
 use serde::{Deserialize, Serialize};
+use tracing::instrument;
 
 use super::create_missing::create_missing;
 use super::summary::{parse_summary, Chapter, Summary};
@@ -39,6 +40,7 @@ pub struct HtmlConf {
     pub site_url: Option<String>,
 }
 
+#[instrument]
 pub fn load(args: &cli::Args) -> Result<GlobalConf> {
     let conf = fs::read_to_string(args.dir.clone().join("xmark.toml"))
         .with_context(|| "Couldn't find xmark.toml")?;
@@ -48,6 +50,7 @@ pub fn load(args: &cli::Args) -> Result<GlobalConf> {
 }
 
 // Convert the disk format to a usable form
+#[instrument]
 fn hydrate(gcr: GlobalConfigRepr, args: &cli::Args) -> Result<GlobalConf> {
     Ok(GlobalConf {
         books: gcr

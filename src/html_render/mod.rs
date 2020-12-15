@@ -1,10 +1,12 @@
 // SPDX-License-Identifier: GPL-3.0-only
+use std::fmt::Debug;
 use std::fs;
 use std::io::Write;
 
 use eyre::{Context, Result};
 use fs_extra::dir as fsx;
 use ramhorns::{Content as Rhc, Ramhorns};
+use tracing::instrument;
 
 use crate::cli;
 use crate::cli::config::GlobalConf;
@@ -20,7 +22,17 @@ pub struct HTMLRender<'a> {
     pub dirs: content::Dirs,
 }
 
+impl Debug for HTMLRender<'_> {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("HTMLRender")
+            .field("dirs", &self.dirs)
+            .field("content", &self.content)
+            .finish()
+    }
+}
+
 impl<'a> HTMLRender<'a> {
+    #[instrument]
     pub fn new(conf: &GlobalConf, args: &'a cli::Args) -> Result<Self> {
         let dirs = content::Dirs::new(conf, args);
 
@@ -54,7 +66,8 @@ impl<'a> HTMLRender<'a> {
             dirs,
         })
     }
-
+    
+    #[instrument]
     pub fn render(&self) -> Result<()> {
         //TODO: Rayon
         for book in &self.content.0 {
@@ -82,6 +95,7 @@ impl<'a> HTMLRender<'a> {
         Ok(())
     }
 
+    #[instrument]
     pub fn render_page(&self, page: &Page, book: &Book) -> Result<String> {
         let rp = self::content::render::Page::new(page, &self, book)?;
         let tpl = self.templates.get("page.html").unwrap();

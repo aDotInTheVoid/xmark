@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-only
 use eyre::{bail, eyre, Error, Result, WrapErr};
-use log::{debug, trace, warn};
 use memchr::{self, Memchr};
 use pulldown_cmark::{self, Event, Tag};
 use serde::{Deserialize, Serialize};
@@ -8,6 +7,7 @@ use std::fmt::{self, Display, Formatter};
 use std::iter::FromIterator;
 use std::ops::{Deref, DerefMut};
 use std::path::PathBuf;
+use tracing::{debug, instrument, trace, warn};
 
 /// Parse the text from a `SUMMARY.md` file into a sort of "recipe" to be
 /// used when loading a book from disk.
@@ -51,6 +51,7 @@ use std::path::PathBuf;
 ///
 /// All other elements are unsupported and will be ignored at best or result in
 /// an error.
+#[instrument]
 pub fn parse_summary(summary: &str) -> Result<Summary> {
     let parser = SummaryParser::new(summary);
     parser.parse()

@@ -5,8 +5,9 @@ use std::fs::{self, File};
 use std::io::Write;
 use std::path::Path;
 
-use log::debug;
+use tracing::{debug, instrument};
 
+#[instrument]
 pub fn create_missing(src_dir: &Path, summary: &Summary) -> Result<()> {
     let mut items: Vec<_> = summary
         .prefix_chapters
