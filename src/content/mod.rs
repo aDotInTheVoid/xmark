@@ -6,7 +6,6 @@ use std::path::PathBuf;
 
 pub(crate) mod collect;
 pub(crate) mod pagetoc;
-pub(crate) mod render;
 pub(crate) use collect::Dirs;
 
 /// The content in a suitable form.

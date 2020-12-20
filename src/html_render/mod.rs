@@ -13,6 +13,9 @@ use crate::cli::config::GlobalConf;
 
 use crate::content::{self, Book, Content, Page};
 
+mod tpl_types;
+
+
 /// Singleton
 pub(crate) struct HTMLRender<'a> {
     content: Content,
@@ -97,7 +100,7 @@ impl<'a> HTMLRender<'a> {
 
     #[instrument]
     pub(crate) fn render_page(&self, page: &Page, book: &Book) -> Result<String> {
-        let rp = self::content::render::Page::new(page, &self, book)?;
+        let rp = tpl_types::Page::new(page, &self, book)?;
         let tpl = self.templates.get("page.html").unwrap();
         // TODO: Use render_to_file or something
         Ok(tpl.render(&rp))

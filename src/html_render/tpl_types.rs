@@ -9,7 +9,8 @@ use tracing::instrument;
 
 use crate::html_render::HTMLRender;
 
-use super::{Book, Link, Page as CPage};
+use crate::content::{Book, Link, Page as CPage};
+
 
 // Because we borrow link, we cant Deserialize, so snapshot tests may not work.
 // If so, we can remove the Serialize bound
