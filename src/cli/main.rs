@@ -1,5 +1,5 @@
-use eyre::Result;
 use clap::Clap;
+use eyre::Result;
 
 use super::args;
 

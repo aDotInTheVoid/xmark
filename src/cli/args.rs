@@ -10,15 +10,14 @@ pub(super) struct Args {
 
 #[derive(Clap, Debug)]
 pub(super) enum SubCommand {
-    Build(super::cmd::build::Args)
-    // TODO: init, clean, watch, serve
+    Build(super::cmd::build::Args), // TODO: init, clean, watch, serve
 }
 
 impl Args {
     #[instrument]
     pub fn run(self) -> Result<()> {
         match self.subcmd {
-            SubCommand::Build(c) => c.run()
+            SubCommand::Build(c) => c.run(),
         }
     }
 }

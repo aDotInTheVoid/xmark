@@ -1,1 +1,3 @@
-fn main() -> eyre::Result<()> { xmark::cli::__main::main() }
+fn main() -> eyre::Result<()> {
+    xmark::cli::__main::main()
+}

@@ -16,7 +16,6 @@ pub struct Args {
 impl Args {
     #[instrument]
     pub fn run(self) -> Result<()> {
-
         Ok(())
     }
 }
