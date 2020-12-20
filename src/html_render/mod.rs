@@ -14,12 +14,12 @@ use crate::cli::config::GlobalConf;
 use crate::content::{self, Book, Content, Page};
 
 /// Singleton
-pub struct HTMLRender<'a> {
+pub(crate) struct HTMLRender<'a> {
     content: Content,
     // I'll need em later, when this gets fancy
     _args: &'a cli::Args,
     templates: Ramhorns,
-    pub dirs: content::Dirs,
+    pub(crate) dirs: content::Dirs,
 }
 
 impl Debug for HTMLRender<'_> {
@@ -33,7 +33,7 @@ impl Debug for HTMLRender<'_> {
 
 impl<'a> HTMLRender<'a> {
     #[instrument]
-    pub fn new(conf: &GlobalConf, args: &'a cli::Args) -> Result<Self> {
+    pub(crate) fn new(conf: &GlobalConf, args: &'a cli::Args) -> Result<Self> {
         let dirs = content::Dirs::new(conf, args);
 
         //TODO: This wount work for incrmental or multi-renderer
@@ -68,7 +68,7 @@ impl<'a> HTMLRender<'a> {
     }
     
     #[instrument]
-    pub fn render(&self) -> Result<()> {
+    pub(crate) fn render(&self) -> Result<()> {
         //TODO: Rayon
         for book in &self.content.0 {
             for page in &book.pages {
@@ -96,7 +96,7 @@ impl<'a> HTMLRender<'a> {
     }
 
     #[instrument]
-    pub fn render_page(&self, page: &Page, book: &Book) -> Result<String> {
+    pub(crate) fn render_page(&self, page: &Page, book: &Book) -> Result<String> {
         let rp = self::content::render::Page::new(page, &self, book)?;
         let tpl = self.templates.get("page.html").unwrap();
         // TODO: Use render_to_file or something

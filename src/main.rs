@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-only
-pub mod cli;
-pub mod content;
-pub mod html_render;
+pub(crate) mod cli;
+pub(crate) mod content;
+pub(crate) mod html_render;
+pub(crate) mod render;
 
 #[cfg(test)]
 mod test_utils;

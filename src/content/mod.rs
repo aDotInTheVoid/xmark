@@ -4,35 +4,35 @@ use serde::{Deserialize, Serialize};
 
 use std::path::PathBuf;
 
-pub mod collect;
-pub mod pagetoc;
-pub mod render;
-pub use collect::Dirs;
+pub(crate) mod collect;
+pub(crate) mod pagetoc;
+pub(crate) mod render;
+pub(crate) use collect::Dirs;
 
 /// The content in a suitable form.
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-pub struct Content(pub Vec<Book>);
+pub(crate) struct Content(pub(crate) Vec<Book>);
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Default)]
-pub struct Book {
-    pub title: String,
-    pub pages: Vec<Page>,
+pub(crate) struct Book {
+    pub(crate) title: String,
+    pub(crate) pages: Vec<Page>,
     /// List of files to be written, and the url to redirect to.
-    pub redirects: Vec<(PathBuf, String)>,
+    pub(crate) redirects: Vec<(PathBuf, String)>,
 }
 
 #[derive(Debug, Clone, Default, Serialize, Deserialize, PartialEq)]
-pub struct Page {
-    pub name: String,
+pub(crate) struct Page {
+    pub(crate) name: String,
     /// The html file to render to
-    pub output: PathBuf,
+    pub(crate) output: PathBuf,
     /// The md input file.
-    pub input: PathBuf,
+    pub(crate) input: PathBuf,
     /// The link to the next page
-    pub next: Option<String>,
+    pub(crate) next: Option<String>,
     /// The link to the previous
-    pub prev: Option<String>,
+    pub(crate) prev: Option<String>,
     /// The pages parents, and their parents, and so on.
     ///
     /// Inspired by [github's docs](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git)
@@ -40,16 +40,16 @@ pub struct Page {
     /// [Getting started](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github) /
     /// [Quickstart](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/quickstart) /
     /// [Set up Git](https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/set-up-git)
-    pub heirachy: Vec<Link>,
+    pub(crate) heirachy: Vec<Link>,
 }
 
 //TODO: Should this be the same as pagetoc::Link.
 // This is relative to site root, so needs special care when we're serving
 // on a subdir. that is just relative to the page
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Rhc)]
-pub struct Link {
-    pub prity: String,
-    pub link: String,
+pub(crate) struct Link {
+    pub(crate) prity: String,
+    pub(crate) link: String,
 }
 
 #[cfg(test)]

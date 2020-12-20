@@ -5,21 +5,21 @@ use serde::{Deserialize, Serialize};
 use std::path::PathBuf;
 use tracing::instrument;
 
-pub mod config;
-pub mod summary;
+pub(crate) mod config;
+pub(crate) mod summary;
 
 mod create_missing;
 
 #[derive(Debug, Default, Clone, Serialize, Deserialize)]
-pub struct Args {
-    pub dir: PathBuf,
-    pub create: bool,
-    pub templates: Option<PathBuf>,
+pub(crate) struct Args {
+    pub(crate) dir: PathBuf,
+    pub(crate) create: bool,
+    pub(crate) templates: Option<PathBuf>,
 }
 
 impl Args {
     #[instrument]
-    pub fn parse() -> Result<Self> {
+    pub(crate) fn parse() -> Result<Self> {
         Self::parse_from(ArgsInner::parse())
     }
 
@@ -44,7 +44,7 @@ impl Args {
 }
 
 #[instrument]
-pub fn init() -> Result<()> {
+pub(crate) fn init() -> Result<()> {
     color_eyre::install()?;
 
     use tracing_error::ErrorLayer;
@@ -68,11 +68,11 @@ pub fn init() -> Result<()> {
 #[derive(Clap, Debug)]
 struct ArgsInner {
     #[clap(short, long, default_value = ".")]
-    pub dir: PathBuf,
+    pub(crate) dir: PathBuf,
     #[clap(long)]
-    pub create: bool,
+    pub(crate) create: bool,
     #[clap(short, long)]
-    pub templates: Option<PathBuf>,
+    pub(crate) templates: Option<PathBuf>,
 }
 
 #[cfg(test)]
