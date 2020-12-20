@@ -33,7 +33,7 @@ class ItemVisitor:
         return function(to_visit)
 
     def not_found(self, item):
-        #       return
+        return
         raise Exception(f"No method `visit_{item['kind']}`")
 
     def add_node(self, idx, shape="ellipse"):
@@ -120,4 +120,4 @@ v = ItemVisitor(inp, dot)
 v.visit(inp["root"])
 
 
-v.dot.render()
+# v.dot.render()

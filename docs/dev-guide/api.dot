@@ -1,0 +1,54 @@
+digraph G {
+//	label="xmark";
+	 compound=true;
+	subgraph cluster_cli {
+		label="cli";
+		Args;
+		ArgsInner -> Args [label="parse_from"];
+		ArgsInner;
+	}
+
+	Ramhorns;
+
+	subgraph cluster_config {
+		label="config";
+		Book;
+		GlobalConf;
+		GlobalConfigRepr;
+		HtmlConf;
+		hydrate [shape="box"];
+		GlobalConfigRepr -> hydrate;
+		Args -> hydrate;
+		hydrate -> GlobalConf
+	}
+
+	subgraph cluster_html_render {
+		label="html_render";
+		subgraph cluster_HTMLRender {
+			label="HTMLRender";
+			Self;
+			new [shape="box"];
+			Args -> new;
+			GlobalConf -> new;
+			new -> Self;
+			Content -> Self;
+			Ramhorns -> Self;
+		}
+
+		subgraph cluster_content {
+			label="content";
+			Dirs;
+			dirs_new [shape="box", label="new"];
+			dirs_new -> Dirs;
+			Content;
+			content_new [shape="box", label="new"];
+			content_new -> Content;
+			GlobalConf -> content_new;
+			Dirs -> content_new;
+		}
+		subgraph cluster_render	{
+			label="render";
+		}
+	}
+
+}	

@@ -1,0 +1,121 @@
+digraph api {
+	subgraph cluster_cli {
+		label = "cli";
+		"0___237" [label="xmark::cli::Args" shape=ellipse]
+		"0___298" [label="xmark::cli::ArgsInner" shape=ellipse]
+
+		"0___11" [label=parse shape=box]
+		"0___11" -> "0___237"
+
+		"0___12" [label=parse_from shape=box]
+		"0___298" -> "0___12"
+		"0___12" -> "0___237"
+	}
+
+	subgraph cluster_config {
+	label = "config";
+		"0___320" [label="xmark::config::GlobalConfigRepr" shape=ellipse]
+		"0___385" [label="xmark::config::GlobalConf" shape=ellipse]
+		"0___450" [label="xmark::config::Book" shape=ellipse]
+		"0___515" [label="xmark::config::HtmlConf" shape=ellipse]
+
+		"0___385" -> "0___450" [color="blue"]
+		"0___385" -> "0___515" [color="blue"]
+
+		"0___28" [label="xmark::config::load" shape=box]
+		"0___237" -> "0___28"
+		"0___28" -> "0___385"
+
+		// Load calls hydrate
+		"0___28" -> "0___30" [color="red"]
+
+		"0___30" [label="xmark::config::hydrate" shape=box]
+		"0___320" -> "0___30"
+		"0___237" -> "0___30"
+		"0___30" -> "0___385"
+	}
+
+	"0___46" [label="xmark::create_missing::create_missing" shape=box]
+	"0___1176" -> "0___46"
+	"0___30" ->  "0___46" [color = "red"]
+
+
+
+	"0___580" [label="xmark::html_render::content::collect::Dirs" shape=ellipse]
+	"0___84" [label=new shape=box]
+	"0___385" -> "0___84"
+	"0___237" -> "0___84"
+	"0___100" [label="xmark::html_render::content::collect::PageListParts" shape=ellipse]
+	"0___109" [label="xmark::html_render::content::collect::output_loc" shape=box]
+	"0___591" [label="xmark::html_render::content::pagetoc::PageToc" shape=ellipse]
+	"0___629" [label="xmark::html_render::content::pagetoc::Link" shape=ellipse]
+	"0___691" [label="xmark::html_render::content::pagetoc::H3" shape=ellipse]
+	"0___729" [label="xmark::html_render::content::pagetoc::H2" shape=ellipse]
+	"0___791" [label="xmark::html_render::content::render::Page" shape=ellipse]
+	"0___133" [label=new shape=box]
+	"0___1019" -> "0___133"
+	"0___140" -> "0___133"
+	"0___957" -> "0___133"
+	"0___134" [label=write_toc shape=box]
+	"0___957" -> "0___134"
+	"0___140" -> "0___134"
+	"0___1019" -> "0___134"
+	"0___864" [label="xmark::html_render::content::render::Global" shape=ellipse]
+	"0___138" [label="xmark::html_render::content::render::render_markdown" shape=box]
+	"0___921" [label="xmark::html_render::content::Content" shape=ellipse]
+	"0___87" [label=new shape=box]
+	"0___385" -> "0___87"
+	"0___580" -> "0___87"
+	"0___957" [label="xmark::html_render::content::Book" shape=ellipse]
+	"0___90" [label=new shape=box]
+	"0___450" -> "0___90"
+	"0___580" -> "0___90"
+	"0___91" [label=capture_pages shape=box]
+	"0___450" -> "0___91"
+	"0___580" -> "0___91"
+	"0___93" [label=capture_raw_parts shape=box]
+	"0___1312" -> "0___93"
+	"0___1019" [label="xmark::html_render::content::Page" shape=ellipse]
+	"0___97" [label=heirachy_element shape=box]
+	"0___580" -> "0___97"
+	"0___98" [label=url shape=box]
+	"0___580" -> "0___98"
+	"0___1093" [label="xmark::html_render::content::Link" shape=ellipse]
+	"0___140" [label="xmark::html_render::HTMLRender" shape=ellipse]
+	"0___148" [label=new shape=box]
+	"0___385" -> "0___148"
+	"0___237" -> "0___148"
+	"0___149" [label=render shape=box]
+	"0___151" [label=render_page shape=box]
+	"0___1019" -> "0___151"
+	"0___957" -> "0___151"
+	"0___182" [label="xmark::summary::parse_summary" shape=box]
+	"0___1176" [label="xmark::summary::Summary" shape=ellipse]
+	"0___1247" [label="xmark::summary::Chapter" shape=ellipse]
+	"0___1312" [label="xmark::summary::Link" shape=ellipse]
+	"0___184" [label=map_mut shape=box]
+	"0___186" [label=try_map shape=box]
+	"0___189" [label="xmark::summary::SummaryParser" shape=ellipse]
+	"0___198" [label=new shape=box]
+	"0___198" -> "0___189"
+	"0___199" [label=current_location shape=box]
+	"0___200" [label=parse shape=box]
+	"0___204" [label=parse_affix shape=box]
+	"0___205" [label=parse_parts shape=box]
+	"0___207" [label=parse_link shape=box]
+	"0___208" [label=parse_numbered shape=box]
+	"0___1388" -> "0___208"
+	"0___209" [label=back shape=box]
+	"0___210" [label=next_event shape=box]
+	"0___213" [label=parse_nested_numbered shape=box]
+	"0___1388" -> "0___213"
+	"0___214" [label=parse_nested_item shape=box]
+	"0___1388" -> "0___214"
+	"0___215" [label=parse_error shape=box]
+	"0___217" [label=parse_title shape=box]
+	"0___218" [label="xmark::summary::update_section_numbers" shape=box]
+	"0___219" [label="xmark::summary::get_last_link" shape=box]
+	"0___221" [label="xmark::summary::stringify_events" shape=box]
+	"0___1388" [label="xmark::summary::SectionNumber" shape=ellipse]
+	"0___236" [label="xmark::main" shape=box]
+}
