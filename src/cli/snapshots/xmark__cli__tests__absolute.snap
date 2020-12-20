@@ -1,7 +1,0 @@
----
-source: src/cli/mod.rs
-expression: args
----
-dir: /usr
-create: false
-templates: ~
