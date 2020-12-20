@@ -1,3 +1,1 @@
-pub fn main() {
-    println!("Hello World");
-}
+pub mod cli;
