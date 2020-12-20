@@ -13,15 +13,15 @@ use super::{Book, Content, Link, Page};
 // Oh dear god the allocations
 // TODO: Where should this be.
 #[derive(Debug, Clone, Default)]
-pub struct Dirs {
-    pub out_dir: PathBuf,
-    pub base_dir: PathBuf,
-    pub base_url: String,
+pub(crate) struct Dirs {
+    pub(crate) out_dir: PathBuf,
+    pub(crate) base_dir: PathBuf,
+    pub(crate) base_url: String,
 }
 
 impl Dirs {
     #[instrument]
-    pub fn new(conf: &GlobalConf, args: &cli::Args) -> Self {
+    pub(crate) fn new(conf: &GlobalConf, args: &cli::Args) -> Self {
         Self {
             base_dir: args.dir.clone(),
             out_dir: args.dir.join("_out").join("html"),
@@ -36,7 +36,7 @@ impl Dirs {
 
 impl Content {
     #[instrument]
-    pub fn new(config: &config::GlobalConf, dirs: &Dirs) -> Result<Self> {
+    pub(crate) fn new(config: &config::GlobalConf, dirs: &Dirs) -> Result<Self> {
         Ok(Self(
             config
                 .books
@@ -50,7 +50,7 @@ impl Content {
 impl Book {
     #[instrument]
 
-    pub fn new(book: &config::Book, dirs: &Dirs) -> Result<Self> {
+    pub(crate) fn new(book: &config::Book, dirs: &Dirs) -> Result<Self> {
         let title = book.summary.title.clone();
         let (pages, redirects) = Self::capture_pages(book, dirs)?;
 
@@ -183,7 +183,7 @@ impl Book {
 }
 
 impl Page {
-    pub fn heirachy_element(&self, dirs: &Dirs) -> Result<Link> {
+    pub(crate) fn heirachy_element(&self, dirs: &Dirs) -> Result<Link> {
         Ok(Link {
             prity: self.name.clone(),
             link: self.url(dirs)?,
@@ -191,7 +191,7 @@ impl Page {
     }
 
     #[instrument]
-    pub fn url(&self, dirs: &Dirs) -> Result<String> {
+    pub(crate) fn url(&self, dirs: &Dirs) -> Result<String> {
         let relative_pos = self.output.strip_prefix(&dirs.out_dir)?;
         let mut url = Path::new(&dirs.base_url).join(relative_pos);
         url.pop();
@@ -225,7 +225,7 @@ enum PageListParts<'a> {
 }
 
 #[instrument]
-pub fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<PathBuf> {
+pub(crate) fn output_loc(input_loc: &Path, out_dir: &Path, base_dir: &Path) -> Result<PathBuf> {
     let mut path = out_dir.join(input_loc.strip_prefix(base_dir)?);
     if path.file_name() == Some(OsStr::new("README.md")) {
         path.set_file_name("index.html")

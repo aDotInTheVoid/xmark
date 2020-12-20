@@ -88,21 +88,21 @@
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
-pub struct PageToc(pub Vec<H2>);
+pub(crate) struct PageToc(pub(crate) Vec<H2>);
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
-pub struct Link {
+pub(crate) struct Link {
     // The "nice" name, eg "Creating a book"
-    pub pritty: String,
+    pub(crate) pritty: String,
     // The name of the link, eg "creating-a-book"
-    pub link: String,
+    pub(crate) link: String,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
-pub struct H3(pub Link);
+pub(crate) struct H3(pub(crate) Link);
 
 #[derive(Debug, Clone, Serialize, Deserialize, Default, PartialEq)]
-pub struct H2 {
-    pub this: Link,
-    pub children: Vec<H3>,
+pub(crate) struct H2 {
+    pub(crate) this: Link,
+    pub(crate) children: Vec<H3>,
 }

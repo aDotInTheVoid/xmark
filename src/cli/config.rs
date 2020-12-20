@@ -12,36 +12,36 @@ use crate::cli;
 
 /// The Config as represented in the global xmark.toml
 #[derive(Clone, Debug, Hash, Serialize, Deserialize, PartialEq, Default)]
-pub struct GlobalConfigRepr {
-    pub books: Vec<String>,
+pub(crate) struct GlobalConfigRepr {
+    pub(crate) books: Vec<String>,
     #[serde(default)]
-    pub html: HtmlConf,
+    pub(crate) html: HtmlConf,
 }
 
 /// The config as usable for the programm
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize, Default)]
-pub struct GlobalConf {
-    pub books: Vec<Book>,
-    pub html: HtmlConf,
+pub(crate) struct GlobalConf {
+    pub(crate) books: Vec<Book>,
+    pub(crate) html: HtmlConf,
 }
 
 // An book.
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize, Default)]
-pub struct Book {
-    pub location: PathBuf,
-    pub summary: Summary,
+pub(crate) struct Book {
+    pub(crate) location: PathBuf,
+    pub(crate) summary: Summary,
 }
 
 #[derive(Clone, Debug, Hash, PartialEq, Serialize, Deserialize, Default, Eq)]
 // https://doc.rust-lang.org/1.47.0/cargo/reference/specifying-dependencies.html#development-dependencies
 // Cargo uses kebab, and so shall we
 #[serde(default, rename_all = "kebab-case")]
-pub struct HtmlConf {
-    pub site_url: Option<String>,
+pub(crate) struct HtmlConf {
+    pub(crate) site_url: Option<String>,
 }
 
 #[instrument]
-pub fn load(args: &cli::Args) -> Result<GlobalConf> {
+pub(crate) fn load(args: &cli::Args) -> Result<GlobalConf> {
     let conf = fs::read_to_string(args.dir.clone().join("xmark.toml"))
         .with_context(|| "Couldn't find xmark.toml")?;
     let conf: GlobalConfigRepr = toml::from_str(&conf)?;

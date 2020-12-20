@@ -52,29 +52,29 @@ use tracing::{debug, instrument, trace, warn};
 /// All other elements are unsupported and will be ignored at best or result in
 /// an error.
 #[instrument]
-pub fn parse_summary(summary: &str) -> Result<Summary> {
+pub(crate) fn parse_summary(summary: &str) -> Result<Summary> {
     let parser = SummaryParser::new(summary);
     parser.parse()
 }
 
 /// The parsed `SUMMARY.md`, specifying how the book should be laid out.
 #[derive(Debug, Clone, Default, PartialEq, Serialize, Deserialize, Hash)]
-pub struct Summary {
+pub(crate) struct Summary {
     /// An optional title for the `SUMMARY.md`, currently just ignored.
-    pub title: String,
+    pub(crate) title: String,
     /// Chapters before the main text (e.g. an introduction).
-    pub prefix_chapters: Vec<Chapter>,
+    pub(crate) prefix_chapters: Vec<Chapter>,
     /// The main numbered chapters of the book, broken into one or more possibly named parts.
-    pub numbered_chapters: Vec<Link>,
+    pub(crate) numbered_chapters: Vec<Link>,
     /// Items which come after the main document (e.g. a conclusion).
-    pub suffix_chapters: Vec<Chapter>,
+    pub(crate) suffix_chapters: Vec<Chapter>,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default, Hash)]
-pub struct Chapter {
-    pub name: String,
+pub(crate) struct Chapter {
+    pub(crate) name: String,
     // None => draft
-    pub location: Option<PathBuf>,
+    pub(crate) location: Option<PathBuf>,
 }
 
 /// A struct representing an entry in the `SUMMARY.md`, possibly with nested
@@ -82,21 +82,21 @@ pub struct Chapter {
 ///
 /// This is roughly the equivalent of `[Some section](./path/to/file.md)`.
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Default, Hash)]
-pub struct Link {
-    pub chapter: Chapter,
-    pub nested_items: Vec<Link>,
-    pub section_number: Option<SectionNumber>,
+pub(crate) struct Link {
+    pub(crate) chapter: Chapter,
+    pub(crate) nested_items: Vec<Link>,
+    pub(crate) section_number: Option<SectionNumber>,
 }
 
 impl Link {
-    pub fn map_mut(&mut self, f: impl Fn(&mut Chapter) + Copy) {
+    pub(crate) fn map_mut(&mut self, f: impl Fn(&mut Chapter) + Copy) {
         f(&mut self.chapter);
         for i in &mut self.nested_items {
             i.map_mut(f);
         }
     }
 
-    pub fn try_map<E>(&self, f: impl Fn(&Chapter) -> Result<(), E> + Copy) -> Result<(), E> {
+    pub(crate) fn try_map<E>(&self, f: impl Fn(&Chapter) -> Result<(), E> + Copy) -> Result<(), E> {
         f(&self.chapter)?;
         for i in &self.nested_items {
             i.try_map(f)?;
@@ -127,7 +127,7 @@ impl Link {
 ///
 /// > **Note:** the `TEXT` terminal is "normal" text, and should (roughly)
 /// > match the following regex: "[^<>\n[]]+".
-pub struct SummaryParser<'a> {
+pub(crate) struct SummaryParser<'a> {
     src: &'a str,
     stream: pulldown_cmark::OffsetIter<'a>,
     offset: usize,
@@ -540,7 +540,7 @@ fn stringify_events(events: Vec<Event<'_>>) -> String {
 /// A section number like "1.2.3", basically just a newtype'd `Vec<u32>` with
 /// a pretty `Display` impl.
 #[derive(Debug, PartialEq, Clone, Default, Serialize, Deserialize, Hash)]
-pub struct SectionNumber(pub Vec<u32>);
+pub(crate) struct SectionNumber(pub(crate) Vec<u32>);
 
 impl Display for SectionNumber {
     fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {

@@ -14,24 +14,24 @@ use super::{Book, Link, Page as CPage};
 // Because we borrow link, we cant Deserialize, so snapshot tests may not work.
 // If so, we can remove the Serialize bound
 #[derive(Debug, Clone, Serialize, PartialEq, Rhc)]
-pub struct Page<'a> {
+pub(crate) struct Page<'a> {
     title: &'a str,
     inner_html: String,
-    pub heirachy: &'a [Link],
-    pub pagetoc: String,
+    pub(crate) heirachy: &'a [Link],
+    pub(crate) pagetoc: String,
     /// The link to the next page
-    pub next: Option<&'a str>,
+    pub(crate) next: Option<&'a str>,
     /// The link to the previous
-    pub prev: Option<&'a str>,
+    pub(crate) prev: Option<&'a str>,
     // This is unique to each chap, as the current page is highlighted.
-    pub toc: String,
+    pub(crate) toc: String,
     #[ramhorns(flatten)]
-    pub global: Global<'a>,
+    pub(crate) global: Global<'a>,
 }
 
 impl<'a> Page<'a> {
     #[instrument]
-    pub fn new(from: &'a CPage, rd: &'a HTMLRender<'a>, book: &Book) -> Result<Self> {
+    pub(crate) fn new(from: &'a CPage, rd: &'a HTMLRender<'a>, book: &Book) -> Result<Self> {
         // TODO: Don't buffer the whole input
         let inner_html = render_markdown(&fs::read_to_string(&from.input)?);
 
@@ -121,11 +121,11 @@ impl<'a> Page<'a> {
 
 /// Options every page needs not specific to a page
 #[derive(Debug, Clone, Serialize, PartialEq, Rhc)]
-pub struct Global<'a> {
-    pub path_to_root: &'a str,
-    pub language: &'a str,
-    pub preferred_dark_theme: &'a str,
-    pub default_theme: &'a str,
+pub(crate) struct Global<'a> {
+    pub(crate) path_to_root: &'a str,
+    pub(crate) language: &'a str,
+    pub(crate) preferred_dark_theme: &'a str,
+    pub(crate) default_theme: &'a str,
 }
 
 impl<'a> Default for Global<'a> {

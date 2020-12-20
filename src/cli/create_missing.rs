@@ -8,7 +8,7 @@ use std::path::Path;
 use tracing::{debug, instrument};
 
 #[instrument]
-pub fn create_missing(src_dir: &Path, summary: &Summary) -> Result<()> {
+pub(crate) fn create_missing(src_dir: &Path, summary: &Summary) -> Result<()> {
     let mut items: Vec<_> = summary
         .prefix_chapters
         .iter()
