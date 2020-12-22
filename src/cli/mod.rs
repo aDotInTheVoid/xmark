@@ -9,3 +9,4 @@ pub mod __main;
 
 mod args;
 mod cmd;
+pub(crate) mod conf;
