@@ -12,7 +12,7 @@ pub struct DiskConf {
 #[serde(untagged)]
 pub enum Location {
     Bare(String),
-    Named { name: String, location: String },
+    Named { name: String, root_loc: String },
 }
 
 #[cfg(test)]
@@ -130,12 +130,12 @@ minify = false
                     l("bare"),
                     Location::Named {
                         name: "trpl".to_owned(),
-                        location: "book/src/".to_owned(),
+                        root_loc: "book/src/".to_owned(),
                     },
                     l("another-bare"),
                     Location::Named {
                         name: "cxx".to_owned(),
-                        location: "cxx/guide/src".to_owned(),
+                        root_loc: "cxx/guide/src".to_owned(),
                     },
                     l("xmark"),
                     l("dummy"),

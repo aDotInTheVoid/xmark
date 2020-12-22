@@ -11,12 +11,14 @@ pub mod summary;
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Content {
     pub books: Vec<Book>,
+    out_dir: PathBuf,
+    aux_dir: PathBuf,
 }
 
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct Book {
-    pub out_dir: PathBuf,
-    pub aux_dir: PathBuf,
+    root_loc: PathBuf,
+    name: String,
 }
 
 impl Content {
@@ -33,23 +35,27 @@ impl Content {
             .map(|loc| Book::new(loc, &dir))
             .collect::<Result<_, _>>()?;
 
-        Ok(Self { books })
+        let out_dir = dir.join("_out");
+        let aux_dir = dir.join("_build");
+
+        Ok(Self {
+            books,
+            out_dir,
+            aux_dir,
+        })
     }
 }
 
 impl Book {
     fn new(loc: &conf::Location, base_dir: &Path) -> Result<Self> {
-        let out_name = Path::new(match loc {
-            conf::Location::Bare(name) => name,
-            conf::Location::Named { name, .. } => name,
-        });
+        let (name, root_loc) = match loc {
+            conf::Location::Bare(name) => (name, name),
+            conf::Location::Named { name, root_loc } => (name, root_loc),
+        };
 
-        let mut out_dir = base_dir.join("_out");
-        out_dir.push(out_name);
+        let name = name.to_owned();
+        let root_loc = base_dir.join(root_loc);
 
-        let mut aux_dir = base_dir.join("_build");
-        aux_dir.push(out_name);
-
-        Ok(Self { out_dir, aux_dir })
+        Ok(Self { name, root_loc })
     }
 }
