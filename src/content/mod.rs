@@ -50,7 +50,7 @@ impl Book {
     fn new(loc: &conf::Location, base_dir: &Path) -> Result<Self> {
         let (name, root_loc) = match loc {
             conf::Location::Bare(name) => (name, name),
-            conf::Location::Named { name, root_loc } => (name, root_loc),
+            conf::Location::Named { name, location } => (name, location),
         };
 
         let name = name.to_owned();

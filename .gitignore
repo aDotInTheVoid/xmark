@@ -277,3 +277,5 @@ cypress/screenshots/
 .vscode/
 .config/
 api*.svg
+# https://github.com/xmark-rs/corpus
+corpus/
