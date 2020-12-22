@@ -1,27 +1,18 @@
 //! The xmark.toml file
 use serde::{Deserialize, Serialize};
-use toml::{
-    self,
-    value::{Table},
-};
-
-
-
+use toml::{self, value::Table};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-struct DiskConf {
+pub struct DiskConf {
     pub books: Vec<Location>,
     #[serde(default)]
     pub output: Table,
 }
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
 #[serde(untagged)]
-enum Location {
+pub enum Location {
     Bare(String),
-    Named{
-        name: String,
-        location: String
-    }
+    Named { name: String, location: String },
 }
 
 #[cfg(test)]
@@ -73,10 +64,12 @@ books = [ "just_one" ]
     #[test]
     fn output_html_vals() {
         let mut html = Table::new();
-        html.insert("output-url".to_owned(), Value::String("/bookshelf/".to_owned()));
+        html.insert(
+            "output-url".to_owned(),
+            Value::String("/bookshelf/".to_owned()),
+        );
         html.insert("minify".to_owned(), Value::Boolean(false));
         let html = Value::Table(html);
-
 
         check_disc_conf(
             DiskConf {
@@ -88,14 +81,17 @@ books = [ "the-book" ]
 [output.html]
 output-url = "/bookshelf/"
 minify = false
-            "#
+            "#,
         )
     }
 
     #[test]
     fn multi_output() {
         let mut html = Table::new();
-        html.insert("output-url".to_owned(), Value::String("/bookshelf/".to_owned()));
+        html.insert(
+            "output-url".to_owned(),
+            Value::String("/bookshelf/".to_owned()),
+        );
         html.insert("minify".to_owned(), Value::Boolean(false));
         let html = Value::Table(html);
 
@@ -105,13 +101,14 @@ minify = false
         tex.insert("parsing".to_owned(), Value::String("Imposible".to_owned()));
         let tex = Value::Table(tex);
 
-        check_disc_conf(DiskConf {
-            books: Vec::new(),
-            output: vec![
-                ("html".to_owned(), html),
-                ("tex".to_owned(), tex)
-            ].into_iter().collect()
-        }, r#"
+        check_disc_conf(
+            DiskConf {
+                books: Vec::new(),
+                output: vec![("html".to_owned(), html), ("tex".to_owned(), tex)]
+                    .into_iter()
+                    .collect(),
+            },
+            r#"
 books = []
 [output.tex]
 created = 1978
@@ -121,28 +118,31 @@ parsing = "Imposible"
 [output.html]
 output-url = "/bookshelf/"
 minify = false
-        "#)
+        "#,
+        )
     }
 
     #[test]
     fn with_loc() {
-        check_disc_conf(DiskConf {
-            books: vec![
-                l("bare"),
-                Location::Named {
-                    name: "trpl".to_owned(),
-                    location: "book/src/".to_owned()
-                },
-                l("another-bare"),
-                Location::Named {
-                    name: "cxx".to_owned(),
-                    location: "cxx/guide/src".to_owned()
-                },
-                l("xmark"),
-                l("dummy")
-            ],
-            output: Table::new()
-        }, r#"
+        check_disc_conf(
+            DiskConf {
+                books: vec![
+                    l("bare"),
+                    Location::Named {
+                        name: "trpl".to_owned(),
+                        location: "book/src/".to_owned(),
+                    },
+                    l("another-bare"),
+                    Location::Named {
+                        name: "cxx".to_owned(),
+                        location: "cxx/guide/src".to_owned(),
+                    },
+                    l("xmark"),
+                    l("dummy"),
+                ],
+                output: Table::new(),
+            },
+            r#"
 books = [
     "bare",
     { location = "book/src/", name = "trpl" },
@@ -152,6 +152,7 @@ books = [
     "dummy",
 ]
 [output]
-        "#)
+        "#,
+        )
     }
 }
