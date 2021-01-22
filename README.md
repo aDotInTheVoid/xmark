@@ -1,3 +1,20 @@
+# THIS REPO HAS MOVED
+
+# https://codeberg.org/adot/xmark
+
+# ITS MUCH BETTER
+
+
+
+
+
+
+
+
+
+
+
+---
 # xMark
 
 A WIP "HighLy opINionAtED" static site/doc generator. Totaly unusable (for now)
